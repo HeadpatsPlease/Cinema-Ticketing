@@ -202,7 +202,7 @@
             st.addEventListener("click", (e) => {
                 st.classList.toggle("btn-warning");
                 st.classList.toggle("btn-secondary");
-                if(e.target.classList.contains("btn-success")){
+                if(e.target.classList.contains("btn-warning")){
                         showSelectedSeats.push(e.target.textContent);
                     }else{
                         showSelectedSeats.pop(e.target.textContent);
