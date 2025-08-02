@@ -4,45 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/seating.css">
     <title>Seating Arrangement</title>
-
-    <style>
-      body {
-        background-color: black;
-      }
-      .basket-color {
-        background-color: #bebebe;
-      }
-      .seat-color {
-        background-color: #ff4d00;
-      }
-      .beverage-color {
-        background-color: orange;
-      }
-      .nav-color {
-        background: #ff9a00;
-        background: linear-gradient(
-          359deg,
-          rgba(255, 154, 0, 1) 0%,
-          rgba(255, 115, 0, 1) 50%,
-          rgba(255, 77, 0, 1) 100%
-        );
-      }
-      .list-group-item {
-        background-color: #bebebe;
-        border: none;
-      }
-      .active-item {
-        background: #ff9a00;
-        background: linear-gradient(
-          359deg,
-          rgba(255, 154, 0, 1) 0%,
-          rgba(255, 115, 0, 1) 50%,
-          rgba(255, 77, 0, 1) 100%
-        );
-        border: none;
-      }
-    </style>
   </head>
   <body>
     <div class="container-fluid nav-color">
@@ -375,7 +338,7 @@
               <div class="d-flex flex-column basket-color px-0">
                 <div class="text-center"><h1>Your Basket</h1></div>
                 <div class="seat-section seat-color m-0 p-0">
-                  <h5 class="p-4 text-break">Movie Name</h5>
+                  <h5 class="p-4 text-break" id="movieName">Movie Name</h5>
                   <h5 id="selectedSeats" class="p-4 m-0 text-break">Seats:</h5>
                 </div>
                 <div class="beverage-section beverage-color"></div>
@@ -383,42 +346,19 @@
                   class="cost-section d-flex justify-content-around flex-wrap bg-warning"
                 >
                   <h1>Total Cost:</h1>
-                  <h1>Value</h1>
+                  <h1 id="totalBasketCost">Value</h1>
                 </div>
               </div>
             </div>
           </div>
           <div class="d-flex justify-content-end">
-            <button class="btn btn-warning">Next</button>
+            <button class="btn btn-warning" id="nextBtn">Next</button>
           </div>
         </div>
       </div>
     </div>
 
-    <script>
-      const seats = document.querySelectorAll(".seat");
-      const selectedSeats = document.getElementById("selectedSeats");
-      let showSelectedSeats = [];
-      let reservedSeats = ["A10", "A8"];
-
-      seats.forEach((st) => {
-        st.addEventListener("click", (e) => {
-          st.classList.toggle("btn-warning");
-          st.classList.toggle("btn-secondary");
-          if (e.target.classList.contains("btn-warning")) {
-            showSelectedSeats.push(e.target.textContent);
-          } else {
-            showSelectedSeats.pop(e.target.textContent);
-          }
-          selectedSeats.textContent = "Seats: " + showSelectedSeats;
-        });
-
-        let reserve = st.textContent;
-        if (reservedSeats.includes(reserve)) {
-          st.classList.add("btn-danger");
-          st.classList.add("disabled");
-        }
-      });
+    <script src="js/seating.js">
     </script>
   </body>
 </html>

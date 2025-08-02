@@ -1,0 +1,35 @@
+body {
+        background-color: black;
+      }
+      .basket-color {
+        background-color: #bebebe;
+      }
+      .seat-color {
+        background-color: #ff4d00;
+      }
+      .beverage-color {
+        background-color: orange;
+      }
+      .nav-color {
+        background: #ff9a00;
+        background: linear-gradient(
+          359deg,
+          rgba(255, 154, 0, 1) 0%,
+          rgba(255, 115, 0, 1) 50%,
+          rgba(255, 77, 0, 1) 100%
+        );
+      }
+      .list-group-item {
+        background-color: #bebebe;
+        border: none;
+      }
+      .active-item {
+        background: #ff9a00;
+        background: linear-gradient(
+          359deg,
+          rgba(255, 154, 0, 1) 0%,
+          rgba(255, 115, 0, 1) 50%,
+          rgba(255, 77, 0, 1) 100%
+        );
+        border: none;
+      }

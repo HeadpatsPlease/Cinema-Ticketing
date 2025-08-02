@@ -4,43 +4,8 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/tickets.css">
     <title>Select Tickets</title>
-    <style>
-      body {
-        background-color: black;
-      }
-      .nav-color {
-        background: #ff9a00;
-        background: linear-gradient(
-          359deg,
-          rgba(255, 154, 0, 1) 0%,
-          rgba(255, 115, 0, 1) 50%,
-          rgba(255, 77, 0, 1) 100%
-        );
-      }
-      .active-item {
-        background: #ff9a00;
-        background: linear-gradient(
-          359deg,
-          rgba(255, 154, 0, 1) 0%,
-          rgba(255, 115, 0, 1) 50%,
-          rgba(255, 77, 0, 1) 100%
-        );
-        border: none;
-      }
-      .transparent-color {
-        background-color: rgba(255, 255, 255, 0);
-      }
-      .basket-color {
-        background-color: #bebebe;
-      }
-      .seat-color {
-        background-color: #ff4d00;
-      }
-      .beverage-color {
-        background-color: orange;
-      }
-    </style>
   </head>
   <body>
     <header class="nav-color">
@@ -140,47 +105,22 @@
         >
           <div class="text-center"><h1>Your Basket</h1></div>
           <div class="seat-section seat-color m-0 p-0">
-            <h5 class="p-4 text-break">Premonition -</h5>
+            <h5 class="p-4 text-break" id="movieName">Premonition -</h5>
             <div class="beverage-section beverage-color"></div>
             <div
               class="cost-section d-flex justify-content-around flex-wrap bg-warning"
             >
               <h1>Total Cost:</h1>
-              <h1>Value</h1>
+              <h1 id="totalBasketCost">250</h1>
             </div>
           </div>
         </div>
       </div>
     </section>
     <div class="d-flex justify-content-center">
-      <button class="btn btn-warning">Next</button>
+      <button class="btn btn-warning" id="nextBtn">Next</button>
     </div>
   </body>
 
-  <script>
-    let totalQty = 1;
-    let ticketPrice = 250;
-    const total = document.getElementById("subtotal");
-    const qty = document.getElementById("qty");
-    const addQty = document
-      .getElementById("buttonQtyAdd")
-      .addEventListener("click", () => {
-        totalQty = totalQty + 1;
-        qty.textContent = totalQty;
-        ticketPrice = ticketPrice + 250;
-        total.textContent = ticketPrice;
-      });
-    const reduceQty = document
-      .getElementById("buttonQtyReduce")
-      .addEventListener("click", () => {
-        if (qty.textContent === "1") {
-          totalQty = 1;
-        } else {
-          totalQty = totalQty - 1;
-          qty.textContent = totalQty;
-          ticketPrice = ticketPrice - 250;
-          total.textContent = ticketPrice;
-        }
-      });
-  </script>
+  <script src="js/tickets.js"></script>
 </html>
