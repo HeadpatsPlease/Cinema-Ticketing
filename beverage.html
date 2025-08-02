@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../Cinema-Ticketing/css/bootstrap.min.css">
+
+<style>
+body{
+    background-color: black ;
+}
+
+.card-1 {
+    border: 3px solid #f0ad4e;
+    border-radius: 5px;
+    background-color: #fff3cd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+}
+
+.card-2 {
+    border: 3px solid #d9534f;
+    border-radius: 5px;
+    background-color: #f8d7da;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+    padding: 20px;
+}
+
+h3{
+    color: white;
+}
+
+h4{
+    background-color: white;
+    color: black;
+    margin: 10px;
+    padding: 10px;
+    border: 3px;
+}
+
+.contain {
+    justify-items: right;
+}
+
+
+
+
+
+.card {
+    background-color: #1c1c1c;
+    color: white;
+    margin-bottom: 15px;
+}
+.card .btn {
+    width: 35px;
+    height: 35px;
+    padding: 0;
+}
+.card-title {
+    font-size: 16px;
+}
+.card-body {
+    padding: 10px;
+}
+
+
+</style>    
+</head>
+<body>
+    <div class="container mt-4">
+            <!--for beverage section-->
+            <div class="col-md-8">
+                <h3 class="mb-4">SELECT BEVERAGE</h3>
+                <div class="row" id="item-list"> <!--this item will be inserted by JAVA--> 
+                    <div class="col-sm-4 p-4 mb-4">
+                        <div class="card-1 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 1</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-1 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 2</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-1 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 3</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-1 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 4</h5>
+                            </div>
+                        </div>
+                    </div>
+
+
+                        <div class="col-sm-4 p-4 mb-4">
+                        <div class="card-2 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 1</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-2 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 2</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-2 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 3</h5>
+                            </div>
+                        </div>
+
+                        <div class="card-2 mt-3">
+                            <div class="card-body">
+                                <h5 class="card-title">Beverage 4</h5>
+                            </div>
+                        </div>
+
+                        <div class="text-right mt-3">
+                    <button class="btn btn-warning">Next</button>
+                </div>
+                    </div>
+                </div>
+
+
+
+
+
+
+
+                 <!-- Basket Section -->
+                <div class="contain">
+                    <div class="col-md-4 bg-warning text-dark p-3 rounded">
+                        <h4 class="text-center">YOUR BASKET</h4>
+                        <p>Premonition - 2D × 3 - ₱750</p>
+                        <p>Seats: A1, A8, B6</p>
+                        <hr>
+                        <ul id="basket" class="list-unstyled"></ul>
+                        <hr>
+                        <h5 class="text-right">TOTAL COST: ₱<span id="total">750</span></h5>
+                    </div>
+                </div>
+                </div>
+
+
+    </div>
+
+
+
+
+
+
+
+
+
+
+<script src="../Cinema-Ticketing/js/bootstrap.bundle.min.js"></script>
+<script src="../Cinema-Ticketing/js/bootstrap.bundle.js"></script>
+<script>
+<!--for javascript funtion to code-->
+</script>
+
+</body>
+</html>
