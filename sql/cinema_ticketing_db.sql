@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2025 at 10:43 AM
+-- Generation Time: Aug 03, 2025 at 04:52 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -67,14 +67,14 @@ INSERT INTO `director` (`id`, `director`) VALUES
 
 CREATE TABLE `genre` (
   `id` int(11) NOT NULL,
-  `genre` varchar(225) NOT NULL
+  `genre_name` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `genre`
 --
 
-INSERT INTO `genre` (`id`, `genre`) VALUES
+INSERT INTO `genre` (`id`, `genre_name`) VALUES
 (1, 'Horror'),
 (2, 'Rom-Com'),
 (3, 'Thriller'),
@@ -217,6 +217,26 @@ INSERT INTO `movies` (`id`, `movie_name`, `movie_description`, `rating_id`, `dir
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `overview`
+-- (See below for the actual view)
+--
+CREATE TABLE `overview` (
+`id` int(11)
+,`movie_name` varchar(225)
+,`movie_description` text
+,`movie_poster` text
+,`rating_text` varchar(100)
+,`rating_img` text
+,`director` varchar(100)
+,`status` varchar(225)
+,`year` varchar(11)
+,`GROUP_CONCAT(genre.genre_name)` mediumtext
+,`GROUP_CONCAT(availability.available_quality)` mediumtext
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `quality`
 --
 
@@ -225,6 +245,56 @@ CREATE TABLE `quality` (
   `movie_id` int(11) NOT NULL,
   `availability_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `quality`
+--
+
+INSERT INTO `quality` (`id`, `movie_id`, `availability_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 2, 1),
+(5, 2, 2),
+(6, 2, 3),
+(7, 3, 1),
+(8, 3, 2),
+(9, 3, 3),
+(10, 4, 1),
+(11, 4, 2),
+(12, 4, 3),
+(13, 5, 1),
+(14, 5, 2),
+(15, 6, 1),
+(16, 6, 2),
+(17, 6, 3),
+(18, 7, 1),
+(19, 8, 1),
+(20, 9, 1),
+(21, 9, 2),
+(22, 9, 3),
+(23, 10, 1),
+(24, 10, 2),
+(25, 10, 3),
+(26, 11, 1),
+(27, 11, 2),
+(28, 11, 3),
+(29, 12, 1),
+(30, 13, 1),
+(31, 13, 2),
+(32, 14, 1),
+(33, 14, 2),
+(34, 14, 3),
+(35, 15, 1),
+(36, 15, 2),
+(37, 15, 3),
+(38, 16, 1),
+(39, 16, 2),
+(40, 16, 3),
+(41, 17, 1),
+(42, 17, 2),
+(43, 17, 3),
+(44, 18, 1);
 
 -- --------------------------------------------------------
 
@@ -252,40 +322,49 @@ INSERT INTO `rating` (`id`, `rating_text`, `rating_img`) VALUES
 -- --------------------------------------------------------
 
 --
--- Table structure for table `status`
+-- Table structure for table `statusmovie`
 --
 
-CREATE TABLE `status` (
+CREATE TABLE `statusmovie` (
   `id` int(11) NOT NULL,
   `status` varchar(225) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `status`
+-- Dumping data for table `statusmovie`
 --
 
-INSERT INTO `status` (`id`, `status`) VALUES
+INSERT INTO `statusmovie` (`id`, `status`) VALUES
 (1, 'Now Showing'),
 (2, 'Coming Soon');
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table `year`
+-- Table structure for table `years`
 --
 
-CREATE TABLE `year` (
+CREATE TABLE `years` (
   `id` int(11) NOT NULL,
   `year` varchar(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
--- Dumping data for table `year`
+-- Dumping data for table `years`
 --
 
-INSERT INTO `year` (`id`, `year`) VALUES
+INSERT INTO `years` (`id`, `year`) VALUES
 (1, '2025'),
 (2, '2024');
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `overview`
+--
+DROP TABLE IF EXISTS `overview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `overview`  AS SELECT `movies`.`id` AS `id`, `movies`.`movie_name` AS `movie_name`, `movies`.`movie_description` AS `movie_description`, `movies`.`movie_poster` AS `movie_poster`, `rating`.`rating_text` AS `rating_text`, `rating`.`rating_img` AS `rating_img`, `director`.`director` AS `director`, `statusmovie`.`status` AS `status`, `years`.`year` AS `year`, group_concat(`genre`.`genre_name` separator ',') AS `GROUP_CONCAT(genre.genre_name)`, group_concat(`availability`.`available_quality` separator ',') AS `GROUP_CONCAT(availability.available_quality)` FROM ((((((((`movies` left join `rating` on(`movies`.`rating_id` = `rating`.`id`)) left join `director` on(`movies`.`director_id` = `director`.`id`)) left join `statusmovie` on(`movies`.`status_id` = `statusmovie`.`id`)) left join `years` on(`movies`.`year_id` = `years`.`id`)) left join `moviegenre` on(`movies`.`id` = `moviegenre`.`movie_id`)) left join `genre` on(`moviegenre`.`genre_id` = `genre`.`id`)) left join `quality` on(`quality`.`movie_id` = `movies`.`id`)) left join `availability` on(`quality`.`availability_id` = `availability`.`id`)) GROUP BY `movies`.`id`, `movies`.`movie_name`, `movies`.`movie_description`, `movies`.`movie_poster`, `rating`.`rating_text`, `director`.`director`, `statusmovie`.`status`, `years`.`year` ;
 
 --
 -- Indexes for dumped tables
@@ -342,15 +421,15 @@ ALTER TABLE `rating`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `status`
+-- Indexes for table `statusmovie`
 --
-ALTER TABLE `status`
+ALTER TABLE `statusmovie`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `year`
+-- Indexes for table `years`
 --
-ALTER TABLE `year`
+ALTER TABLE `years`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -391,7 +470,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `quality`
 --
 ALTER TABLE `quality`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -400,15 +479,15 @@ ALTER TABLE `rating`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
--- AUTO_INCREMENT for table `status`
+-- AUTO_INCREMENT for table `statusmovie`
 --
-ALTER TABLE `status`
+ALTER TABLE `statusmovie`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
--- AUTO_INCREMENT for table `year`
+-- AUTO_INCREMENT for table `years`
 --
-ALTER TABLE `year`
+ALTER TABLE `years`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
@@ -428,8 +507,8 @@ ALTER TABLE `moviegenre`
 ALTER TABLE `movies`
   ADD CONSTRAINT `movieDirector` FOREIGN KEY (`director_id`) REFERENCES `director` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `movieRate` FOREIGN KEY (`rating_id`) REFERENCES `rating` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `movieStatus` FOREIGN KEY (`status_id`) REFERENCES `status` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `releaseDate` FOREIGN KEY (`year_id`) REFERENCES `year` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `movieStatus` FOREIGN KEY (`status_id`) REFERENCES `statusmovie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `releaseDate` FOREIGN KEY (`year_id`) REFERENCES `years` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `quality`
