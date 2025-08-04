@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\css\bootstrap.min.css" />
+    <title>Payment Section </title>
+  </head>
+  <body class="bg-dark">
+  <div class="container py-4">
+
+  
+    <div class="row mb-3">
+      <div class="col  p-4 rounded text-white" style="background-color: #ff7f50;">
+        <h1>Premonition</h1>  
+      </div>
+      <p style="color: white">Schedule:</p>
+      <p style="color: white">POP CENTER DASMARINAS - </p>
+    </div>
+
+    
+    <div class="row mb-3">
+      <div class="col-md-6 bg-white text-dark p-4 rounded text-center">
+        <p>YOU ARE ABOUT TO PAY</p>
+        <h1>PHP 1,275.00</h1>
+        <p>to POP CINEMA INC.</p>
+        <p>Reference No.</p>
+        <h2>0123456789</h2>
+      </div>
+    </div>
+
+    
+    <div class="row">
+      <div class="col-md-8 bg-white text-dark p-4 rounded ">
+        <h3>Pay using credit/debit card</h3>
+        <form>
+          <div class="mb-3">
+            <label for="namecard" class="form-label">Name on Card</label>
+            <input type="text" class="form-control" id="namecard" placeholder="Enter your name card" required>
+            <div class="invalid-feedback">
+              Please enter a valid name card.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="cardnumber" class="form-label">Card number</label>
+            <input type="tel" class="form-control" id="cardnumber" placeholder="Enter your card number" 
+                   required pattern="[0-9]{10,15}">
+            <div class="invalid-feedback">
+              Please enter a valid card number (10–15 digits).
+            </div>
+          </div>
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="authorize">
+            <label class="form-check-label" for="authorize">
+              I authorize POP CINEMA INC. to debit the above net charges from my credit card and I have read & agreed to
+              <a href="#">iPayBank's Privacy Statement</a>
+            </label>
+          </div>
+
+          <p class="text-secondary small">
+            ⚠️ Once payment has been processed, you will receive an email from our service provider iPayBank 
+            <a href="mailto:support@ipaybank.com.ph" class="text-primary">support@ipaybank.com.ph</a>
+          </p>
+
+          <button type="submit" class="btn btn-primary w-100">Submit</button>
+        </form>
+      </div>
+    </div>
+
+  </div>
+</body>
+
+</html>
