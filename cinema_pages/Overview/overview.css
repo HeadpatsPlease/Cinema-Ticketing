@@ -1,0 +1,46 @@
+.nav-color{
+  background: #FF9A00;
+  background: linear-gradient(359deg,rgba(255, 154, 0, 1) 0%, rgba(255, 115, 0, 1) 50%, rgba(255, 77, 0, 1) 100%);
+}
+.body{
+  background-color: black;
+}
+.movie-card {
+  background: linear-gradient(to top, #ff6600, orange);
+  border-radius: 15px;
+  overflow: hidden;
+  text-align: center;
+}
+
+.movie-card img {
+  width: 100%;
+  height: auto;
+}
+.movie-title {
+  color: black;
+  font-weight: bold;
+  padding: 10px 0;
+}
+
+.btn-buy {
+  background-color: red;
+  color: white;
+  font-weight: bold;
+  border: none;
+  padding: 10px 20px;
+}
+.info-label {
+  color: orange;
+  font-weight: bold;
+}
+
+.rating-box {
+  background-color: white;
+  color: black;
+  padding: 2px 8px;
+  border-radius: 5px;
+  font-weight: bold;
+  font-size: 14px;
+  display: inline-block;
+  margin-left: 5px;
+}
