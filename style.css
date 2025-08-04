@@ -1,7 +1,11 @@
-
-.nav-color{
-  background: #FF9A00;
-  background: linear-gradient(359deg,rgba(255, 154, 0, 1) 0%, rgba(255, 115, 0, 1) 50%, rgba(255, 77, 0, 1) 100%);
+.nav-color {
+  background: #ff9a00;
+  background: linear-gradient(
+    359deg,
+    rgba(255, 154, 0, 1) 0%,
+    rgba(255, 115, 0, 1) 50%,
+    rgba(255, 77, 0, 1) 100%
+  );
 }
 body {
   background-color: black;
@@ -17,7 +21,9 @@ body {
   color: gray;
 }
 
-.active, #nowShowingButton:hover, #comingSoonButton:hover {
+.active,
+#nowShowingButton:hover,
+#comingSoonButton:hover {
   color: yellow;
   border-bottom: 3px solid yellow;
 }
@@ -26,13 +32,18 @@ body {
   border: none;
   border-radius: 25px;
   overflow: hidden;
-  background: linear-gradient(359deg,rgba(255, 154, 0, 1) 0%, rgba(255, 115, 0, 1) 50%, rgba(255, 77, 0, 1) 100%);
+  background: linear-gradient(
+    359deg,
+    rgba(255, 154, 0, 1) 0%,
+    rgba(255, 115, 0, 1) 50%,
+    rgba(255, 77, 0, 1) 100%
+  );
   transition: transform 0.3s ease;
 }
-.container{
-padding-top: 50px;
-padding-bottom: 30px;
-margin-right: 45px;
+.container {
+  padding-top: 50px;
+  padding-bottom: 30px;
+  margin-right: 45px;
 }
 
 .card:hover {
@@ -48,4 +59,7 @@ margin-right: 45px;
   color: white;
   font-weight: bold;
   border: none;
+}
+.btn-ticket:hover{
+ transform: scale(1.05);
 }

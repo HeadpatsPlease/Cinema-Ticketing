@@ -2,7 +2,7 @@
     $db_server="localhost";
     $db_user="root";
     $db_pass="";
-    $db_name="login_form";
+    $db_name="cinema_ticketing_db";
     $conn = "";
 
 
