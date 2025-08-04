@@ -18,14 +18,14 @@ body {
   gap: 20px;
   font-weight: bold;
   border-bottom: 10px;
-  color: gray;
+  color:#888888;
 }
 
 .active,
 #nowShowingButton:hover,
 #comingSoonButton:hover {
-  color: yellow;
-  border-bottom: 3px solid yellow;
+  color: #ffc023;
+  border-bottom: 3px solid #ffc023;
 }
 .card {
   padding-top: 40px;
@@ -55,11 +55,32 @@ body {
   font-weight: bold;
 }
 .btn-ticket {
-  background-color: red;
+  background-color: #d8001a;
   color: white;
   font-weight: bold;
   border: none;
 }
 .btn-ticket:hover{
  transform: scale(1.05);
+}
+footer {
+  background: linear-gradient(
+    359deg,
+    rgba(255, 154, 0, 1) 0%,
+    rgba(255, 115, 0, 1) 50%,
+    rgba(255, 77, 0, 1) 100%
+  );
+  padding: 30px 20px 10px;
+  color: white;
+}
+.footer-links a {
+  color: white;
+  margin: 0 15px;
+  text-decoration: none;
+  font-weight: 500;
+}
+.footer-bottom {
+  margin-top: 10px;
+  font-size: 14px;
+  color: black;
 }

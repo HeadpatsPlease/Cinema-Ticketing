@@ -1,0 +1,41 @@
+@font-face {
+  font-family: 'archerpro';
+  src: url('../fonts/ArcherPro\ Bold.otf');
+}
+.archerpro{
+  font-family: 'archerpro';
+}
+
+@font-face{
+font-family: 'barlowcondensed-semibold';
+src:url('../fonts/BarlowCondensed-SemiBold.ttf');
+}
+.barlowcondensed-semibold{
+  font-family: 'barlowcondensed-semibold';
+}
+
+@font-face{
+  font-family: 'roboto-bold';
+  src: url('../fonts/Roboto-Bold.ttf');
+}
+.roboto-bold{
+  font-family: 'roboto-bold';
+}
+
+@font-face{
+  font-family: 'roboto-regular';
+  src: url('../fonts/Roboto-Regular.ttf');
+}
+.roboto-regular{
+  font-family: 'roboto-regular';
+}
+
+@font-face{
+  font-family: 'roboto-slab-regular';
+  src: url('../fonts/RobotoSlab-Regular.ttf');
+}
+.roboto-slab-regular{
+  font-family: 'roboto-slab-regular';
+}
+
+

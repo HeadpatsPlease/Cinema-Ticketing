@@ -2,26 +2,27 @@
   background: #FF9A00;
   background: linear-gradient(359deg,rgba(255, 154, 0, 1) 0%, rgba(255, 115, 0, 1) 50%, rgba(255, 77, 0, 1) 100%);
 }
-.body{
+body{
   background-color: black;
 }
 .movie-card {
-  background: linear-gradient(to top, #ff6600, orange);
+  margin-top: 50px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background:#454545;
   border-radius: 15px;
   overflow: hidden;
   text-align: center;
 }
-
-.movie-card img {
-  width: 100%;
-  height: auto;
+.movie-card img{
+  border-bottom-left-radius: 25px;
+  border-bottom-right-radius: 25px;
 }
 .movie-title {
-  color: black;
+  color: white;
   font-weight: bold;
   padding: 10px 0;
 }
-
 .btn-buy {
   background-color: red;
   color: white;
@@ -30,13 +31,13 @@
   padding: 10px 20px;
 }
 .info-label {
-  color: orange;
+  color: #ff7400;
   font-weight: bold;
 }
 
 .rating-box {
   background-color: white;
-  color: black;
+  color: #444444;
   padding: 2px 8px;
   border-radius: 5px;
   font-weight: bold;

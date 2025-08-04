@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="overview.css">
+    <link rel="stylesheet" href="../../fonts/font-style.css">
     <title>Pop Cinema</title>
 </head>
 
@@ -28,28 +29,44 @@
 
       <!-- Movie Details Section -->
   <div class="container">
-    <div class="d-flex movie-details align-items-start gap-4">
+    <div class="row d-flex movie-details align-items-start g-0 align-items-center">
 
       <!-- Movie Poster -->
-      <div class="movie-card col-md-4">
-        <img src="https://via.placeholder.com/300x400?text=Rewrite+Our+Stars" alt="Rewrite our Stars Poster">
-        <div class="movie-title">Rewrite our stars (2024)</div>
+      <div class="col-md-4 col-12 movie-card card">
+        <img src="/images/rewrite the stars.jpg" class="card-img-top" style="object-fit: cover;" alt="Rewrite our Stars Poster">
+        <div class="movie-title pt-3 card-body roboto-slab-regular">Rewrite our stars (2024)</div>
       </div>
 
       <!-- Movie Info -->
-      <div class="col-md-8">
-        <p class="info-label">SYNOPSIS:</p>
-        <p>
-          The story of two souls destined for heartbreak who refuse to accept their fate.
-          They embark on a powerful journey to defy the stars, proving that true love and unwavering will can forge a new, brighter destiny.
+      <div class="col-md-6 col-12 text-light mt-5 mx-5 mt-2 card-body">
+        <p class="info-label roboto-slab-regular">SYNOPSIS:</p>
+        <p class="text-break roboto-slab-regular">
+          The story of two souls destined for heartbreak <br>
+          who refuse to accept their fate.They embark on a powerful journey to defy the stars, <br>
+          proving that true love and unwavering will can forge a new, brighter destiny.
         </p>
 
-        <p><span class="info-label">MTRCB Rating:</span> <span class="rating-box">PG</span></p>
-        <p><span class="info-label">Genre:</span> Drama, Romance, Fantasy</p>
-        <p><span class="info-label">Director:</span> Ethan Lee</p>
-        <p><span class="info-label">Available in:</span> 2D, Director's Club, IMAX</p>
+        <p><span class="info-label roboto-slab-regular">MTRCB Rating:</span> <img
+          src="/images/RatedPG.png"
+          class="img-fluid pb-1"
+          width="30"
+          height="4">
+        </p>
+        <p class="roboto-slab-regular"><span class="info-label ">Genre:</span> Drama, Romance, Fantasy</p>
+        <p class="roboto-slab-regular"><span class="info-label ">Director:</span> Ethan Lee</p>
+        <p class="roboto-slab-regular"><span class="info-label ">Available in:</span> 2D, Director's Club, IMAX</p>
 
-        <button class="btn btn-buy mt-3">🎟 BUY TICKETS</button>
+        <button class="btn btn-buy mt-3 d-none" id="nowShowing">
+          <img
+                src="/images/buy ticket icon.png"
+                class="img-fluid pb-1"
+                width="20"
+                height="4">
+           BUY TICKETS
+          </button>
+          <button class="btn btn-buy mt-3 barlowcondensed-semibold" id="comingSoon" style="background-color:#444444;">
+             COMING SOON
+            </button>
       </div>
 
     </div>

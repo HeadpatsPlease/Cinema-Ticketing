@@ -9,6 +9,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../Cinema-Ticketing/css/bootstrap.min.css" />
     <link rel="stylesheet" href="../Cinema-Ticketing/style.css" />
+    <link rel="stylesheet" href="../Cinema-Ticketing/fonts/font-style.css">
     <title>Pop Cinema</title>
   </head>
 
@@ -26,17 +27,17 @@
           </div>
           <li class="nav-item">
             <a class="nav-link text-light" href="#"
-              ><h1 class="display-6">Movies</h1></a
+              ><h1 class="display-6 roboto-slab-regular">Movies</h1></a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="#"
-              ><h1 class="display-6">Cinemas</h1></a
+              ><h1 class="display-6 roboto-slab-regular">Cinemas</h1></a
             >
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="#"
-              ><h1 class="display-6">Contact</h1></a
+              ><h1 class="display-6 roboto-slab-regular">Contact</h1></a
             >
           </li>
         </ul>
@@ -44,8 +45,8 @@
     </header>
 
     <div class="tabs px-3">
-      <span class="active" id="nowShowingButton">NOW SHOWING</span>
-      <span class="" id="comingSoonButton">COMING SOON</span>
+      <span class="active roboto-regular " id="nowShowingButton">NOW SHOWING</span>
+      <span class="roboto-bold" id="comingSoonButton">COMING SOON</span>
     </div>
 
     <!-- Movie Cards -->
@@ -61,13 +62,13 @@
             alt="<?= $row['movie_name'] ?>"
           />
           <div class="card-body">
-            <h5 class="card-title" id="<?= $row['movie_name'] ?>">
+            <h5 class="card-title roboto-slab-regular" id="<?= $row['movie_name'] ?>">
               <?= $row['movie_name'] ?>
             </h5>
             <button class="btn btn-danger btn-ticket mt-2" id="chooseMovie" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
               <img
                 src="images/buy ticket icon.png"
-                class="img-fluid pb-1"
+                class="img-fluid pb-1 barlowcondensed-semibold"
                 width="20"
                 height="4"
               />BUY TICKETS
@@ -84,13 +85,13 @@
             alt="Premonition"
           />
           <div class="card-body">
-            <h5 class="card-title" id="<?= $row['movie_name'] ?>">
+            <h5 class="card-title roboto-slab-regular" id="<?= $row['movie_name'] ?>">
               <?= $row['movie_name'] ?>
             </h5>
             <button class="btn btn-ticket mt-2" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
               <img
                 src="../Cinema-Ticketing/images/buy ticket icon.png"
-                class="img-fluid pb-1"
+                class="img-fluid pb-1 barlowcondensed-semibold"
                 width="20"
                 height="4"
               />BUY TICKETS
@@ -102,7 +103,7 @@
     ?>
     </div>
 
-    <div class=" row d-flex flex-wrap align justify-content-center g-1" id="comingSoon">
+    <div class=" row d-flex flex-wrap align justify-content-center g-1 d-none" id="comingSoon">
     <?php 
       while ($row = $result2->fetch_assoc()) {
         ?>
@@ -114,13 +115,13 @@
             alt="<?= $row['movie_name'] ?>"
           />
           <div class="card-body">
-            <h5 class="card-title" id="<?= $row['movie_name'] ?>">
+            <h5 class="card-title roboto-slab-regular" id="<?= $row['movie_name'] ?>">
               <?= $row['movie_name'] ?>
             </h5>
             <button class="btn btn-danger btn-ticket mt-2" id="chooseMovie" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
               <img
                 src="images/buy ticket icon.png"
-                class="img-fluid pb-1"
+                class="img-fluid pb-1 barlowcondensed-semibold"
                 width="20"
                 height="4"
               />BUY TICKETS
@@ -137,13 +138,13 @@
             alt="Premonition"
           />
           <div class="card-body">
-            <h5 class="card-title" id="<?= $row['movie_name'] ?>">
+            <h5 class="card-title roboto-slab-regular" id="<?= $row['movie_name'] ?>">
               <?= $row['movie_name'] ?>
             </h5>
             <button class="btn btn-ticket mt-2" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
               <img
                 src="../Cinema-Ticketing/images/buy ticket icon.png"
-                class="img-fluid pb-1"
+                class="img-fluid pb-1 barlowcondensed-semibold"
                 width="20"
                 height="4"
               />BUY TICKETS
@@ -156,6 +157,22 @@
     </div>
 
     <!-- Footer -->
+    <footer>
+    <div class="footer-links mb-3 d-flex justify-content-around roboto-slab-regular">
+      <a href="#">Movies</a>
+      <a href="#">Cinema</a>
+      <a href="#">Terms & Conditions</a>
+      <a href="#">Contact Us</a>
+    </div>
+    <div class=" d-flex flex-column align-items-center">
+      <div >
+          <img src="../Cinema-Ticketing/images/footericon.png" height="60px" alt="footericon" srcset="">
+      </div>
+      <div class="footer-bottom roboto-slab-regular">
+        Copyright &copy; 2025 Pop Cinema | All Rights Reserved.
+      </div>
+    </div>
+  </footer>
   
     <script src="../Cinema-Ticketing/index.js"></script>
   </body>
