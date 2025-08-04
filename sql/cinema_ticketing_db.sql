@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 03, 2025 at 04:52 PM
+-- Generation Time: Aug 04, 2025 at 08:15 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -230,8 +230,8 @@ CREATE TABLE `overview` (
 ,`director` varchar(100)
 ,`status` varchar(225)
 ,`year` varchar(11)
-,`GROUP_CONCAT(genre.genre_name)` mediumtext
-,`GROUP_CONCAT(availability.available_quality)` mediumtext
+,`genres` mediumtext
+,`qualities` mediumtext
 );
 
 -- --------------------------------------------------------
@@ -364,7 +364,7 @@ INSERT INTO `years` (`id`, `year`) VALUES
 --
 DROP TABLE IF EXISTS `overview`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `overview`  AS SELECT `movies`.`id` AS `id`, `movies`.`movie_name` AS `movie_name`, `movies`.`movie_description` AS `movie_description`, `movies`.`movie_poster` AS `movie_poster`, `rating`.`rating_text` AS `rating_text`, `rating`.`rating_img` AS `rating_img`, `director`.`director` AS `director`, `statusmovie`.`status` AS `status`, `years`.`year` AS `year`, group_concat(`genre`.`genre_name` separator ',') AS `GROUP_CONCAT(genre.genre_name)`, group_concat(`availability`.`available_quality` separator ',') AS `GROUP_CONCAT(availability.available_quality)` FROM ((((((((`movies` left join `rating` on(`movies`.`rating_id` = `rating`.`id`)) left join `director` on(`movies`.`director_id` = `director`.`id`)) left join `statusmovie` on(`movies`.`status_id` = `statusmovie`.`id`)) left join `years` on(`movies`.`year_id` = `years`.`id`)) left join `moviegenre` on(`movies`.`id` = `moviegenre`.`movie_id`)) left join `genre` on(`moviegenre`.`genre_id` = `genre`.`id`)) left join `quality` on(`quality`.`movie_id` = `movies`.`id`)) left join `availability` on(`quality`.`availability_id` = `availability`.`id`)) GROUP BY `movies`.`id`, `movies`.`movie_name`, `movies`.`movie_description`, `movies`.`movie_poster`, `rating`.`rating_text`, `director`.`director`, `statusmovie`.`status`, `years`.`year` ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `overview`  AS SELECT `m`.`id` AS `id`, `m`.`movie_name` AS `movie_name`, `m`.`movie_description` AS `movie_description`, `m`.`movie_poster` AS `movie_poster`, `r`.`rating_text` AS `rating_text`, `r`.`rating_img` AS `rating_img`, `d`.`director` AS `director`, `s`.`status` AS `status`, `y`.`year` AS `year`, group_concat(distinct `g`.`genre_name` separator ',') AS `genres`, group_concat(distinct `a`.`available_quality` separator ',') AS `qualities` FROM ((((((((`movies` `m` left join `rating` `r` on(`m`.`rating_id` = `r`.`id`)) left join `director` `d` on(`m`.`director_id` = `d`.`id`)) left join `statusmovie` `s` on(`m`.`status_id` = `s`.`id`)) left join `years` `y` on(`m`.`year_id` = `y`.`id`)) left join `moviegenre` `mg` on(`m`.`id` = `mg`.`movie_id`)) left join `genre` `g` on(`mg`.`genre_id` = `g`.`id`)) left join `quality` `q` on(`m`.`id` = `q`.`movie_id`)) left join `availability` `a` on(`q`.`availability_id` = `a`.`id`)) GROUP BY `m`.`id`, `m`.`movie_name`, `m`.`movie_description`, `m`.`movie_poster`, `r`.`rating_text`, `d`.`director`, `s`.`status`, `y`.`year` ;
 
 --
 -- Indexes for dumped tables

@@ -60,3 +60,6 @@ body {
   font-weight: bold;
   border: none;
 }
+.btn-ticket:hover{
+ transform: scale(1.05);
+}
