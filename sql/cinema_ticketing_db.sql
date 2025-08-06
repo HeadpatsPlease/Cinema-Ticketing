@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 04, 2025 at 08:15 AM
+-- Generation Time: Aug 06, 2025 at 04:41 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -40,6 +40,31 @@ INSERT INTO `availability` (`id`, `available_quality`) VALUES
 (1, '2D'),
 (2, 'Director\'s Club'),
 (3, 'IMAX');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `availabletime`
+--
+
+CREATE TABLE `availabletime` (
+  `id` int(11) NOT NULL,
+  `time` varchar(10) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `availabletime`
+--
+
+INSERT INTO `availabletime` (`id`, `time`) VALUES
+(1, '8:00 AM'),
+(2, '9:30 AM'),
+(3, '11:00 AM'),
+(4, '12:30 PM'),
+(5, '2:00 PM'),
+(6, '3:30 PM'),
+(7, '5:00 PM'),
+(8, '6:30 PM');
 
 -- --------------------------------------------------------
 
@@ -94,6 +119,26 @@ INSERT INTO `genre` (`id`, `genre_name`) VALUES
 (17, 'Musical'),
 (18, 'Action'),
 (19, 'Pyschological');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `locations`
+--
+
+CREATE TABLE `locations` (
+  `id` int(11) NOT NULL,
+  `location_name` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `location_name`) VALUES
+(1, 'dasmarinas'),
+(2, 'batangas'),
+(3, 'mall of asia');
 
 -- --------------------------------------------------------
 
@@ -176,6 +221,65 @@ INSERT INTO `moviegenre` (`id`, `movie_id`, `genre_id`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `movielocation`
+--
+
+CREATE TABLE `movielocation` (
+  `id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `location_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `movielocation`
+--
+
+INSERT INTO `movielocation` (`id`, `movie_id`, `location_id`) VALUES
+(1, 1, 1),
+(2, 1, 2),
+(3, 1, 3),
+(4, 2, 1),
+(5, 2, 2),
+(6, 2, 3),
+(7, 3, 1),
+(8, 3, 2),
+(9, 3, 3),
+(10, 4, 1),
+(11, 4, 2),
+(12, 4, 3),
+(13, 5, 1),
+(14, 5, 2),
+(15, 5, 3),
+(16, 6, 2),
+(17, 6, 3),
+(18, 7, 2),
+(19, 7, 3),
+(20, 8, 2),
+(21, 8, 3),
+(22, 9, 2),
+(23, 9, 3),
+(24, 10, 2),
+(25, 10, 3),
+(26, 11, 2),
+(27, 11, 3),
+(28, 12, 1),
+(29, 12, 3),
+(30, 13, 1),
+(31, 13, 3),
+(32, 14, 1),
+(33, 14, 3),
+(34, 15, 1),
+(35, 15, 3),
+(36, 16, 1),
+(37, 16, 3),
+(38, 17, 1),
+(39, 17, 3),
+(40, 18, 1),
+(41, 18, 3);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `movies`
 --
 
@@ -213,6 +317,169 @@ INSERT INTO `movies` (`id`, `movie_name`, `movie_description`, `rating_id`, `dir
 (16, 'Serenade: Season of Love', 'Two strangers with clashing views on love\r\nare drawn together by a shared melody\r\nduring a town’s romantic festival, where\r\ntheir impromptu duets spark an\r\nunexpected love story.\r\n', 5, 1, 2, 1, 'serenade.jpg'),
 (17, 'Rainfall Under the Trees', 'A grieving arborist discovers a\r\nrain-activated magical grove and a hidden\r\ngroup of forest guardians. To save their\r\nhome, she must confront her past and a\r\ngrowing environmental threat.\r\n', 5, 1, 2, 1, 'rainfall under the trees.jpg'),
 (18, 'Replayed Romance', 'In a future where memories are replayed,\r\na technician uncovers a disturbing\r\nromance. And as they delve deeper, the\r\nline between past and present begins to\r\ndangerously blur.\r\n', 1, 1, 2, 1, 'replayed romance.jpg');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `movietime`
+--
+
+CREATE TABLE `movietime` (
+  `id` int(11) NOT NULL,
+  `movie_id` int(11) NOT NULL,
+  `time_id` int(11) NOT NULL,
+  `availability_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `movietime`
+--
+
+INSERT INTO `movietime` (`id`, `movie_id`, `time_id`, `availability_id`) VALUES
+(1, 1, 1, 3),
+(2, 1, 2, 3),
+(3, 1, 3, 3),
+(4, 1, 4, 2),
+(5, 1, 5, 2),
+(6, 1, 6, 2),
+(7, 1, 7, 1),
+(8, 1, 8, 3),
+(9, 2, 1, 2),
+(10, 2, 2, 2),
+(11, 2, 3, 1),
+(12, 2, 4, 2),
+(13, 2, 5, 2),
+(14, 2, 6, 3),
+(15, 2, 7, 1),
+(16, 2, 8, 1),
+(17, 3, 1, 3),
+(18, 3, 2, 1),
+(19, 3, 3, 3),
+(20, 3, 4, 3),
+(21, 3, 5, 3),
+(22, 3, 6, 2),
+(23, 3, 7, 1),
+(24, 3, 8, 2),
+(25, 4, 1, 3),
+(26, 4, 2, 1),
+(27, 4, 3, 1),
+(28, 4, 4, 2),
+(29, 4, 5, 1),
+(30, 4, 6, 1),
+(31, 4, 7, 2),
+(32, 4, 8, 2),
+(33, 5, 1, 3),
+(34, 5, 2, 1),
+(35, 5, 3, 3),
+(36, 5, 4, 3),
+(37, 5, 5, 1),
+(38, 5, 6, 3),
+(39, 5, 7, 1),
+(40, 5, 8, 1),
+(41, 6, 1, 1),
+(42, 6, 2, 3),
+(43, 6, 3, 3),
+(44, 6, 4, 3),
+(45, 6, 5, 2),
+(46, 6, 6, 3),
+(47, 6, 7, 2),
+(48, 6, 8, 1),
+(49, 7, 1, 1),
+(50, 7, 2, 3),
+(51, 7, 3, 1),
+(52, 7, 4, 1),
+(53, 7, 5, 2),
+(54, 7, 6, 1),
+(55, 7, 7, 3),
+(56, 7, 8, 3),
+(57, 8, 1, 1),
+(58, 8, 2, 3),
+(59, 8, 3, 1),
+(60, 8, 4, 1),
+(61, 8, 5, 2),
+(62, 8, 6, 2),
+(63, 8, 7, 1),
+(64, 8, 8, 2),
+(65, 9, 1, 1),
+(66, 9, 2, 3),
+(67, 9, 3, 2),
+(68, 9, 4, 1),
+(69, 9, 5, 2),
+(70, 9, 6, 1),
+(71, 9, 7, 2),
+(72, 9, 8, 1),
+(73, 10, 1, 2),
+(74, 10, 2, 1),
+(75, 10, 3, 2),
+(76, 10, 4, 2),
+(77, 10, 5, 1),
+(78, 10, 6, 2),
+(79, 10, 7, 3),
+(80, 10, 8, 3),
+(81, 11, 1, 2),
+(82, 11, 2, 2),
+(83, 11, 3, 3),
+(84, 11, 4, 2),
+(85, 11, 5, 3),
+(86, 11, 6, 3),
+(87, 11, 7, 2),
+(88, 11, 8, 1),
+(89, 12, 1, 1),
+(90, 12, 2, 3),
+(91, 12, 3, 2),
+(92, 12, 4, 2),
+(93, 12, 5, 1),
+(94, 12, 6, 2),
+(95, 12, 7, 2),
+(96, 12, 8, 3),
+(97, 13, 1, 3),
+(98, 13, 2, 2),
+(99, 13, 3, 1),
+(100, 13, 4, 1),
+(101, 13, 5, 3),
+(102, 13, 6, 3),
+(103, 13, 7, 1),
+(104, 13, 8, 3),
+(105, 14, 1, 1),
+(106, 14, 2, 2),
+(107, 14, 3, 3),
+(108, 14, 4, 3),
+(109, 14, 5, 3),
+(110, 14, 6, 3),
+(111, 14, 7, 2),
+(112, 14, 8, 1),
+(113, 15, 1, 1),
+(114, 15, 2, 2),
+(115, 15, 3, 2),
+(116, 15, 4, 1),
+(117, 15, 5, 3),
+(118, 15, 6, 2),
+(119, 15, 7, 1),
+(120, 15, 8, 3),
+(121, 16, 1, 1),
+(122, 16, 2, 2),
+(123, 16, 3, 1),
+(124, 16, 4, 3),
+(125, 16, 5, 3),
+(126, 16, 6, 3),
+(127, 16, 7, 2),
+(128, 16, 8, 2),
+(129, 17, 1, 2),
+(130, 17, 2, 1),
+(131, 17, 3, 3),
+(132, 17, 4, 1),
+(133, 17, 5, 3),
+(134, 17, 6, 3),
+(135, 17, 7, 1),
+(136, 17, 8, 3),
+(137, 18, 1, 1),
+(138, 18, 2, 1),
+(139, 18, 3, 2),
+(140, 18, 4, 1),
+(141, 18, 5, 1),
+(142, 18, 6, 3),
+(143, 18, 7, 3),
+(144, 18, 8, 2);
 
 -- --------------------------------------------------------
 
@@ -322,6 +589,22 @@ INSERT INTO `rating` (`id`, `rating_text`, `rating_img`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `showtimes`
+-- (See below for the actual view)
+--
+CREATE TABLE `showtimes` (
+`id` int(11)
+,`movie_name` varchar(225)
+,`movie_poster` text
+,`rating_img` text
+,`available_quality` varchar(20)
+,`time` varchar(10)
+,`location_name` varchar(100)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `statusmovie`
 --
 
@@ -366,6 +649,15 @@ DROP TABLE IF EXISTS `overview`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `overview`  AS SELECT `m`.`id` AS `id`, `m`.`movie_name` AS `movie_name`, `m`.`movie_description` AS `movie_description`, `m`.`movie_poster` AS `movie_poster`, `r`.`rating_text` AS `rating_text`, `r`.`rating_img` AS `rating_img`, `d`.`director` AS `director`, `s`.`status` AS `status`, `y`.`year` AS `year`, group_concat(distinct `g`.`genre_name` separator ',') AS `genres`, group_concat(distinct `a`.`available_quality` separator ',') AS `qualities` FROM ((((((((`movies` `m` left join `rating` `r` on(`m`.`rating_id` = `r`.`id`)) left join `director` `d` on(`m`.`director_id` = `d`.`id`)) left join `statusmovie` `s` on(`m`.`status_id` = `s`.`id`)) left join `years` `y` on(`m`.`year_id` = `y`.`id`)) left join `moviegenre` `mg` on(`m`.`id` = `mg`.`movie_id`)) left join `genre` `g` on(`mg`.`genre_id` = `g`.`id`)) left join `quality` `q` on(`m`.`id` = `q`.`movie_id`)) left join `availability` `a` on(`q`.`availability_id` = `a`.`id`)) GROUP BY `m`.`id`, `m`.`movie_name`, `m`.`movie_description`, `m`.`movie_poster`, `r`.`rating_text`, `d`.`director`, `s`.`status`, `y`.`year` ;
 
+-- --------------------------------------------------------
+
+--
+-- Structure for view `showtimes`
+--
+DROP TABLE IF EXISTS `showtimes`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `showtimes`  AS SELECT `movies`.`id` AS `id`, `movies`.`movie_name` AS `movie_name`, `movies`.`movie_poster` AS `movie_poster`, `rating`.`rating_img` AS `rating_img`, `availability`.`available_quality` AS `available_quality`, `availabletime`.`time` AS `time`, `locations`.`location_name` AS `location_name` FROM ((((((`movies` left join `rating` on(`rating`.`id` = `movies`.`rating_id`)) left join `movietime` on(`movietime`.`movie_id` = `movies`.`id`)) left join `availabletime` on(`availabletime`.`id` = `movietime`.`time_id`)) left join `availability` on(`availability`.`id` = `movietime`.`availability_id`)) left join `movielocation` on(`movielocation`.`movie_id` = `movies`.`id`)) left join `locations` on(`locations`.`id` = `movielocation`.`location_id`)) GROUP BY `movies`.`id`, `movies`.`movie_name`, `movies`.`movie_poster`, `rating`.`rating_img`, `availability`.`available_quality`, `availabletime`.`time`, `locations`.`location_name` ;
+
 --
 -- Indexes for dumped tables
 --
@@ -374,6 +666,12 @@ CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW 
 -- Indexes for table `availability`
 --
 ALTER TABLE `availability`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `availabletime`
+--
+ALTER TABLE `availabletime`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -389,12 +687,26 @@ ALTER TABLE `genre`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `locations`
+--
+ALTER TABLE `locations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
   ADD PRIMARY KEY (`id`),
   ADD KEY `movie` (`movie_id`),
   ADD KEY `genres` (`genre_id`);
+
+--
+-- Indexes for table `movielocation`
+--
+ALTER TABLE `movielocation`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `moviecons` (`movie_id`),
+  ADD KEY `locationcons` (`location_id`);
 
 --
 -- Indexes for table `movies`
@@ -405,6 +717,15 @@ ALTER TABLE `movies`
   ADD KEY `movieStatus` (`status_id`),
   ADD KEY `movieRate` (`rating_id`),
   ADD KEY `movieDirector` (`director_id`);
+
+--
+-- Indexes for table `movietime`
+--
+ALTER TABLE `movietime`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `movieconss` (`movie_id`),
+  ADD KEY `timecons` (`time_id`),
+  ADD KEY `availabilitycons` (`availability_id`);
 
 --
 -- Indexes for table `quality`
@@ -443,6 +764,12 @@ ALTER TABLE `availability`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
+-- AUTO_INCREMENT for table `availabletime`
+--
+ALTER TABLE `availabletime`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+
+--
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
@@ -455,16 +782,34 @@ ALTER TABLE `genre`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
+-- AUTO_INCREMENT for table `locations`
+--
+ALTER TABLE `locations`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
 
 --
+-- AUTO_INCREMENT for table `movielocation`
+--
+ALTER TABLE `movielocation`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+
+--
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+
+--
+-- AUTO_INCREMENT for table `movietime`
+--
+ALTER TABLE `movietime`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=145;
 
 --
 -- AUTO_INCREMENT for table `quality`
@@ -502,6 +847,13 @@ ALTER TABLE `moviegenre`
   ADD CONSTRAINT `movie` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
+-- Constraints for table `movielocation`
+--
+ALTER TABLE `movielocation`
+  ADD CONSTRAINT `locationcons` FOREIGN KEY (`location_id`) REFERENCES `locations` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `moviecons` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `movies`
 --
 ALTER TABLE `movies`
@@ -509,6 +861,14 @@ ALTER TABLE `movies`
   ADD CONSTRAINT `movieRate` FOREIGN KEY (`rating_id`) REFERENCES `rating` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `movieStatus` FOREIGN KEY (`status_id`) REFERENCES `statusmovie` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `releaseDate` FOREIGN KEY (`year_id`) REFERENCES `years` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `movietime`
+--
+ALTER TABLE `movietime`
+  ADD CONSTRAINT `availabilitycons` FOREIGN KEY (`availability_id`) REFERENCES `availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `movieconss` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `timecons` FOREIGN KEY (`time_id`) REFERENCES `availabletime` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `quality`
