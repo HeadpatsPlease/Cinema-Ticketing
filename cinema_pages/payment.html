@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\css\bootstrap.min.css" />
+    <title>Payment Section </title>
+    <style>
+          .basket-color{
+         background-color: #bebebe;
+        }
+       .seat-color{
+         background-color: #ff4d00;
+        }
+        .beverage-color{
+
+        background-color: orange;
+
+        }
+       .left{
+        margin-top: 20px;
+       }
+      
+      
+    </style>
+  </head>
+  <body class="bg-dark">
+    
+  <div class="container-fluid row">
+   
+    
+
+  <div class="left col-md-8 col-12 ">
+     <div class="Premonition">
+      <div class="col  p-2 rounded text-white" style="background-color: #ff4d00;">
+        <h1>Premonition</h1>  
+      </div>
+      <p style="color: white">Schedule:</p>
+      <p style="color: white">POP CENTER DASMARINAS - </p>
+    </div>
+
+    <div class="payment d-flex flex-md-row flex-column">
+      <div class="about-to-pay me-3">
+      <div class=" bg-white text-dark p-2 rounded text-center">
+        <p>YOU ARE ABOUT TO PAY</p>
+        <h1>PHP 1,275.00</h1>
+        <p>to POP CINEMA INC.</p>
+        <p>Reference No.</p>
+        <h2>0123456789</h2>
+      </div>
+    </div>
+
+    
+    <div class="">
+      <div class=" bg-white text-dark p-2 rounded payment-form mt-4">
+        <h3>Pay using credit/debit card</h3>
+        <form>
+          <div class="mb-3">
+            <label for="namecard" class="form-label">Name on Card</label>
+            <input type="text" class="form-control" id="namecard" placeholder="Enter your name card" required>
+            <div class="invalid-feedback">
+              Please enter a valid name card.
+            </div>
+          </div>
+
+          <div class="mb-3">
+            <label for="cardnumber" class="form-label">Card number</label>
+            <input type="tel" class="form-control" id="cardnumber" placeholder="Enter your card number" 
+                   required pattern="[0-9]{10,15}">
+            <div class="invalid-feedback">
+              Please enter a valid card number (10–15 digits).
+            </div>
+          </div>
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="authorize">
+            <label class="form-check-label" for="authorize">
+              I authorize POP CINEMA INC. to debit the above net charges from my credit card and I have read & agreed to
+              <a href="#">iPayBank's Privacy Statement</a>
+            </label>
+          </div>
+
+          <p class="text-secondary small">
+            ⚠️ Once payment has been processed, you will receive an email from our service provider iPayBank 
+            <a href="mailto:support@ipaybank.com.ph" class="text-primary">support@ipaybank.com.ph</a>
+          </p>
+
+          
+        </form>
+      </div>
+    </div>
+    </div>
+    <div class="next-btn d-flex justify-content-end mt-4">
+      <button type="submit" class="btn btn-primary w-25 mt-2">Submit</button>
+    </div>
+  </div>
+  <div class="right col-md-4 col-12 mt-4">
+     <div class="your-basket">
+     <div class="container-sm  h-100 basket-color g-flex flex-wrap px-0">
+      <div class=" text-center"><h1>Your Basket</h1></div>
+      <div class="seat-section seat-color m-0 p-0">
+         <h5 class="p-4 text-break">Premonition - </h5>
+         <h5 id="selectedSeats" class="p-4 m-0 text-break">Seats: </h5>
+        </div>
+        <div class="beverage-section beverage-color">
+        </div>
+        <div class="cost-section d-flex justify-content-around flex-wrap bg-warning">
+          <h1>Total Cost:</h1>
+          <h1>Value</h1>
+        </div>
+      </div>
+      </div>
+   
+
+  </div>
+  </div>
+</body>
+
+</html>
