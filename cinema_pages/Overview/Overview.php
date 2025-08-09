@@ -66,7 +66,7 @@
 
         <?php 
           if($row['status'] == "Now Showing"){
-            echo '<button class="btn btn-buy mt-3" id="nowShowing">
+            echo '<button class="btn btn-buy mt-3" id="nowShowing" onclick="nextPage()">
           <img
                 src="../../images/buy ticket icon.png"
                 class="img-fluid pb-1"
@@ -89,5 +89,12 @@
     </div>
   </div>
 
+
+  <script>
+    function nextPage() {
+      window.location.href =
+        "../showtimes.php";
+    }
+  </script>
 </body>
 </html>

@@ -1,6 +1,11 @@
 <?php 
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
+  $movierow = $_COOKIE['movietitle'];
+
+  $batangasshowtime = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' AND movie_name = '$movierow'  ");
+  $dasmashowtime = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' AND movie_name = '$movierow' ");
+  $moashowtime = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' AND movie_name = '$movierow' ");
 ?>
 
 <!DOCTYPE html>
@@ -43,8 +48,18 @@
       </div>
     </header>
 
-    <div class="container">
-      <?php while ($dasmarow = $dasmaresult->fetch_assoc()) {
+    <div class="container-fluid mt-4">
+      <div class="border-top border-secondary border-5" id="popCenterDasma">
+        <div class="container d-flex align-items-center justify-content-between">
+          <div class="text-light" id="popCenterName">
+            <h1>Pop Center Dasmarinas</h1>
+            <p>2D, Director's Club, IMAX</p>
+            <p>Brgy.Sampalok 1 - Dasmarinas Cavite</p>
+          </div>
+        </div>
+
+        <div class="container" id="dasmaMovies">
+          <?php while ($dasmarow = $dasmashowtime->fetch_assoc()) {
             ?>
             <div
             class="border-top border-secondary border-5 d-flex align-items-start"
@@ -59,46 +74,188 @@
               <h1 class="m-0"><?= $dasmarow['movie_name'] ?></h1>
               <p>2D, Director's Club, IMAX</p>
               <?php
-               echo '<p class="twodDate">Date Here</p>'
+               echo '<p class="twodDate" id="twodDate">Date Here</p>'
               ?>
               <p>
-                2D 
+                <span id="2d"> 2D </span>
                 <?php 
-                 $dasmamovie = $dasmarow['movie_name'];
-                 $dasmatime = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = '2D' AND movie_name = '$dasmamovie' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 $dasmatime = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = '2D' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
                  while ($dasmarow2 = $dasmatime->fetch_assoc()) { 
                 ?>
-                <button class="availTime p-1"><?php echo $dasmarow2['time'] ?></button>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'twodDate','2d')" id="<?php echo str_replace(' ','_',$dasmarow2['time']) ?>"><?php echo $dasmarow2['time'] ?></button>
                 <?php } ?>
               </p>
               <?php
-               echo '<p class="dcDate">Date Here</p>'
+               echo '<p class="dcDate" id="dcDate">Date Here</p>'
               ?>
               <p>
-                Director's Club
+                <span id="directorClub">Director's Club</span>
                 <?php 
-                 $dasmatime2 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'Directors Club' AND movie_name = '$dasmamovie' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 $dasmatime2 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'Directors Club' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
                  while ($dasmarow3 = $dasmatime2->fetch_assoc()) { 
                 ?>
-                <button class="availTime p-1"><?php echo $dasmarow3['time'] ?></button>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'dcDate','directorClub')" id="<?php echo str_replace(' ','_',$dasmarow3['time']) ?>"><?php echo $dasmarow3['time'] ?></button>
                 <?php } ?>
               </p>
               <?php
-               echo '<p class="imaxDate">Date Here</p>'
+               echo '<p class="imaxDate" id="imaxDate">Date Here</p>'
               ?>
               <p>
-                IMAX
+                <span id="imax">IMAX</span>
                 <?php 
-                 $dasmatime3 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'IMAX' AND movie_name = '$dasmamovie' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 $dasmatime3 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'IMAX' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
                  while ($dasmarow3 = $dasmatime3->fetch_assoc()) { 
                 ?>
-                <button class="availTime p-1"><?php echo $dasmarow3['time'] ?></button>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'imaxDate','imax')" id="<?php echo str_replace(' ','_',$dasmarow3['time']) ?>"><?php echo $dasmarow3['time'] ?></button>
                 <?php } ?>
               </p>
             </div>
           </div>
           <?php  
           } ?>
+          
+        </div>
+      </div>
+
+      <div class="border-top border-secondary border-5" id="popCenterBatangas">
+        <div
+          class="container d-flex align-items-center justify-content-between"
+        >
+          <div class="text-light" id="popCenterName">
+            <h1>Pop Center Batangas</h1>
+            <p>2D, Director's Club, IMAX</p>
+            <p>Brgy.Pallocan Kanluran - Batangas City</p>
+          </div>
+        </div>
+
+        <div class="container" id="batangasMovies">
+          <?php 
+          while ($batangasrow = $batangasshowtime->fetch_assoc()) {
+            ?>
+            <div
+            class="border-top border-secondary border-5 d-flex align-items-start"
+            id="<?= $batangasrow['movie_name'] ?>">
+            <img
+              src="../images/<?= $batangasrow['movie_poster'] ?>"
+              style="width: 15%"
+              class="me-2 mt-2"
+              alt=""
+            />
+            <div class="text-light" id="popCenterName">
+              <h1 class="m-0"><?= $batangasrow['movie_name'] ?></h1>
+              <p>2D, Director's Club, IMAX</p>
+              <?php
+               echo '<p class="twodDate" id="twodDate">Date Here</p>'
+              ?>
+              <p>
+                <span id="2d"> 2D </span>
+                <?php 
+                 $batangastime = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = '2D' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 while ($batangasrow2 = $batangastime->fetch_assoc()) { 
+                ?>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'twodDate','2d')" id="<?php echo str_replace(' ','_',$batangasrow2['time']) ?>"><?php echo $batangasrow2['time'] ?></button>
+                <?php } ?>
+              </p>
+              <?php
+               echo '<p class="dcDate" id="dcDate">Date Here</p>'
+              ?>
+              <p>
+                <span id="directorClub">Director's Club</span>
+                <?php 
+                 $batangastime2 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'Directors Club' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 while ($batangasrow3 = $batangastime2->fetch_assoc()) { 
+                ?>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'dcDate','directorClub')" id="<?php echo str_replace(' ','_',$batangasrow3['time']) ?>"><?php echo $batangasrow3['time'] ?></button>
+                <?php } ?>
+              </p>
+              <?php
+               echo '<p class="imaxDate" id="imaxDate">Date Here</p>'
+              ?>
+              <p>
+                <span id="imax">IMAX</span>
+                <?php 
+                 $batangastime3 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'IMAX' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 while ($batangasrow3 = $batangastime3->fetch_assoc()) { 
+                ?>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'imaxDate','imax')" id="<?php echo str_replace(' ','_',$batangasrow3['time']) ?>"><?php echo $batangasrow3['time'] ?></button>
+                <?php } ?>
+              </p>
+            </div>
+          </div>
+          <?php  
+          } ?>
+          
+        </div>
+      </div>
+
+      <div class="border-top border-secondary border-5" id="popCenterMoa">
+        <div
+          class="container d-flex align-items-center justify-content-between"
+        >
+          <div class="text-light" id="popCenterName">
+            <h1>Pop Center Mall Of Asia</h1>
+            <p>2D, Director's Club, IMAX</p>
+            <p>JW Diokno Blvd CBP-IA - Pasay City</p>
+          </div>
+        </div>
+      <div class="container" id="moaMovies">
+          <?php 
+          while ($moarow = $moashowtime->fetch_assoc()) {
+            ?>
+            <div
+            class="border-top border-secondary border-5 d-flex align-items-start"
+            id="<?= $moarow['movie_name'] ?>">
+            <img
+              src="../images/<?= $moarow['movie_poster'] ?>"
+              style="width: 15%"
+              class="me-2 mt-2"
+              alt=""
+            />
+            <div class="text-light" id="popCenterName">
+              <h1 class="m-0"><?= $moarow['movie_name'] ?></h1>
+              <p>2D, Director's Club, IMAX</p>
+              <?php
+               echo '<p class="twodDate" id="twodDate">Date Here</p>'
+              ?>
+              <p>
+                <span id="2d"> 2D </span> 
+                <?php 
+                 $moatime = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = '2D' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 while ($moarow2 = $moatime->fetch_assoc()) { 
+                ?>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'twodDate','2d')" id="<?php echo str_replace(' ','_',$moarow2['time']) ?>"><?php echo $moarow2['time'] ?></button>
+                <?php } ?>
+              </p>
+              <?php
+               echo '<p class="dcDate" id="dcDate">Date Here</p>'
+              ?>
+              <p>
+                <span id="directorClub">Director's Club</span>
+                <?php 
+                 $moatime2 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'Directors Club' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 while ($moarow3 = $moatime2->fetch_assoc()) { 
+                ?>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'dcDate','directorClub')" id="<?php echo str_replace(' ','_',$moarow3['time']) ?>"><?php echo $moarow3['time'] ?></button>
+                <?php } ?>
+              </p>
+              <?php
+               echo '<p class="imaxDate" id="imaxDate">Date Here</p>'
+              ?>
+              <p>
+                <span id="imax">IMAX</span>
+                <?php 
+                 $moatime3 = $conn->query("SELECT DISTINCT time FROM `showtimes` WHERE available_quality = 'IMAX' AND movie_name = '$movierow' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
+                 while ($moarow3 = $moatime3->fetch_assoc()) { 
+                ?>
+                <button class="availTime p-1" onclick="getSelectedTime(this.id,'imaxDate','imax')" id="<?php echo str_replace(' ','_',$moarow3['time']) ?>"><?php echo $moarow3['time'] ?></button>
+                <?php } ?>
+              </p>
+            </div>
+          </div>
+          <?php  
+          } ?>
+          
+        </div>
     </div>
 
     <script src="../js/bootstrap.bundle.min.js"></script>

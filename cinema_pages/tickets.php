@@ -1,3 +1,14 @@
+<?php 
+  include '../../Cinema-Ticketing/php/connection.php';
+  @include '../../Cinema-Ticketing/php/select.php';
+  $movieTitle = $_COOKIE['movietitle'];
+  $selectedTime = $_COOKIE['selectedtime'];
+  $selectedDate = $_COOKIE['selecteddate'];
+  $selectedQuality = $_COOKIE['selectedquality'];
+
+  $ticketSelect = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' AND movie_name = '$movieTitle' ");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -57,17 +68,19 @@
     <section class="row g-2 mt-1 ms-1">
       <div class="col-12 col-md-7">
         <div class="d-flex">
+         <?php while ($ticket = $ticketSelect->fetch_assoc()) { ?>
           <img
             class="img-fluid w-50 h-50 me-2"
-            src="../images/100 days to fall in love.jpg"
+            src="../images/<?php echo $ticket['movie_poster'] ?>"
             alt="movie photo"
-          />
+          />  
           <p class="me-1 text-light">
-            Premonition <br />
-            Schedule: <br />
+            <span class="h3"> <?php echo $ticket['movie_name'] ?> </span> <br />
+            Schedule: <?php echo $selectedDate ?> - <?php echo $selectedTime ?> <br />
             *Please verify that you are booking seats at your chosen location*
           </p>
         </div>
+
         <div>
           <h3 class="text-light">Select Tickets</h3>
           <p class="text-light">NOTE: You can only buy maximum of 8 tickets</p>
@@ -100,19 +113,23 @@
         </div>
       </div>
       <div class="col-12 col-md-5">
+        
         <div
           class="container-sm w-75 h-auto basket-color g-flex flex-wrap px-0"
         >
+
           <div class="text-center"><h1>Your Basket</h1></div>
           <div class="seat-section seat-color m-0 p-0">
-            <h5 class="p-4 text-break" id="movieName">Premonition -</h5>
+            <h5 class="p-4 text-break" id="movieTicketInfo"><?php echo $ticket['movie_name'] . " - ". $selectedQuality ?>  *<span id="qty">1</span> - <span id="totalBasketCost"> 250</span></h5>
             <div class="beverage-section beverage-color"></div>
             <div
               class="cost-section d-flex justify-content-around flex-wrap bg-warning"
             >
+
               <h1>Total Cost:</h1>
               <h1 id="totalBasketCost">250</h1>
             </div>
+            <?php } ?>
           </div>
         </div>
       </div>
