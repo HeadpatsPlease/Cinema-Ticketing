@@ -1,9 +1,21 @@
+<?php
+  $header = include '../../Cinema-Ticketing/php/Header.php';
+  include '../../Cinema-Ticketing/php/connection.php';
+  @include '../../Cinema-Ticketing/php/select.php';
+
+  $data = convertCookie("movieDetails");
+  $beverages = $data['beverages'];
+  $seatTaken = $data['seatsTaken'];
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\css\bootstrap.min.css" />
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <script src="js/cookieReader.js"></script>
     <title>Payment Section </title>
     <style>
           .basket-color{
@@ -20,33 +32,27 @@
        .left{
         margin-top: 20px;
        }
-      
-      
     </style>
   </head>
   <body class="bg-dark">
-    
   <div class="container-fluid row">
-   
-    
-
   <div class="left col-md-8 col-12 ">
      <div class="Premonition">
       <div class="col  p-2 rounded text-white" style="background-color: #ff4d00;">
-        <h1>Premonition</h1>  
+        <h1><?php echo $data['movieTitle'] ?></h1>  
       </div>
-      <p style="color: white">Schedule:</p>
-      <p style="color: white">POP CENTER DASMARINAS - </p>
+      <p style="color: white">Schedule: <?php echo $data['selectedDate'] ." - ". $data['selectedTime']  ?> </p>
+      <p style="color: white">POP CENTER DASMARINAS - <?php echo $data['selectedQuality']?> </p>
     </div>
 
     <div class="payment d-flex flex-md-row flex-column">
       <div class="about-to-pay me-3">
       <div class=" bg-white text-dark p-2 rounded text-center">
         <p>YOU ARE ABOUT TO PAY</p>
-        <h1>PHP 1,275.00</h1>
+        <h1>PHP <?php echo $data['ticketTotal']?> </h1>
         <p>to POP CINEMA INC.</p>
         <p>Reference No.</p>
-        <h2>0123456789</h2>
+        <h5 id="refNo">0123456789</h5>
       </div>
     </div>
 
@@ -99,14 +105,15 @@
      <div class="container-sm  h-100 basket-color g-flex flex-wrap px-0">
       <div class=" text-center"><h1>Your Basket</h1></div>
       <div class="seat-section seat-color m-0 p-0">
-         <h5 class="p-4 text-break">Premonition - </h5>
-         <h5 id="selectedSeats" class="p-4 m-0 text-break">Seats: </h5>
+        <h5 class="p-4 text-break" id="movieTicketInfo"><?php echo $data["movieTitle"] . " - ". $data["selectedQuality"]; ?>  *<span id="qty"><?php echo intval($data["ticketQuantity"]) ?>  </span> - <span> <?php echo intval($data["ticketTotal"])  ?></span></h5>
+         <h5 id="selectedSeats" class="p-4 m-0 text-break">Seats: <?php foreach($seatTaken as $seats){ echo $seats . " ";} ?> </h5>
         </div>
         <div class="beverage-section beverage-color">
+          <?php if (!empty($maybeNullArray) && is_array($maybeNullArray)) {foreach($beverages as $bev){ if (!empty($bev)) {echo "<h5 class='m-0 p-4'>" . $bev . "</h5>";}}} ?>
         </div>
-        <div class="cost-section d-flex justify-content-around flex-wrap bg-warning">
+        <div class="cost-section d-flex justify-content-around flex-wrap bg-warning m-0">
           <h1>Total Cost:</h1>
-          <h1>Value</h1>
+          <h1><?php echo $data["ticketTotal"] ?></h1>
         </div>
       </div>
       </div>
@@ -114,6 +121,7 @@
 
   </div>
   </div>
+  <script src="js/payment.js"></script>
 </body>
 
 </html>

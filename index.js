@@ -18,7 +18,7 @@ nowShowingButton.addEventListener("click", () => {
 
 function getTitle(title) {
   let movieTitle = document.getElementById(title).textContent.trim();
-  document.cookie = "movietitle=" + movieTitle + "; path=/; max-age=3600";
+  setCookie("movietitle",movieTitle);
   window.location.href =
     "../Cinema-Ticketing/cinema_pages/Overview/Overview.php";
 }

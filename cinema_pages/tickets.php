@@ -1,6 +1,7 @@
 <?php 
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
+  $header = include '../../Cinema-Ticketing/php/Header.php';
   $movieTitle = $_COOKIE['movietitle'];
   $selectedTime = $_COOKIE['selectedtime'];
   $selectedDate = $_COOKIE['selecteddate'];
@@ -16,36 +17,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/tickets.css">
+    <script src="../cinema_pages/js/cookieReader.js"></script>
     <title>Select Tickets</title>
   </head>
   <body>
     <header class="nav-color">
-      <ul class="nav d-flex align-items-center">
-        <img
-          src="../images/New Project 11 [9018C77].png"
-          class="img-fluid"
-          style="width: 200px"
-          alt="Logo"
-        />
-        <li class="ms-auto nav-item">
-          <a class="nav-link text-light" href="#"
-            ><h1 class="display-6">Movies</h1></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#"
-            ><h1 class="display-6">Cinemas</h1></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#"
-            ><h1 class="display-6">Contact</h1></a
-          >
-        </li>
-      </ul>
+      <?php $header ?>
     </header>
 
-    <section class="container d-flex justify-content-center mt-3">
+    <section class="d-flex justify-content-center mt-3">
       <ul class="list-group list-group-horizontal-sm">
         <li class="list-group-item active-item">
           <h1 class="display-6">1. Select Tickets</h1>

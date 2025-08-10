@@ -1,3 +1,10 @@
+<?php
+  $header = include '../../Cinema-Ticketing/php/Header.php';
+  include '../../Cinema-Ticketing/php/connection.php';
+  @include '../../Cinema-Ticketing/php/select.php';
+  $data = convertCookie("movieDetails");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -6,35 +13,15 @@
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="css/seating.css">
     <link rel="stylesheet" href="../fonts/font-style.css">
+    <script src="js/cookieReader.js"></script>
+    
     <title>Seating Arrangement</title>
   </head>
   <body>
     <div class="container-fluid nav-color">
-      <ul class="nav d-flex align-items-center">
-        <img
-          src="../images/New Project 11 [9018C77].png"
-          class="img-fluid"
-          style="width: 200px"
-          alt="Logo"
-        />
-        <li class="ms-auto nav-item">
-          <a class="nav-link text-light" href="../index.php"
-            ><h1 class="display-6">Movies</h1></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="../cinema_pages/cinemas.html"
-            ><h1 class="display-6">Cinemas</h1></a
-          >
-        </li>
-        <li class="nav-item">
-          <a class="nav-link text-light" href="#"
-            ><h1 class="display-6">Contact</h1></a
-          >
-        </li>
-      </ul>
+      <?php $header ?>
     </div>
-    <div class="container d-flex justify-content-center mt-3">
+    <div class=" d-flex justify-content-center mt-3">
       <ul class="list-group list-group-horizontal-sm">
         <li class="list-group-item">
           <h1 class="display-6">1. Select Tickets</h1>
@@ -52,7 +39,7 @@
 
     <div class="container-fluid">
       <div class="container-fluid d-flex flex-wrap align-items-center">
-        <div class="container mt-5">
+        <div class="container mt-2">
           <div
             class="container d-flex justify-content-around mt-2 flex-wrap pb-3"
           >
@@ -339,7 +326,7 @@
               <div class="d-flex flex-column basket-color px-0">
                 <div class="text-center"><h1>Your Basket</h1></div>
                 <div class="seat-section seat-color m-0 p-0">
-                  <h5 class="p-4 text-break" id="movieName">Movie Name</h5>
+                  <h5 class="p-4 text-break" id="movieTicketInfo"><?php echo $data["movieTitle"] . " - ". $data["selectedQuality"]; ?>  *<span id="qty"><?php echo intval($data["ticketQuantity"]) ?>  </span> - <span> <?php echo intval($data["ticketTotal"])  ?></span></h5>
                   <h5 id="selectedSeats" class="p-4 m-0 text-break">Seats:</h5>
                 </div>
                 <div class="beverage-section beverage-color"></div>
@@ -347,7 +334,7 @@
                   class="cost-section d-flex justify-content-around flex-wrap bg-warning"
                 >
                   <h1>Total Cost:</h1>
-                  <h1 id="totalBasketCost">Value</h1>
+                  <h1 id="totalBasketCost"><?php echo intval($data["ticketTotal"])  ?></h1>
                 </div>
               </div>
             </div>
@@ -359,7 +346,6 @@
       </div>
     </div>
 
-    <script src="js/seating.js">
-    </script>
+    <script src="js/seating.js"></script>
   </body>
 </html>

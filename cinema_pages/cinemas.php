@@ -1,6 +1,7 @@
 <?php 
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
+  $header = include '../../Cinema-Ticketing/php/Header.php';
 ?>
 
 <!DOCTYPE html>
@@ -10,37 +11,12 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../css/bootstrap.min.css" />
     <link rel="stylesheet" href="../cinema_pages/css/cinemas.css" />
+    <script src="../cinema_pages/js/cookieReader.js"></script>
     <title>Cinemas</title>
   </head>
   <body>
     <header>
-      <div class="container-fluid nav-color">
-        <ul class="nav d-flex align-items-center">
-          <div class="flex-grow-1">
-            <img
-              src="../images/New Project 11 [9018C77].png"
-              class="img-fluid"
-              style="width: 200px"
-              alt="Logo"
-            />
-          </div>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#"
-              ><h1 class="display-6">Movies</h1></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#"
-              ><h1 class="display-6">Cinemas</h1></a
-            >
-          </li>
-          <li class="nav-item">
-            <a class="nav-link text-light" href="#"
-              ><h1 class="display-6">Contact</h1></a
-            >
-          </li>
-        </ul>
-      </div>
+      <?php $header?>
     </header>
 
     <div class="container-fluid mt-4">

@@ -1,0 +1,95 @@
+ body {
+      background-color: #1c1c1c;
+      color: white;
+      font-family: Arial, sans-serif;
+    }
+
+    .section-title {
+      font-size: 28px;
+      font-weight: bold;
+      margin-bottom: 25px;
+      color: white;
+    }
+
+    .beverage-card {
+      background-color: #2b2b2b;
+      border: none;
+      padding: 15px;
+      border-radius: 15px;
+      margin: 10px;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      text-align: center;
+    }
+
+    .beverage-card img {
+      height: 60px;
+      margin-bottom: 10px;
+    }
+
+    .price {
+      font-weight: bold;
+      color: #ffcc00;
+      margin-bottom: 10px;
+    }
+
+    .qty-buttons {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 5px;
+    }
+
+    .qty-btn {
+      background-color: #f4c10f;
+      border: 2px solid white;
+      color: black;
+      padding: 1px 1px;
+      font-size: 1.2rem;
+      border-radius: 10px;
+      min-width: 25px;
+    }
+
+    .qty-buttons span {
+      background-color: #fff;
+      color: #000;
+      padding: 5px 5px;
+      border-radius: 8px;
+      min-width: 30px;
+    }
+
+    .basket {
+      background-color: #f1592a;
+      padding: 0px;
+      border-radius: 8px;
+      margin-top: 140px;
+    }
+
+    .basket h5 {
+      font-weight: bold;
+      background-color: white;
+      color: black;
+      padding: 10px;
+      border-radius: 5px;
+      text-align: center;
+    }
+
+    .basket .total {
+      background-color: #ffcc00;
+      font-weight: bold;
+      padding: 10px;
+      margin-top: 10px;
+      text-align: center;
+      color: black;
+      font-size: 18px;
+      display: flex;
+      justify-content: space-between;
+    }
+
+    .text-center {
+      text-align: center;
+      display: flex;
+      background-color: #f1592a;
+      justify-content: space-between;
+    }

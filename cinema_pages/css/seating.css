@@ -33,3 +33,7 @@ body {
         );
         border: none;
       }
+
+      .btn-available{
+        background-color: #b8bdc5;
+      }

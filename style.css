@@ -60,6 +60,14 @@ body {
   font-weight: bold;
   border: none;
 }
+.btn-ticket-soon {
+  background-color: #444444;
+  color: white;
+  font-weight: bold;
+  border: none;
+  font-size: 20px;
+  padding: 0px 10%;
+}
 .btn-ticket:hover{
  transform: scale(1.05);
 }

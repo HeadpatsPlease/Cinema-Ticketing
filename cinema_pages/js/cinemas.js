@@ -20,24 +20,15 @@ function today(add) {
   return `${yyyy}-${mm}-${dd}`;
 }
 
-function getSelectedTime(time,date,quality){
-  let selectedTime = document.getElementById(time).textContent.trim();
-  let selectedDate = document.getElementById(date).textContent.trim();
-  let selectedQuality = document.getElementById(quality).textContent.trim();
-  document.cookie = "selectedtime=" + selectedTime + "; path=/; max-age=3600";
-  document.cookie = "selecteddate=" + selectedDate + "; path=/; max-age=3600";
-  document.cookie = "selectedquality=" + selectedQuality + "; path=/; max-age=3600";
-  window.location.href =
-    "../cinema_pages/tickets.php";
-}
+
 function getSelectedTime(time,date,quality,title){
   let selectedTime = document.getElementById(time).textContent.trim();
   let selectedDate = document.getElementById(date).textContent.trim();
   let selectedQuality = document.getElementById(quality).textContent.trim();
-  document.cookie = "selectedtime=" + selectedTime + "; path=/; max-age=3600";
-  document.cookie = "selecteddate=" + selectedDate + "; path=/; max-age=3600";
-  document.cookie = "selectedquality=" + selectedQuality + "; path=/; max-age=3600";
-  document.cookie = "movietitle=" + title + "; path=/; max-age=3600";
+  setCookie("selectedtime",selectedTime);
+  setCookie("selecteddate",selectedDate);
+  setCookie("selectedquality",selectedQuality);
+  setCookie("movietitle",title);
   window.location.href =
     "../cinema_pages/tickets.php";
 }

@@ -1,6 +1,7 @@
 <?php 
   @include '../../php/connection.php';
   $value = $_COOKIE['movietitle'];
+  $header = include '../../php/Header.php';
   $overview = $conn->query("SELECT * FROM `overview` WHERE movie_name = '$value' ");
 ?>
 
@@ -17,21 +18,10 @@
 
 <body>
     <header>
-        <div class="container-fluid nav-color">
-            <ul class="nav d-flex align-items-center">
-                <div class="flex-grow-1"><img src="../../images/New Project 11 [9018C77].png" class="img-fluid" style="width: 200px;" alt="Logo"></div>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#"><h1 class="display-6">Movies</h1></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#"><h1 class="display-6">Cinemas</h1></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link text-light" href="#"><h1 class="display-6">Contact</h1></a>
-                </li>
-            </ul>
-        </div>
-      </header>
+        <?php
+        $header;
+        ?>
+    </header>
 
       <!-- Movie Details Section -->
   <div class="container">
