@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2025 at 04:12 PM
+-- Generation Time: Aug 10, 2025 at 05:05 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -66,6 +67,37 @@ INSERT INTO `availabletime` (`id`, `time`) VALUES
 (7, '3:00 PM'),
 (8, '4:00 PM'),
 (9, '5:00 PM');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cinemas`
+--
+
+CREATE TABLE `cinemas` (
+  `id` int(11) NOT NULL,
+  `cinema` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `cinemas`
+--
+
+INSERT INTO `cinemas` (`id`, `cinema`) VALUES
+(1, 'Cinema 1'),
+(2, 'Cinema 2'),
+(3, 'Cinema 3');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cinemasched`
+--
+
+CREATE TABLE `cinemasched` (
+  `id` int(11) NOT NULL,
+  `cinema_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -140,6 +172,19 @@ INSERT INTO `locations` (`id`, `location_name`) VALUES
 (1, 'dasmarinas'),
 (2, 'batangas'),
 (3, 'mall of asia');
+
+-- --------------------------------------------------------
+
+--
+-- Stand-in structure for view `moviecinema`
+-- (See below for the actual view)
+--
+CREATE TABLE `moviecinema` (
+`movie_name` varchar(225)
+,`time` varchar(10)
+,`available_quality` varchar(20)
+,`cinema` varchar(100)
+);
 
 -- --------------------------------------------------------
 
@@ -329,95 +374,96 @@ CREATE TABLE `movietime` (
   `id` int(11) NOT NULL,
   `movie_id` int(11) NOT NULL,
   `time_id` int(11) NOT NULL,
-  `availability_id` int(11) NOT NULL
+  `availability_id` int(11) NOT NULL,
+  `cinema_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `movietime`
 --
 
-INSERT INTO `movietime` (`id`, `movie_id`, `time_id`, `availability_id`) VALUES
-(145, 1, 1, 1),
-(146, 2, 1, 1),
-(147, 3, 1, 1),
-(148, 4, 2, 1),
-(149, 5, 2, 1),
-(150, 6, 2, 1),
-(151, 7, 3, 1),
-(152, 8, 3, 1),
-(153, 9, 3, 1),
-(154, 2, 4, 1),
-(155, 3, 4, 1),
-(156, 1, 4, 1),
-(157, 5, 5, 1),
-(158, 6, 5, 1),
-(159, 4, 5, 1),
-(160, 8, 6, 1),
-(161, 9, 6, 1),
-(162, 2, 6, 1),
-(163, 3, 7, 1),
-(164, 1, 7, 1),
-(165, 2, 7, 1),
-(166, 6, 8, 1),
-(167, 4, 8, 1),
-(168, 5, 8, 1),
-(169, 9, 9, 1),
-(170, 7, 9, 1),
-(171, 8, 9, 1),
-(172, 1, 1, 2),
-(173, 2, 1, 2),
-(174, 3, 1, 2),
-(175, 4, 2, 2),
-(176, 5, 2, 2),
-(177, 6, 2, 2),
-(178, 7, 3, 2),
-(179, 8, 3, 2),
-(180, 9, 3, 2),
-(181, 2, 4, 2),
-(182, 3, 4, 2),
-(183, 1, 4, 2),
-(184, 5, 5, 2),
-(185, 6, 5, 2),
-(186, 4, 5, 2),
-(187, 8, 6, 2),
-(188, 9, 6, 2),
-(189, 2, 6, 2),
-(190, 3, 7, 2),
-(191, 1, 7, 2),
-(192, 2, 7, 2),
-(193, 6, 8, 2),
-(194, 4, 8, 2),
-(195, 5, 8, 2),
-(196, 9, 9, 2),
-(197, 7, 9, 2),
-(198, 8, 9, 2),
-(199, 1, 1, 3),
-(200, 2, 1, 3),
-(201, 3, 1, 3),
-(202, 4, 2, 3),
-(203, 5, 2, 3),
-(204, 6, 2, 3),
-(205, 7, 3, 3),
-(206, 8, 3, 3),
-(207, 9, 3, 3),
-(208, 2, 4, 3),
-(209, 3, 4, 3),
-(210, 1, 4, 3),
-(211, 5, 5, 3),
-(212, 6, 5, 3),
-(213, 4, 5, 3),
-(214, 8, 6, 3),
-(215, 9, 6, 3),
-(216, 2, 6, 3),
-(217, 3, 7, 3),
-(218, 1, 7, 3),
-(219, 2, 7, 3),
-(220, 6, 8, 3),
-(221, 4, 8, 3),
-(222, 5, 8, 3),
-(223, 9, 9, 3),
-(224, 7, 9, 3),
-(225, 8, 9, 3);
+INSERT INTO `movietime` (`id`, `movie_id`, `time_id`, `availability_id`, `cinema_id`) VALUES
+(1, 1, 1, 1, 1),
+(2, 2, 1, 1, 2),
+(3, 3, 1, 1, 3),
+(4, 4, 2, 1, 1),
+(5, 5, 2, 1, 2),
+(6, 6, 2, 1, 3),
+(7, 7, 3, 1, 1),
+(8, 8, 3, 1, 2),
+(9, 9, 3, 1, 3),
+(10, 2, 4, 1, 1),
+(11, 3, 4, 1, 2),
+(12, 1, 4, 1, 3),
+(13, 5, 5, 1, 1),
+(14, 6, 5, 1, 2),
+(15, 4, 5, 1, 3),
+(16, 8, 6, 1, 1),
+(17, 9, 6, 1, 2),
+(18, 7, 6, 1, 3),
+(19, 3, 7, 1, 1),
+(20, 1, 7, 1, 2),
+(21, 2, 7, 1, 3),
+(22, 6, 8, 1, 1),
+(23, 4, 8, 1, 2),
+(24, 5, 8, 1, 3),
+(25, 9, 9, 1, 1),
+(26, 7, 9, 1, 2),
+(27, 8, 9, 1, 3),
+(28, 1, 1, 2, 1),
+(29, 2, 1, 2, 2),
+(30, 3, 1, 2, 3),
+(31, 4, 2, 2, 1),
+(32, 5, 2, 2, 2),
+(33, 6, 2, 2, 3),
+(34, 7, 3, 2, 1),
+(35, 8, 3, 2, 2),
+(36, 9, 3, 2, 3),
+(37, 2, 4, 2, 1),
+(38, 3, 4, 2, 2),
+(39, 1, 4, 2, 3),
+(40, 5, 5, 2, 1),
+(41, 6, 5, 2, 2),
+(42, 4, 5, 2, 3),
+(43, 8, 6, 2, 1),
+(44, 9, 6, 2, 2),
+(45, 7, 6, 2, 3),
+(46, 3, 7, 2, 1),
+(47, 1, 7, 2, 2),
+(48, 2, 7, 2, 3),
+(49, 6, 8, 2, 1),
+(50, 4, 8, 2, 2),
+(51, 5, 8, 2, 3),
+(52, 9, 9, 2, 1),
+(53, 7, 9, 2, 2),
+(54, 8, 9, 2, 3),
+(55, 1, 1, 3, 1),
+(56, 2, 1, 3, 2),
+(57, 3, 1, 3, 3),
+(58, 4, 2, 3, 1),
+(59, 5, 2, 3, 2),
+(60, 6, 2, 3, 3),
+(61, 7, 3, 3, 1),
+(62, 8, 3, 3, 2),
+(63, 9, 3, 3, 3),
+(64, 2, 4, 3, 1),
+(65, 3, 4, 3, 2),
+(66, 1, 4, 3, 3),
+(67, 5, 5, 3, 1),
+(68, 6, 5, 3, 2),
+(69, 4, 5, 3, 3),
+(70, 8, 6, 3, 1),
+(71, 9, 6, 3, 2),
+(72, 7, 6, 3, 3),
+(73, 3, 7, 3, 1),
+(74, 1, 7, 3, 2),
+(75, 2, 7, 3, 3),
+(76, 6, 8, 3, 1),
+(77, 4, 8, 3, 2),
+(78, 5, 8, 3, 3),
+(79, 9, 9, 3, 1),
+(80, 7, 9, 3, 2),
+(81, 8, 9, 3, 3);
 
 -- --------------------------------------------------------
 
@@ -581,6 +627,15 @@ INSERT INTO `years` (`id`, `year`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Structure for view `moviecinema`
+--
+DROP TABLE IF EXISTS `moviecinema`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `moviecinema`  AS SELECT `movies`.`movie_name` AS `movie_name`, `availabletime`.`time` AS `time`, `availability`.`available_quality` AS `available_quality`, `cinemas`.`cinema` AS `cinema` FROM ((((`movietime` join `movies` on(`movietime`.`movie_id` = `movies`.`id`)) join `availabletime` on(`movietime`.`time_id` = `availabletime`.`id`)) join `availability` on(`movietime`.`availability_id` = `availability`.`id`)) join `cinemas` on(`movietime`.`cinema_id` = `cinemas`.`id`)) ;
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `overview`
 --
 DROP TABLE IF EXISTS `overview`;
@@ -611,6 +666,19 @@ ALTER TABLE `availability`
 --
 ALTER TABLE `availabletime`
   ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cinemas`
+--
+ALTER TABLE `cinemas`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `cinemasched`
+--
+ALTER TABLE `cinemasched`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `cinemacons` (`cinema_id`);
 
 --
 -- Indexes for table `director`
@@ -663,7 +731,8 @@ ALTER TABLE `movietime`
   ADD PRIMARY KEY (`id`),
   ADD KEY `movieconss` (`movie_id`),
   ADD KEY `timecons` (`time_id`),
-  ADD KEY `availabilitycons` (`availability_id`);
+  ADD KEY `availabilitycons` (`availability_id`),
+  ADD KEY `cinemasconz` (`cinema_id`);
 
 --
 -- Indexes for table `quality`
@@ -708,6 +777,18 @@ ALTER TABLE `availabletime`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
+-- AUTO_INCREMENT for table `cinemas`
+--
+ALTER TABLE `cinemas`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `cinemasched`
+--
+ALTER TABLE `cinemasched`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
@@ -747,7 +828,7 @@ ALTER TABLE `movies`
 -- AUTO_INCREMENT for table `movietime`
 --
 ALTER TABLE `movietime`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=226;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
 
 --
 -- AUTO_INCREMENT for table `quality`
@@ -778,6 +859,12 @@ ALTER TABLE `years`
 --
 
 --
+-- Constraints for table `cinemasched`
+--
+ALTER TABLE `cinemasched`
+  ADD CONSTRAINT `cinemacons` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
 -- Constraints for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
@@ -805,6 +892,7 @@ ALTER TABLE `movies`
 --
 ALTER TABLE `movietime`
   ADD CONSTRAINT `availabilitycons` FOREIGN KEY (`availability_id`) REFERENCES `availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `cinemasconz` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`id`),
   ADD CONSTRAINT `movieconss` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `timecons` FOREIGN KEY (`time_id`) REFERENCES `availabletime` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
@@ -814,6 +902,7 @@ ALTER TABLE `movietime`
 ALTER TABLE `quality`
   ADD CONSTRAINT `avail` FOREIGN KEY (`availability_id`) REFERENCES `availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `movieQual` FOREIGN KEY (`movie_id`) REFERENCES `movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

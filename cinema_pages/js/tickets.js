@@ -2,17 +2,29 @@
     let ticketPrice = 0;
     const total = document.getElementById("subtotal");
     const qty = document.querySelectorAll("#qty");
+    let cinema = document.getElementById("cinema").textContent;
 
     let movieDetails = {};
+    let refNo = getRandomInt(10, 999) + "-" + getRandomInt(10, 999) + "-" + getRandomInt(10, 999);
 
     movieDetails["movieTitle"] = getCookie("movietitle");
     movieDetails["selectedTime"] = getCookie("selectedtime");
     movieDetails["selectedDate"] = getCookie("selecteddate");
     movieDetails["selectedQuality"] = getCookie("selectedquality");
+    movieDetails["location"] = getCookie("loc");
+    movieDetails["cinema"] = cinema;
+    movieDetails["refNo"] = refNo;
     
     
 
+    function getRandomInt(min, max) {
+      min = Math.ceil(min);
+      max = Math.floor(max);
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+    }
 
+    
+    
 
     const addQty = document
       .getElementById("buttonQtyAdd")

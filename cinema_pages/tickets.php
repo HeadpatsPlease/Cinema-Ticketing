@@ -6,8 +6,10 @@
   $selectedTime = $_COOKIE['selectedtime'];
   $selectedDate = $_COOKIE['selecteddate'];
   $selectedQuality = $_COOKIE['selectedquality'];
+  $location = $_COOKIE['loc'];
 
   $ticketSelect = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' AND movie_name = '$movieTitle' ");
+  $cinema = $conn->query("SELECT DISTINCT cinema FROM `moviecinema` WHERE movie_name = '$movieTitle' AND time = '$selectedTime';")
 ?>
 
 <!DOCTYPE html>
@@ -46,7 +48,7 @@
     </section>
 
     <section class="row g-2 mt-1 ms-1">
-      <div class="col-12 col-md-7">
+      <div class="col-12 col-md-8">
         <div class="d-flex">
          <?php while ($ticket = $ticketSelect->fetch_assoc()) { ?>
           <img
@@ -54,9 +56,10 @@
             src="../images/<?php echo $ticket['movie_poster'] ?>"
             alt="movie photo"
           />  
-          <p class="me-1 text-light">
+          <p class="me-0 text-light">
             <span class="h3"> <?php echo $ticket['movie_name'] ?> </span> <br />
-            Schedule: <?php echo $selectedDate ?> - <?php echo $selectedTime ?> <br />
+            Schedule: <?php echo $selectedDate ?> - <?php echo $selectedTime ?> - <span id="cinema"><?php while ($cine = $cinema->fetch_assoc()) { echo $cine["cinema"]; } ?></span> <br />
+            <?php echo $location ?><br>
             *Please verify that you are booking seats at your chosen location*
           </p>
         </div>
@@ -92,7 +95,7 @@
           </table>
         </div>
       </div>
-      <div class="col-12 col-md-5">
+      <div class="col-12 col-md-4">
         
         <div
           class="container-sm w-75 h-auto basket-color g-flex flex-wrap px-0"

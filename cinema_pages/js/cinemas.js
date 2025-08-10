@@ -21,7 +21,7 @@ function today(add) {
 }
 
 
-function getSelectedTime(time,date,quality,title){
+function getSelectedTime(time,date,quality,title,location){
   let selectedTime = document.getElementById(time).textContent.trim();
   let selectedDate = document.getElementById(date).textContent.trim();
   let selectedQuality = document.getElementById(quality).textContent.trim();
@@ -29,6 +29,7 @@ function getSelectedTime(time,date,quality,title){
   setCookie("selecteddate",selectedDate);
   setCookie("selectedquality",selectedQuality);
   setCookie("movietitle",title);
+  setCookie("loc",location);
   window.location.href =
     "../cinema_pages/tickets.php";
 }

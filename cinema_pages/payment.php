@@ -42,7 +42,7 @@
         <h1><?php echo $data['movieTitle'] ?></h1>  
       </div>
       <p style="color: white">Schedule: <?php echo $data['selectedDate'] ." - ". $data['selectedTime']  ?> </p>
-      <p style="color: white">POP CENTER DASMARINAS - <?php echo $data['selectedQuality']?> </p>
+      <p style="color: white"><?php echo $data['location'] ?> - <?php echo $data['selectedQuality'] . " - " . $data['cinema'] ?>  </p>
     </div>
 
     <div class="payment d-flex flex-md-row flex-column">
@@ -52,7 +52,7 @@
         <h1>PHP <?php echo $data['ticketTotal']?> </h1>
         <p>to POP CINEMA INC.</p>
         <p>Reference No.</p>
-        <h5 id="refNo">0123456789</h5>
+        <h5 id="refNo"><?php echo $data['refNo'] ?></h5>
       </div>
     </div>
 
