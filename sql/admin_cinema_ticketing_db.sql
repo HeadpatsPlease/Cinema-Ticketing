@@ -3,10 +3,11 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 06, 2025 at 04:44 PM
+-- Generation Time: Aug 12, 2025 at 06:55 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
+SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
 SET time_zone = "+00:00";
@@ -20,6 +21,80 @@ SET time_zone = "+00:00";
 --
 -- Database: `admin_cinema_ticketing_db`
 --
+
+DELIMITER $$
+--
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setBeverage` (IN `reference` VARCHAR(100), IN `beverage_id` INT, IN `quantity` INT)   BEGIN
+    INSERT INTO `ticketbeverage`(`ticket_id`, `beverage_id`, `quantity`) VALUES (getTicket(reference),beverage_id,quantity);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `setSeats` (IN `reference` VARCHAR(50), IN `seat` VARCHAR(50))   BEGIN
+INSERT INTO `ticketseats`(`ticket_id`, `seat_id`) VALUES (getTicket(reference),getSeat(seat));
+END$$
+
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `getCinema` (`cinema_p` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+    DECLARE cinema_id INT;
+    SELECT id INTO cinema_id FROM cinema_ticketing_db.cinemas WHERE cinema = cinema_p LIMIT 1;
+    RETURN cinema_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getMovie` (`movieName` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+    DECLARE movie_id INT;
+    SELECT movies.id INTO movie_id
+    FROM cinema_ticketing_db.movies
+    WHERE movie_name = movieName
+    LIMIT 1;
+    RETURN movie_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getQuality` (`quality` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+    DECLARE qual_id INT;
+   	SELECT `id` INTO qual_id FROM cinema_ticketing_db.availability WHERE available_quality = quality
+   	LIMIT 1;
+    RETURN qual_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getSeat` (`seat` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+    DECLARE seat_id INT;
+    SELECT id INTO seat_id FROM seats WHERE seat_num = seat
+    LIMIT 1;
+    RETURN seat_id;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getTicket` (`reference` VARCHAR(100)) RETURNS INT(11) DETERMINISTIC BEGIN
+    DECLARE movie_id INT;
+    SELECT id INTO movie_id FROM `tickets` WHERE reference_number = reference
+    LIMIT 1;
+    RETURN movie_id;
+END$$
+
+DELIMITER ;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `accounts`
+--
+
+CREATE TABLE `accounts` (
+  `id` int(11) NOT NULL,
+  `username` varchar(100) NOT NULL,
+  `password` varchar(100) NOT NULL,
+  `position` varchar(100) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `accounts`
+--
+
+INSERT INTO `accounts` (`id`, `username`, `password`, `position`) VALUES
+(1, 'staffone', 'Staff123', 'staff'),
+(2, 'adminone', 'Admin123', 'admin');
 
 -- --------------------------------------------------------
 
@@ -129,7 +204,12 @@ CREATE TABLE `ticketbeverage` (
 
 CREATE TABLE `tickets` (
   `id` int(11) NOT NULL,
-  `movie_id` int(11) NOT NULL
+  `movie_id` int(11) NOT NULL,
+  `quality_id` int(11) NOT NULL,
+  `cinema_id` int(11) NOT NULL,
+  `reference_number` varchar(100) NOT NULL,
+  `totalCost` int(11) NOT NULL,
+  `schedule` datetime NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
@@ -147,6 +227,12 @@ CREATE TABLE `ticketseats` (
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `accounts`
+--
+ALTER TABLE `accounts`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `beverages`
@@ -173,7 +259,9 @@ ALTER TABLE `ticketbeverage`
 --
 ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id`),
-  ADD KEY `movie` (`movie_id`);
+  ADD KEY `movie` (`movie_id`),
+  ADD KEY `quality` (`quality_id`),
+  ADD KEY `cinema` (`cinema_id`);
 
 --
 -- Indexes for table `ticketseats`
@@ -186,6 +274,12 @@ ALTER TABLE `ticketseats`
 --
 -- AUTO_INCREMENT for dumped tables
 --
+
+--
+-- AUTO_INCREMENT for table `accounts`
+--
+ALTER TABLE `accounts`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `beverages`
@@ -203,19 +297,19 @@ ALTER TABLE `seats`
 -- AUTO_INCREMENT for table `ticketbeverage`
 --
 ALTER TABLE `ticketbeverage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `ticketseats`
 --
 ALTER TABLE `ticketseats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- Constraints for dumped tables
@@ -232,7 +326,9 @@ ALTER TABLE `ticketbeverage`
 -- Constraints for table `tickets`
 --
 ALTER TABLE `tickets`
-  ADD CONSTRAINT `movie` FOREIGN KEY (`movie_id`) REFERENCES `cinema_ticketing_db`.`movies` (`id`);
+  ADD CONSTRAINT `cinema` FOREIGN KEY (`cinema_id`) REFERENCES `cinema_ticketing_db`.`cinemas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `movie` FOREIGN KEY (`movie_id`) REFERENCES `cinema_ticketing_db`.`movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `quality` FOREIGN KEY (`quality_id`) REFERENCES `cinema_ticketing_db`.`availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ticketseats`
@@ -240,6 +336,7 @@ ALTER TABLE `tickets`
 ALTER TABLE `ticketseats`
   ADD CONSTRAINT `seatid` FOREIGN KEY (`seat_id`) REFERENCES `seats` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `ticketid` FOREIGN KEY (`ticket_id`) REFERENCES `tickets` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+SET FOREIGN_KEY_CHECKS=1;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

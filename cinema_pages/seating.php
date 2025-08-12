@@ -3,6 +3,9 @@
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
   $data = convertCookie("movieDetails");
+
+  $date = $data['selectedDate'] . " " . $data['selectedTime'];
+  $dateTime = dateTime($date);
 ?>
 
 <!DOCTYPE html>
@@ -15,7 +18,7 @@
     <link rel="stylesheet" href="../fonts/font-style.css">
     <script src="js/cookieReader.js"></script>
     
-    <title>Seating Arrangement</title>
+    <title>Seating Arrangement </title>
   </head>
   <body>
     <div class="container-fluid nav-color">
@@ -62,7 +65,7 @@
               <h1
                 class="text-center bg-danger text-light pb-1 w-100 d-none d-md-inline-block"
               >
-                Screen
+                Screen 
               </h1>
               <div class="row g-0 d-flex flex-md-row flex-sm-column">
                 <!-- col1 -->

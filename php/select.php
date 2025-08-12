@@ -16,4 +16,10 @@ function convertCookie($cookieName){
     return json_decode($json,true);
 };
 
+//Convert to timeDate
+function dateTime($input){
+    $timestamp = strtotime($input);
+    return date("Y-m-d H:i:s", $timestamp);
+}
+    
 ?>

@@ -16,6 +16,10 @@ nowShowingButton.addEventListener("click", () => {
   comingSoonButton.classList.remove("active");
 });
 
+document.addEventListener('DOMContentLoaded',()=>{
+  clearAllCookies();
+})
+
 function getTitle(title) {
   let movieTitle = document.getElementById(title).textContent.trim();
   setCookie("movietitle",movieTitle);

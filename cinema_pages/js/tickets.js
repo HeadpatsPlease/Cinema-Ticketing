@@ -22,7 +22,12 @@
       max = Math.floor(max);
       return Math.floor(Math.random() * (max - min + 1)) + min;
     }
-
+    document.addEventListener('DOMContentLoaded',()=>{
+      movieDetails["ticketTotal"] = 250;
+      qty.forEach(qt => {
+        movieDetails["ticketQuantity"] = parseInt(qt.textContent)
+      })
+    })
     
     
 
