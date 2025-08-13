@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2025 at 04:26 AM
+-- Generation Time: Aug 13, 2025 at 06:24 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -129,6 +129,8 @@ INSERT INTO `beverages` (`id`, `beverage_name`) VALUES
 --
 CREATE TABLE `reservedseats` (
 `movie_name` varchar(225)
+,`reference_number` varchar(100)
+,`available_quality` varchar(20)
 ,`schedule` datetime
 ,`seat_num` varchar(10)
 );
@@ -208,14 +210,6 @@ CREATE TABLE `ticketbeverage` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ticketbeverage`
---
-
-INSERT INTO `ticketbeverage` (`id`, `ticket_id`, `beverage_id`, `quantity`) VALUES
-(7, 12, 2, 2),
-(8, 12, 8, 2);
-
 -- --------------------------------------------------------
 
 --
@@ -229,15 +223,9 @@ CREATE TABLE `tickets` (
   `cinema_id` int(11) NOT NULL,
   `reference_number` varchar(100) NOT NULL,
   `totalCost` int(11) NOT NULL,
-  `schedule` datetime NOT NULL
+  `schedule` datetime NOT NULL,
+  `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- Dumping data for table `tickets`
---
-
-INSERT INTO `tickets` (`id`, `movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`) VALUES
-(12, 2, 3, 3, '259-418-447', 1650, '2025-08-15 15:00:00');
 
 -- --------------------------------------------------------
 
@@ -251,14 +239,24 @@ CREATE TABLE `ticketseats` (
   `seat_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `ticketseats`
+-- Table structure for table `ticketstatus`
 --
 
-INSERT INTO `ticketseats` (`id`, `ticket_id`, `seat_id`) VALUES
-(5, 12, 2),
-(6, 12, 11),
-(7, 12, 10);
+CREATE TABLE `ticketstatus` (
+  `id` int(11) NOT NULL,
+  `status` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ticketstatus`
+--
+
+INSERT INTO `ticketstatus` (`id`, `status`) VALUES
+(1, 'Unclaimed'),
+(2, 'Claimed');
 
 -- --------------------------------------------------------
 
@@ -267,7 +265,7 @@ INSERT INTO `ticketseats` (`id`, `ticket_id`, `seat_id`) VALUES
 --
 DROP TABLE IF EXISTS `reservedseats`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num` FROM (((`tickets` join `cinema_ticketing_db`.`movies` on(`tickets`.`movie_id` = `cinema_ticketing_db`.`movies`.`id`)) join `ticketseats` on(`tickets`.`id` = `ticketseats`.`ticket_id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`reference_number` AS `reference_number`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num` FROM ((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `ticketseats` on(`ticketseats`.`ticket_id` = `tickets`.`id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -306,7 +304,8 @@ ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id`),
   ADD KEY `movie` (`movie_id`),
   ADD KEY `quality` (`quality_id`),
-  ADD KEY `cinema` (`cinema_id`);
+  ADD KEY `cinema` (`cinema_id`),
+  ADD KEY `status` (`status`);
 
 --
 -- Indexes for table `ticketseats`
@@ -315,6 +314,12 @@ ALTER TABLE `ticketseats`
   ADD PRIMARY KEY (`id`),
   ADD KEY `ticketid` (`ticket_id`),
   ADD KEY `seatid` (`seat_id`);
+
+--
+-- Indexes for table `ticketstatus`
+--
+ALTER TABLE `ticketstatus`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
@@ -357,6 +362,12 @@ ALTER TABLE `ticketseats`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
+-- AUTO_INCREMENT for table `ticketstatus`
+--
+ALTER TABLE `ticketstatus`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
 -- Constraints for dumped tables
 --
 
@@ -373,7 +384,8 @@ ALTER TABLE `ticketbeverage`
 ALTER TABLE `tickets`
   ADD CONSTRAINT `cinema` FOREIGN KEY (`cinema_id`) REFERENCES `cinema_ticketing_db`.`cinemas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   ADD CONSTRAINT `movie` FOREIGN KEY (`movie_id`) REFERENCES `cinema_ticketing_db`.`movies` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  ADD CONSTRAINT `quality` FOREIGN KEY (`quality_id`) REFERENCES `cinema_ticketing_db`.`availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+  ADD CONSTRAINT `quality` FOREIGN KEY (`quality_id`) REFERENCES `cinema_ticketing_db`.`availability` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+  ADD CONSTRAINT `status` FOREIGN KEY (`status`) REFERENCES `ticketstatus` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `ticketseats`
