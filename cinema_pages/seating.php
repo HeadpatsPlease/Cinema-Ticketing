@@ -3,9 +3,14 @@
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
   $data = convertCookie("movieDetails");
-
   $date = $data['selectedDate'] . " " . $data['selectedTime'];
   $dateTime = dateTime($date);
+  $movieName = $data['movieTitle'];
+
+
+
+
+  
 ?>
 
 <!DOCTYPE html>

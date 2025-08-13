@@ -36,9 +36,6 @@
             $query3 = $admin->query("CALL setSeats('$refNo', '$seats')");
         }
 
-
-        
-
      }else{
         echo "<script>window.location.href='../Cinema-Ticketing/index.php';</script>";
      }
