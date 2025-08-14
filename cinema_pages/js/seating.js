@@ -1,8 +1,13 @@
 const seats = document.querySelectorAll(".seat");
+const rSeats = document.querySelectorAll(".reserve");
 const selectedSeats = document.getElementById("selectedSeats");
 let showSelectedSeats = [];
-let reservedSeats = ["A10", "A8"];
+let reservedSeats = [];
 let movieDetail = {};
+rSeats.forEach((r) => {
+  let rse = r.value;
+  reservedSeats.push(rse);
+});
 
 let movieCookie = getCookie("movieDetails");
 
@@ -14,20 +19,13 @@ movieDetail["seatsTaken"] = showSelectedSeats;
 
 let maxSeats = movieDetail["ticketQuantity"];
 
-fetch("../php/reservedSeats.php")
-  .then((response) => response.json())
-  .then((data) => {
-    data.forEach((rev) => {
-      reservedSeats.push(rev);
-    });
-  });
-
 seats.forEach((st) => {
+  let reserve = st.textContent.trim();
+  if (reservedSeats.includes(reserve.trim())) {
+    st.classList.add("btn-danger");
+    st.classList.add("disabled");
+  }
   st.addEventListener("click", (e) => {
-    console.log(reservedSeats);
-
-    console.log(movieDetail);
-
     if (showSelectedSeats.length < maxSeats) {
       st.classList.toggle("btn-warning");
     } else {
@@ -44,12 +42,6 @@ seats.forEach((st) => {
     }
     selectedSeats.textContent = "Seats: " + showSelectedSeats;
   });
-
-  let reserve = st.textContent;
-  if (reservedSeats.includes(reserve)) {
-    st.classList.add("btn-danger");
-    st.classList.add("disabled");
-  }
 });
 
 document.getElementById("nextBtn").addEventListener("click", () => {

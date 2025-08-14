@@ -13,11 +13,11 @@
     }catch(mysqli_sql_exception){
         echo "could not connect";
     }
-    $data = convertCookie("movieDetails");
     $date = $data['selectedDate'] . " " . $data['selectedTime'];
     $dateTime = dateTime($date);
     $movieName = $data['movieTitle'];
 
       $ajax = $adminAJAX->query("SELECT `seat_num` FROM `reservedseats` WHERE movie_name = '$movieName' AND schedule = '$dateTime'");
   $reservedSeats = $ajax->fetch_all(MYSQLI_ASSOC);
+  echo json_encode($reservedSeats);
 ?>

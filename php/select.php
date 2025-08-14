@@ -10,6 +10,8 @@ $moaresult = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing'
 
 
 
+
+
 // Converting Dictionary Cookie to associative arrays
 function convertCookie($cookieName){
     $json = $_COOKIE[$cookieName];

@@ -7,10 +7,7 @@
   $dateTime = dateTime($date);
   $movieName = $data['movieTitle'];
 
-
-
-
-  
+  $reservedSeats = $admin->query("SELECT `seat_num` FROM `reservedseats` WHERE movie_name = '$movieName' AND schedule = '$dateTime'");
 ?>
 
 <!DOCTYPE html>
@@ -43,12 +40,17 @@
           <h1 class="display-6 archerpro">5. Successful</h1>
         </li>
       </ul>
+      <?php while($seat = $reservedSeats->fetch_assoc()){?>
+        <input type="hidden" class="reserve" value="<?= $seat['seat_num']?>">
+        <?php } ?>
     </div>
 
     <div class="container-fluid">
-      <div class="container-fluid d-flex flex-wrap align-items-center">
+      <div class="container-fluid d-flex flex-wrap ">
         <div class="container mt-2">
-          <div
+          <div class="row d-flex justify-content-center">
+            <div class="col-sm-auto col-7">
+              <div
             class="container d-flex justify-content-around mt-2 flex-wrap pb-3"
           >
             <h3 class="text-light roboto-bold">
@@ -64,9 +66,6 @@
               >Selected
             </h3>
           </div>
-
-          <div class="row d-flex justify-content-center align-items-center">
-            <div class="col-sm-auto col-7">
               <h1
                 class="text-center bg-danger text-light pb-1 w-100 d-none d-md-inline-block roboto-bold"
               >
@@ -330,7 +329,7 @@
                 Screen
               </h1>
             </div>
-            <div class="col-auto">
+            <div class="col-md-4 col-12">
               <div class="d-flex flex-column basket-color px-0">
                 <div class="text-center roboto-bold"><h1>Your Basket</h1></div>
                 <div class="seat-section seat-color m-0 p-0 roboto-bold">
@@ -361,6 +360,10 @@
       </div>
     </div>
 
-    <script src="js/seating.js"></script>
+    <script src="js/seating.js">
+    </script>
+    <script>
+        
+    </script>
   </body>
 </html>
