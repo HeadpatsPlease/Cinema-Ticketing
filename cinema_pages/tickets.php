@@ -95,10 +95,6 @@
                     <button class="btn text-light" id="buttonQtyReduce">-</button>
                     <p class="m-0" id="qty">1</p>
                     <button class="btn text-light" id="buttonQtyAdd">+</button>
-                    <p class="m-0 roboto-regular" id="qty">1</p>
-                    <button class="btn text-light" id="buttonQtyReduce">
-                      -
-                    </button>
                   </div>
                 </td>
                 <td class="bg-dark text-light roboto-regular" id="subtotal"><?= $pricing['price']?></td>
