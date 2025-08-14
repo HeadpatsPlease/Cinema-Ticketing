@@ -10,9 +10,12 @@ body{
   padding-top: 20px;
   padding-bottom: 30px;
   background:#454545;
-  border-radius: 15px;
   overflow: hidden;
   text-align: center;
+  border-bottom-left-radius:15px;
+  border-bottom-right-radius:15px ;
+  border-top-left-radius:0px;
+  border-top-right-radius:0px ;
 }
 .movie-card img{
   border-bottom-left-radius: 25px;
@@ -24,11 +27,15 @@ body{
   padding: 10px 0;
 }
 .btn-buy {
-  background-color: red;
+  background-color: #d8001a;
   color: white;
   font-weight: bold;
   border: none;
   padding: 10px 20px;
+}
+
+.btn-buy:hover{
+  transform: scale(1.05);
 }
 .info-label {
   color: #ff7400;

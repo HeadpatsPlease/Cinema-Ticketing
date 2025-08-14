@@ -70,14 +70,14 @@ function renderItems() {
       <div class="beverage-card w-100 h-100">
         <img src="${item.img}" alt="${item.name}"/>
         <div class="beverage-info">
-            <h5 style="font-style: oblique; font-family: 'Courier New', Courier, monospace; font-weight: bold;">${item.name}</h5>
-          <p style="font-style: oblique; font-family: 'Courier New', Courier, monospace; font-size: 0.9rem">${item.description || ''}</p>
-          <h2 class="price" style="font-style: oblique; font-family: 'Courier New', Courier, monospace; font-weight: bold; font-size: 1.7rem;">₱${item.price}</h2>
+            <h5 class="roboto-bold">${item.name}</h5>
+          <p class="roboto-medium">${item.description || ''}</p>
+          <h2 class="price roboto-bold">₱${item.price}</h2>
         </div>
         <div class="qty-buttons">
-          <button class="qty-btn" style="color: #f1592a; background-color: white;" onclick="changeQty(${item.id}, -1)">–</button>
-          <span id="qty-${item.id}" style="background-color: #f1592a;">0</span>
-          <button class="qty-btn" style="color: #f1592a; background-color: white;" onclick="changeQty(${item.id}, 1)">+</button>
+          <button class="qty-btn" style="color: #ff4d00; background-color: white;" onclick="changeQty(${item.id}, -1)">–</button>
+          <span id="qty-${item.id}" style="background-color: #ff4d00;">0</span>
+          <button class="qty-btn" style="color: #ff4d00; background-color: white;" onclick="changeQty(${item.id}, 1)">+</button>
         </div>
       </div>
     `;

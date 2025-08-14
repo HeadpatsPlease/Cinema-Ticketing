@@ -56,7 +56,7 @@
 
         <?php 
           if($row['status'] == "Now Showing"){
-            echo '<button class="btn btn-buy mt-3" id="nowShowing" onclick="nextPage()">
+            echo '<button class="btn btn-buy mt-3 barlowcondensed-semibold" style="background-color: #d8001a" id="nowShowing" onclick="nextPage()">
           <img
                 src="../../images/buy ticket icon.png"
                 class="img-fluid pb-1"

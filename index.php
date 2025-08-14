@@ -96,7 +96,7 @@
             <h5 class="card-title roboto-slab-regular" id="<?= $row['movie_name'] ?>">
               <?= $row['movie_name'] ?>
             </h5>
-            <button class="btn btn-ticket-soon mt-2 barlowcondensed-semibold" id="chooseMovie" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
+            <button class="btn btn-ticket-soon mt-2 barlowcondensed-semibold" style="background-color:#444444 id="chooseMovie" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
               Overview
             </button>
           </div>
@@ -114,7 +114,7 @@
             <h5 class="card-title roboto-slab-regular" id="<?= $row['movie_name'] ?>">
               <?= $row['movie_name'] ?>
             </h5>
-            <button class="btn btn-ticket-soon mt-2 barlowcondensed-semibold" id="chooseMovie" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
+            <button class="btn btn-ticket-soon mt-2 barlowcondensed-semibold" style="background-color:#444444 id="chooseMovie" onclick="getTitle('<?= trim($row['movie_name']) ?>')">
               Overview
             </button>
           </div>

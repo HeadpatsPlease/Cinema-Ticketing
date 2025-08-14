@@ -12,7 +12,7 @@ body {
 }
 .availTime {
   background-color: black;
-  color: rgba(255, 154, 0, 1);
-  border: 2px solid rgba(255, 154, 0, 1);
+  color: #ffc100;
+  border: 2px solid #ffc100;
   border-radius: 5px;
 }

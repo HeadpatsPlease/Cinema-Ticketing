@@ -37,5 +37,12 @@ src:url('../fonts/BarlowCondensed-SemiBold.ttf');
 .roboto-slab-regular{
   font-family: 'roboto-slab-regular';
 }
+@font-face{
+  font-family: 'roboto-medium';
+  src: url('../fonts/Roboto-Medium.ttf');
+}
+.roboto-medium{
+  font-family: 'roboto-medium';
+}
 
 
