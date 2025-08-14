@@ -7,9 +7,18 @@
   $selectedDate = $_COOKIE['selecteddate'];
   $selectedQuality = $_COOKIE['selectedquality'];
   $location = $_COOKIE['loc'];
+  $date = $selectedDate . " " . $selectedTime;
+  $dateTime = dateTime($date);
+  $qual = str_replace("'", "", $selectedQuality);
 
+  $price = $conn->query("SELECT price FROM `availability` WHERE available_quality = '$qual'");
+  $pricing = $price->fetch_assoc();
+  
+  $rse = $admin->query("SELECT COUNT(seat_num) AS seat FROM `reservedseats` WHERE movie_name = '$movieTitle' AND schedule = '$dateTime'");
+  $res = $rse->fetch_assoc();
   $ticketSelect = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' AND movie_name = '$movieTitle' ");
-  $cinema = $conn->query("SELECT DISTINCT cinema FROM `moviecinema` WHERE movie_name = '$movieTitle' AND time = '$selectedTime';")
+  $cinema = $conn->query("SELECT DISTINCT cinema FROM `moviecinema` WHERE movie_name = '$movieTitle' AND time = '$selectedTime';");
+  $remainingSeats = 45 - $res['seat'] ;
 ?>
 
 <!DOCTYPE html>
@@ -66,7 +75,7 @@
 
         <div>
           <h3 class="text-light">Select Tickets</h3>
-          <p class="text-light">NOTE: You can only buy maximum of 8 tickets</p>
+          <p class="text-light">NOTE: You can only buy maximum of <span id="limit"><?= $remainingSeats?></span> tickets</p>
           <table class="table">
             <thead>
               <tr>
@@ -78,24 +87,23 @@
             </thead>
             <tbody class="border-none">
               <tr>
-                <td class="bg-dark text-light">2D</td>
-                <td class="bg-dark text-light">250</td>
+                <td class="bg-dark text-light"><?= $selectedQuality?></td>
+                <td class="bg-dark text-light"><?= $pricing['price']?></td>
                 <td class="bg-dark text-light">
                   <div class="d-flex align-items-center">
-                    <button class="btn text-light" id="buttonQtyAdd">+</button>
+                    <button class="btn text-light" id="buttonQtyReduce">-</button>
                     <p class="m-0" id="qty">1</p>
-                    <button class="btn text-light" id="buttonQtyReduce">
-                      -
-                    </button>
+                    <button class="btn text-light" id="buttonQtyAdd">+</button>
                   </div>
                 </td>
-                <td class="bg-dark text-light" id="subtotal">250</td>
+                <td class="bg-dark text-light" id="subtotal"><?= $pricing['price']?></td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
       <div class="col-12 col-md-4">
+        <input type="hidden" id="price" value="<?= $pricing['price']?>">
         
         <div
           class="container-sm w-75 h-auto basket-color g-flex flex-wrap px-0"
@@ -110,7 +118,7 @@
             >
 
               <h1>Total Cost:</h1>
-              <h1 id="totalBasketCost">250</h1>
+              <h1 id="totalBasketCost"><?= $pricing['price']?></h1>
             </div>
             <?php } ?>
           </div>
