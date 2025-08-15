@@ -3,25 +3,33 @@
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
   session_start();
-
-   
-  
+  $method = $_COOKIE['method'];
   $data = convertCookie("movieDetails");
   @$beverages = $data['beverages'];
   $seatTaken = $data['seatsTaken'];
   $errmsg = '';
 
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
-    $cardName = filter_input(INPUT_POST, "cardName", FILTER_SANITIZE_SPECIAL_CHARS);
-    $cardNum = filter_input(INPUT_POST, "cardNumber", FILTER_SANITIZE_NUMBER_INT);
-    $paymentCheck = $cash->query("SELECT * FROM `vw_dashboard` WHERE card_num = '$cardNum';");
-    $payment = $paymentCheck->fetch_assoc();
+    $epayName = filter_input(INPUT_POST, "epayName", FILTER_SANITIZE_SPECIAL_CHARS);
+    $epayNumber = filter_input(INPUT_POST, "epayNumber", FILTER_SANITIZE_NUMBER_INT);
+
+    $nameCard = filter_input(INPUT_POST, "cardName", FILTER_SANITIZE_SPECIAL_CHARS);
+    $cardNumber = filter_input(INPUT_POST, "cardNumber", FILTER_SANITIZE_NUMBER_INT);
+    $cardExpiry = filter_input(INPUT_POST, "cardexpiry", FILTER_SANITIZE_SPECIAL_CHARS);
+    $cardExpiryformatted = str_replace("/", "-", $cardExpiry);
+    $cardPin = filter_input(INPUT_POST, "cardpin", FILTER_SANITIZE_NUMBER_INT);
+
+    $ePaymentCheck = $cash->query("SELECT * FROM `vw_dashboard` WHERE card_num = '$epayNumber';");
+    $cardPaymentCheck = $cash->query("SELECT * FROM `vw_dashboard` WHERE card_num = '$cardNumber' AND pin = '$cardPin' AND fullname = '$nameCard';");
+
+    $cardPayment = $cardPaymentCheck->fetch_assoc();
+    $ePayment = $ePaymentCheck->fetch_assoc();
     if(isset($_POST['submitBtn'])){
-      if($cardName !== null && $cardNum !== null){
-        if(isset($payment)){
-          if(intval($payment['balance']) >= intval($data["ticketTotal"])){
-            $_SESSION['cardUser'] = $cardName;
-            $_SESSION['cardNumber'] = substr($cardNum, -4);
+      if($epayName !== null && $epayNumber !== null){
+        if(isset($ePayment)){
+          if(intval($ePayment['balance']) >= intval($data["ticketTotal"])){
+            $_SESSION['paymentUser'] = $epayName;
+            $_SESSION['paymentNumber'] = substr($epayNumber, -4);
             echo "<script>window.location.href='successful.php';</script>";
             exit;
           }else{
@@ -29,6 +37,19 @@
           }
         }else{
           $errmsg = "The Card number does not exist";
+        }
+      }else if($nameCard !== null && $cardNumber !== null && $cardExpiry !== null && $cardPin !== null){
+        if(isset($cardPayment) && strpos($cardPayment['expiry_date'],$cardExpiryformatted) !== false){
+          if(intval($cardPayment['balance']) >= intval($data["ticketTotal"])){
+            $_SESSION['paymentUser'] = $nameCard;
+            $_SESSION['paymentNumber'] = substr($cardNumber, -4);
+            echo "<script>window.location.href='successful.php';</script>";
+            exit;
+          }else {
+            $errmsg = "Insufficient Balance";
+          }
+      }else {
+        $errmsg = "The Card number does not exist";
         }
       }
     }
@@ -86,17 +107,64 @@
     
     <div class="">
       <div class=" bg-white text-dark p-2 rounded payment-form mt-4">
-        <h3 class="roboto-medium">Pay using credit/debit card</h3>
+        <?php
+        if($method === "cardpay"){
+          ?>
+          <h3 class="roboto-medium">Pay using Credit/Debit</h3>
         <div class="error"><?= $errmsg?></div>
         <form id="paymentCard" action="payment.php" method="post">
           <div class="mb-3 roboto-medium">
-            <label for="namecard" class="form-label roboto-medium">Name on Card</label>
+            <label for="namecard" class="form-label roboto-medium">Name</label>
             <input type="text" class="form-control roboto-medium" id="namecard" name="cardName" pattern="[A-Za-z\s]+"  placeholder="Please enter a valid name card." required>
           </div>
 
           <div class="mb-3">
-            <label for="cardnumber" class="form-label roboto-medium">Card number</label>
+            <label for="cardNumber" class="form-label roboto-medium">Account number</label>
             <input type="tel" class="form-control roboto-medium" id="cardNumber" name="cardNumber" placeholder="Please enter a valid card number (10–15 digits)." 
+                   required pattern="[0-9]{10,15}">
+          </div>
+
+          <div class="d-flex">
+            <div class="mb-3 w-50">
+            <label for="cardpin" class="form-label roboto-medium">Pin</label>
+            <input type="tel" class="form-control roboto-medium" id="cardpin" name="cardpin" placeholder="000" 
+                   required pattern="[0-9]{3}">
+            </div>
+            <div class="mb-3 w-50">
+              <label for="cardexpiry" class="form-label roboto-medium">Expiry Date</label>
+              <input type="tel" class="form-control roboto-medium" id="cardexpiry" name="cardexpiry" placeholder="MM/DD" 
+                    required pattern="[0-9/]+">
+            </div>
+          </div>
+
+          <div class="form-check mb-3">
+            <input type="checkbox" class="form-check-input" id="authorize" required>
+            <label class="form-check-label roboto-medium" for="authorize">
+              I authorize POP CINEMA INC. to debit the above net charges from my credit card and I have read & agreed to
+              <a href="#">Pop Cinema's Privacy Statement</a>
+            </label>
+          </div>
+
+          <p class="text-secondary small roboto-bold">
+            ⚠️ Once payment has been processed, the ticket and the payment cannot be refunded
+          </p>
+
+          
+        </form>;
+        <?php
+        }else{
+          ?>
+          <h3 class="roboto-medium">Pay using E-Wallet</h3>
+        <div class="error"><?= $errmsg?></div>
+        <form id="paymentCard" action="payment.php" method="post">
+          <div class="mb-3 roboto-medium">
+            <label for="namecard" class="form-label roboto-medium">Name</label>
+            <input type="text" class="form-control roboto-medium" id="namecard" name="epayName" pattern="[A-Za-z\s]+"  placeholder="Please enter a valid name card." required>
+          </div>
+
+          <div class="mb-3">
+            <label for="epayNumberber" class="form-label roboto-medium">Account number</label>
+            <input type="tel" class="form-control roboto-medium" id="epayNumberber" name="epayNumber" placeholder="Please enter a valid card number (10–15 digits)." 
                    required pattern="[0-9]{10,15}">
           </div>
 
@@ -113,7 +181,10 @@
           </p>
 
           
-        </form>
+        </form>`;
+      <?php  
+      }
+        ?>
       </div>
     </div>
     </div>

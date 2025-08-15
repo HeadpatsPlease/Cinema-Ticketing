@@ -18,9 +18,9 @@
     
     
 
-     if(isset($_SESSION['cardUser']) && isset($_SESSION['cardNumber'])){
-        $cardName = $_SESSION['cardUser'];
-        $cardNum = $_SESSION['cardNumber'];
+     if(isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])){
+        $cardName = $_SESSION['paymentUser'];
+        $cardNum = $_SESSION['paymentNumber'];
         $query1 = $admin->query("INSERT INTO `tickets`(`movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`,`status`) 
         VALUES (getMovie('$movieName'),getQuality('$quality'),getCinema('$cinema'),'$refNo',$total,'$dateTime',1)");
 
@@ -37,7 +37,7 @@
         }
 
      }else{
-        echo "<script>window.location.href='../Cinema-Ticketing/index.php';</script>";
+        echo "<script>window.location.href='../index.php';</script>";
      }
 
 

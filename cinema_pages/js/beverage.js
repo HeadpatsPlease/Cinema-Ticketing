@@ -43,7 +43,7 @@ function updateBasket() {
 
 document.getElementById("nextBtn").addEventListener("click",() => {
     setCookie("movieDetails",JSON.stringify(movieDetail));
-    window.location.href = "payment.php";
+    window.location.href = "selectPayment.php";
 })
 
 function changeQty(id, change) {
