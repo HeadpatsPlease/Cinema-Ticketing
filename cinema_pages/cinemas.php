@@ -264,7 +264,7 @@
                 <span class="roboto-regular"  id="imax">IMAX</span>
                 <?php 
                  $moatime3 = $conn->query("SELECT time FROM `showtimes` WHERE available_quality = 'IMAX' AND location_name = 'mall of asia' AND movie_name = '$batangasmovie' ORDER BY FIELD(time, '9:00 AM', '10:00 AM', '11:00 AM','12:00 PM','1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM', '5:00 PM');");
-                 while ($moarow3 = $batangastime3->fetch_assoc()) { 
+                 while ($moarow3 = $moatime3->fetch_assoc()) { 
                 ?>
                 <button class="availTime p-1 roboto-bold" onclick="getSelectedTime(this.id,'imaxDate','imax','<?= $moarow['movie_name'] ?>','Pop Center Mall Of Asia')" id="<?php echo str_replace(' ','_',$moarow3['time']) ?>"><?php echo $moarow3['time'] ?></button>
                 <?php } ?>
