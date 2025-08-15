@@ -5,98 +5,113 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css" />
-    <title>Document</title>
+    <title>Responsive Movie Form</title>
     <style>
-        .MTCRB-rating img {
-            width: 110px;
-            height: 100%;
+        
+        .rating img {
+            width: 100px;
+            max-width: 100%;
+            height: auto;
             border: 3px solid transparent;
             border-radius: 5px;
             cursor: pointer;
             transition: border-color 0.2s;
-
         }
 
-        .MTCRB-rating {
-
+       
+        .rating.active img {
             border-color: #fe7308;
-           
-
         }
 
+       
         .genre-btn {
-            width: 110px;
-            height: 35px;
+            min-width: 100px;
+            padding: 6px 12px;
             border-radius: 15px;
             color: #fe7308;
             background-color: black;
             border: 2px solid #fe7308;
+            transition: all 0.2s;
+        }
 
+        .genre-btn.active {
+            background-color: #fe7308;
+            color: white;
         }
 
         .form-label {
             color: #7e7e7e;
-
         }
     </style>
 </head>
 
 <body class="bg-dark">
-    <div class="container d-flex justify-content-center flex-column align-items-center">
-        <div class="movie-poster">
-            <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\New Project 11 [9018C77].png" alt="ok"
-                width="300" height="200">
+    <div class="container py-4">
+        <div class="text-center mb-4">
+            <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\New Project 11 [9018C77].png"
+                alt="Movie Poster" class="img-fluid" style="max-width: 300px; border-radius: 10px;">
         </div>
-        <div class="col-md-6">
-            <form action="inserting_movie.html" method="post">
-                <div class="mb-3">
-                    <label for="movie-title" class="form-label">Movie Title: </label>
-                    <input type="text" name="movie-title" id="movie-title" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="year" class="form-label">Year: </label>
-                    <input type="number" name="year" id="year" class="form-control" required>
-                </div>
-                <div class="mb-3">
-                    <label for="synopsis" class="form-label">Synopsis: </label>
-                    <input type="text" name="synopsis" id="synopsis" class="form-control" required>
-                </div>
-            </form>
-        </div>
-        <div class="mb-3">
-            <label for="movie-title" class="form-label">MTRCB Rating: </label>
 
-            <div class="MTCRB-rating d-flex justify-content-between flex-md-row gap-4 ">
-                <div>
-                    <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\RatedG.png" alt="RatedG">
-                </div>
-                <div>
-                    <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\RatedPG.png" alt="RatedPG">
-                </div>
-                <div>
-                    <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\Rated16.png" alt="R-16">
-                </div>
-                <div>
-                    <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\Rated13.png" alt="R-13">
-                </div>
-                <div>
-                    <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\Rated18.png" alt="R-18">
-                </div>
+        <form action="inserting_movie.html" method="post" class="mx-auto" style="max-width: 600px;">
+            <div class="mb-3">
+                <label for="movie-title" class="form-label">Movie Title:</label>
+                <input type="text" name="movie-title" id="movie-title" class="form-control" required>
             </div>
-        </div>
-        <div class="genre">
-            <label for="Genres" class="form-label">Genres: </label>
-            <div class="genres d-flex justify-content-between flex-md-row gap-4 ">
-                <button type="button" class="genre-btn">Horror</button>
-                <button type="button" class="genre-btn">Drama</button>
-                <button type="button" class="genre-btn">Comedy</button>
-                <button type="button" class="genre-btn">Thriller</button>
-                <button type="button" class="genre-btn">Romance</button>
+            <div class="mb-3">
+                <label for="year" class="form-label">Year:</label>
+                <input type="number" name="year" id="year" class="form-control" required>
+            </div>
+            <div class="mb-3">
+                <label for="synopsis" class="form-label">Synopsis:</label>
+                <input type="text" name="synopsis" id="synopsis" class="form-control" required>
             </div>
 
-        </div>
+
+            <div class="mb-3">
+                <label class="form-label">MTRCB Rating:</label>
+                <div class="row g-3 text-center">
+                    <div class="col-6 col-sm-4 col-md-2 rating">
+                        <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\RatedG.png" alt="Rated G">
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 rating">
+                        <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\RatedPG.png" alt="Rated PG">
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 rating">
+                        <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\Rated16.png" alt="R-16">
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 rating">
+                        <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\Rated13.png" alt="R-13">
+                    </div>
+                    <div class="col-6 col-sm-4 col-md-2 rating">
+                        <img src="C:\xampp\htdocs\cinema_ticketing\Cinema-Ticketing\images\Rated18.png" alt="R-18">
+                    </div>
+                </div>
+            </div>
+
+            <div class="mb-3">
+                <label class="form-label">Genres:</label>
+                <div class="d-flex flex-wrap gap-2">
+                    <button type="button" class="genre-btn">Horror</button>
+                    <button type="button" class="genre-btn">Drama</button>
+                    <button type="button" class="genre-btn">Comedy</button>
+                    <button type="button" class="genre-btn">Thriller</button>
+                    <button type="button" class="genre-btn">Romance</button>
+                </div>
+            </div>
+        </form>
     </div>
 
+    <script>
+       
+        const genres = document.querySelectorAll(".genre-btn");
+        genres.forEach((st) => {
+            st.addEventListener("click", () => {
+                st.classList.toggle("active");
+            });
+        });
+
+   
+    </script>
 </body>
 
 </html>
