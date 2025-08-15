@@ -6,8 +6,9 @@
   $date = $data['selectedDate'] . " " . $data['selectedTime'];
   $dateTime = dateTime($date);
   $movieName = $data['movieTitle'];
+  $cinema = $data['cinema'];
 
-  $reservedSeats = $admin->query("SELECT `seat_num` FROM `reservedseats` WHERE movie_name = '$movieName' AND schedule = '$dateTime'");
+  $reservedSeats = $admin->query("SELECT `seat_num` FROM `reservedseats` WHERE movie_name = '$movieName' AND schedule = '$dateTime' AND cinema = '$cinema'");
 ?>
 
 <!DOCTYPE html>

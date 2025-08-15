@@ -3,24 +3,33 @@
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
   session_start();
-  
 
+   
   
-
   $data = convertCookie("movieDetails");
   @$beverages = $data['beverages'];
   $seatTaken = $data['seatsTaken'];
-
+  $errmsg = '';
 
   if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $cardName = filter_input(INPUT_POST, "cardName", FILTER_SANITIZE_SPECIAL_CHARS);
     $cardNum = filter_input(INPUT_POST, "cardNumber", FILTER_SANITIZE_NUMBER_INT);
+    $paymentCheck = $cash->query("SELECT * FROM `vw_dashboard` WHERE card_num = '$cardNum';");
+    $payment = $paymentCheck->fetch_assoc();
     if(isset($_POST['submitBtn'])){
       if($cardName !== null && $cardNum !== null){
-        $_SESSION['cardUser'] = $cardName;
-        $_SESSION['cardNumber'] = substr($cardNum, -4);
-        echo "<script>window.location.href='successful.php';</script>";
-        exit;
+        if(isset($payment)){
+          if(intval($payment['balance']) >= intval($data["ticketTotal"])){
+            $_SESSION['cardUser'] = $cardName;
+            $_SESSION['cardNumber'] = substr($cardNum, -4);
+            echo "<script>window.location.href='successful.php';</script>";
+            exit;
+          }else{
+            $errmsg = "Insufficient Balance";
+          }
+        }else{
+          $errmsg = "The Card number does not exist";
+        }
       }
     }
   }
@@ -78,6 +87,7 @@
     <div class="">
       <div class=" bg-white text-dark p-2 rounded payment-form mt-4">
         <h3 class="roboto-medium">Pay using credit/debit card</h3>
+        <div class="error"><?= $errmsg?></div>
         <form id="paymentCard" action="payment.php" method="post">
           <div class="mb-3 roboto-medium">
             <label for="namecard" class="form-label roboto-medium">Name on Card</label>
