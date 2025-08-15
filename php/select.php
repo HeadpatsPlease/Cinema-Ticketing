@@ -8,9 +8,6 @@ $batangasresult = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Sho
 $dasmaresult = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' ");
 $moaresult = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' ");
 
-//Payment
-
-
 // Converting Dictionary Cookie to associative arrays
 function convertCookie($cookieName){
     $json = $_COOKIE[$cookieName];

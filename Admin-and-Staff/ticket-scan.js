@@ -4,8 +4,8 @@ html5QrCode.start(
   { fps: 10, qrbox: 350 },
   (decodedText) => {
     document.getElementById("result").textContent = decodedText;
-    document.getElementById("reader").classList.add("d-none");
-    document.getElementById("refno").value = decodedText;
+    window.location.href =
+      "ticket-scan.php?code=" + encodeURIComponent(decodedText);
 
     html5QrCode
       .stop()
