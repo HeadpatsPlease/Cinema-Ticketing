@@ -125,22 +125,9 @@
     </div>
 
     <!-- Footer -->
-    <footer>
-    <div class="footer-links mb-3 d-flex justify-content-around roboto-slab-regular">
-      <a href="#">Movies</a>
-      <a href="#">Cinema</a>
-      <a href="#">Terms & Conditions</a>
-      <a href="#">Contact Us</a>
-    </div>
-    <div class=" d-flex flex-column align-items-center">
-      <div >
-          <img src="../Cinema-Ticketing/images/footericon.png" height="60px" alt="footericon" srcset="">
-      </div>
-      <div class="footer-bottom roboto-slab-regular">
-        Copyright &copy; 2025 Pop Cinema | All Rights Reserved.
-      </div>
-    </div>
-  </footer>
+    <footer id="footer">
+    <?= include '../Cinema-Ticketing/php/footer.php'?>
+    </footer>
   
     <script src="../Cinema-Ticketing/index.js"></script>
   </body>

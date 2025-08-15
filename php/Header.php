@@ -33,6 +33,11 @@
               ><h1 class="display-6 roboto-slab-regular">Cinemas</h1></a
             >
           </li>
+          <li class="nav-item">
+            <a class="nav-link text-light" href="#footer"
+              ><h1 class="display-6 roboto-slab-regular">Cinemas</h1></a
+            >
+          </li>
         </ul>
       </div>
 </body>
