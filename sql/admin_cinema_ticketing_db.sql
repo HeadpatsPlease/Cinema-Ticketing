@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 13, 2025 at 06:24 PM
+-- Generation Time: Aug 14, 2025 at 12:27 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -210,6 +210,13 @@ CREATE TABLE `ticketbeverage` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `ticketbeverage`
+--
+
+INSERT INTO `ticketbeverage` (`id`, `ticket_id`, `beverage_id`, `quantity`) VALUES
+(9, 13, 8, 1);
+
 -- --------------------------------------------------------
 
 --
@@ -227,6 +234,14 @@ CREATE TABLE `tickets` (
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Dumping data for table `tickets`
+--
+
+INSERT INTO `tickets` (`id`, `movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`, `status`) VALUES
+(13, 3, 2, 1, '34-269-30', 1050, '2025-08-15 15:00:00', 1),
+(15, 1, 1, 1, '671-233-140', 250, '2025-08-14 09:00:00', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -238,6 +253,16 @@ CREATE TABLE `ticketseats` (
   `ticket_id` int(11) NOT NULL,
   `seat_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `ticketseats`
+--
+
+INSERT INTO `ticketseats` (`id`, `ticket_id`, `seat_id`) VALUES
+(8, 13, 2),
+(9, 13, 1),
+(10, 13, 10),
+(14, 15, 37);
 
 -- --------------------------------------------------------
 
@@ -302,6 +327,7 @@ ALTER TABLE `ticketbeverage`
 --
 ALTER TABLE `tickets`
   ADD PRIMARY KEY (`id`),
+  ADD UNIQUE KEY `reference_number` (`reference_number`),
   ADD KEY `movie` (`movie_id`),
   ADD KEY `quality` (`quality_id`),
   ADD KEY `cinema` (`cinema_id`),
@@ -347,19 +373,19 @@ ALTER TABLE `seats`
 -- AUTO_INCREMENT for table `ticketbeverage`
 --
 ALTER TABLE `ticketbeverage`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 
 --
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
 
 --
 -- AUTO_INCREMENT for table `ticketseats`
 --
 ALTER TABLE `ticketseats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
 
 --
 -- AUTO_INCREMENT for table `ticketstatus`
