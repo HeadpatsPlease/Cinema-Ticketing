@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 12, 2025 at 06:55 PM
+-- Generation Time: Aug 15, 2025 at 11:20 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -30,17 +30,18 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `availability` (
   `id` int(11) NOT NULL,
-  `available_quality` varchar(20) NOT NULL
+  `available_quality` varchar(20) NOT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `availability`
 --
 
-INSERT INTO `availability` (`id`, `available_quality`) VALUES
-(1, '2D'),
-(2, 'Directors Club'),
-(3, 'IMAX');
+INSERT INTO `availability` (`id`, `available_quality`, `price`) VALUES
+(1, '2D', 250),
+(2, 'Directors Club', 350),
+(3, 'IMAX', 450);
 
 -- --------------------------------------------------------
 

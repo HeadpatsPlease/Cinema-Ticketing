@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 14, 2025 at 12:27 PM
+-- Generation Time: Aug 15, 2025 at 11:21 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.0.30
 
@@ -133,6 +133,7 @@ CREATE TABLE `reservedseats` (
 ,`available_quality` varchar(20)
 ,`schedule` datetime
 ,`seat_num` varchar(10)
+,`cinema` varchar(100)
 );
 
 -- --------------------------------------------------------
@@ -210,13 +211,6 @@ CREATE TABLE `ticketbeverage` (
   `quantity` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
---
--- Dumping data for table `ticketbeverage`
---
-
-INSERT INTO `ticketbeverage` (`id`, `ticket_id`, `beverage_id`, `quantity`) VALUES
-(9, 13, 8, 1);
-
 -- --------------------------------------------------------
 
 --
@@ -239,8 +233,8 @@ CREATE TABLE `tickets` (
 --
 
 INSERT INTO `tickets` (`id`, `movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`, `status`) VALUES
-(13, 3, 2, 1, '34-269-30', 1050, '2025-08-15 15:00:00', 1),
-(15, 1, 1, 1, '671-233-140', 250, '2025-08-14 09:00:00', 1);
+(16, 1, 3, 2, '658-599-761', 450, '2025-08-17 15:00:00', 1),
+(17, 2, 2, 3, '822-787-272', 350, '2025-08-16 15:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -259,10 +253,8 @@ CREATE TABLE `ticketseats` (
 --
 
 INSERT INTO `ticketseats` (`id`, `ticket_id`, `seat_id`) VALUES
-(8, 13, 2),
-(9, 13, 1),
-(10, 13, 10),
-(14, 15, 37);
+(15, 16, 3),
+(16, 17, 39);
 
 -- --------------------------------------------------------
 
@@ -290,7 +282,7 @@ INSERT INTO `ticketstatus` (`id`, `status`) VALUES
 --
 DROP TABLE IF EXISTS `reservedseats`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`reference_number` AS `reference_number`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num` FROM ((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `ticketseats` on(`ticketseats`.`ticket_id` = `tickets`.`id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`reference_number` AS `reference_number`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num`, `cinema_ticketing_db`.`cinemas`.`cinema` AS `cinema` FROM (((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `ticketseats` on(`ticketseats`.`ticket_id` = `tickets`.`id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) join `cinema_ticketing_db`.`cinemas` on(`cinema_ticketing_db`.`cinemas`.`id` = `tickets`.`cinema_id`)) ;
 
 --
 -- Indexes for dumped tables
@@ -379,13 +371,13 @@ ALTER TABLE `ticketbeverage`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=16;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 
 --
 -- AUTO_INCREMENT for table `ticketseats`
 --
 ALTER TABLE `ticketseats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=15;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `ticketstatus`
