@@ -1,3 +1,7 @@
+<?php
+  
+?>
+
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -21,7 +25,6 @@
   </head>
 
   <body class="bg-dark">
-    
     <div
       class="container d-flex flex-column justify-content-center align-items-center"
       style="height: 100vh"
@@ -30,31 +33,11 @@
 
       <!-- QR Code Reader -->
       <div id="reader" style="width: 600px; border-radius: 10px"></div>
-        <!-- Scan result display -->
-        <p class="text-light mt-3">Result: <span id="result"></span></p>
+      <!-- Scan result display -->
+      <p class="text-light mt-3">Result: <span id="result"></span></p>
+      <input type="hidden" id="refno" name="confirm">
     </div>
 
-    <script>
-      const html5QrCode = new Html5Qrcode("reader");
-      html5QrCode.start(
-        { facingMode: "environment" },
-        { fps: 10, qrbox: 350 },
-        (decodedText) => {
-          document.getElementById("result").textContent = decodedText;
-
-          html5QrCode
-            .stop()
-            .then(() => {
-              console.log("QR code scanning stopped.");
-            })
-            .catch((err) => {
-              console.error("Error stopping scan:", err);
-            });
-        },
-        (error) => {
-          console.warn(error);
-        }
-      );
-    </script>
+    <script src="ticket-scan.js"></script>
   </body>
 </html>
