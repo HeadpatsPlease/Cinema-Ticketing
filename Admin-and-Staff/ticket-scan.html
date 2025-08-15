@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/bootstrap.min.css">
+    <script src="../cinema_pages/js/libs/html5-qrcode.min.js"></script>
+    <title>TicketScan</title>
+    <style>
+        h1 {
+            font-size: 4rem;
+            font-weight: bold;
+        }
+
+        #reader {
+            width: 600px;
+            border-radius: 10px;
+            border: 10px dashed #ffc100;
+        }
+    </style>
+</head>
+
+<body class="bg-dark">
+    <div class="container d-flex flex-column justify-content-center align-items-center" style="height:100vh;">
+        <h1 class="mb-4 roboto-bold text-light ">Please point your ticket here</h1>
+
+        <!-- QR Code Reader -->
+        <div id="reader" style="width: 600px; border-radius: 10px;"></div>
+
+    </div>
+
+    <script>
+        const html5QrCode = new Html5Qrcode("reader");
+        html5QrCode.start(
+            { facingMode: "environment" }, // Rear camera
+            { fps: 10, qrbox: 350 },
+            (decodedText) => {
+                document.getElementById("result").textContent = decodedText;
+
+                // Stop scanning after first successful read
+                html5QrCode.stop().then(() => {
+                    console.log("QR code scanning stopped.");
+                }).catch(err => {
+                    console.error("Error stopping scan:", err);
+                });
+            },
+            (error) => { console.warn(error); }
+        );
+    </script>
+</body>
+
+</html>
