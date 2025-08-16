@@ -1,54 +1,14 @@
 <?php
+    include '../../../Cinema-Ticketing/php/connection.php';
+    @include '../../../Cinema-Ticketing/php/select.php'; 
 
 session_start();
-
-$record = [
-    "ref_no" => "133",
-    "custom_no" => "C003",
-    "beverage" => "kiwkiw",
-    "movie" => "elims ni kerry",
-    "seats" => "A5, C1" // sample data lang to boi!
-
-    // Need dito ay connection dapat sa database!!
-];
-
-// Initialize session data
 if (!isset($_SESSION['records'])) {
-    $_SESSION['records'] = []; // Stores all searched results
+    $_SESSION['records'] = []; 
 }
 if (!isset($_SESSION['deleted'])) {
     $_SESSION['deleted'] = false;
 }
-
-$search_result = null;
-$search_message = "";
-$delete_message = "";
-
-// For Search Form
-if (isset($_POST['search'])) {
-    $ref = $_POST['search_ref'];
-    if ($ref == $record['ref_no']) {
-        $search_result = $record;
-        $search_message = "<script>alert('✅ Record found!');</script>";
-    } else {
-        $search_message = "<script>alert('❌ Record not found.');</script>";
-    }
-}
-
-// For Delete Form
-if (isset($_POST['delete'])) {
-    $ref = $_POST['delete_ref'];
-    if ($ref == $record['ref_no']) {
-        $delete_message = "<script>alert('✅ Record deleted!');</script>";
-        $record = null;
-        $search_result = null;
-    } else {
-        $delete_message = "<script>alert('❌ No record found to delete.');</script>";
-    }
-}
-
-$bgImage = "bg-view.png";
-
 ?>
 
 <!DOCTYPE html>
@@ -56,14 +16,11 @@ $bgImage = "bg-view.png";
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="../../css/bootstrap.min.css" />
     <title>View</title>
     <style>
         body {
-            background-image: url('<?php echo $bgImage; ?>');
-            background-size: cover;
-            background-repeat: repeat;
-            background-position: center;
+            background: url(../../images/bg-view.png);
             color: #fff;
             font-family: Arial, sans-serif;
             text-align: center;
@@ -105,17 +62,15 @@ $bgImage = "bg-view.png";
             background-color: #fff;
             color: #000;
             padding: 30px;
-            width: 60%;
             margin: 20px auto;
             border-radius: 10px;
+            height: 50vh;
+            overflow-y: auto;
+            overflow-x: hidden;
         }
 
-        .messages {
-            margin-top: 15px;
-        }
 
         table {
-            width: 100%;
             margin-top: 20px;
             border-collapse: collapse;
         }
@@ -135,44 +90,49 @@ $bgImage = "bg-view.png";
 <div class="container">
 <div class="search-form">
   <form method="post" >
-    <input type="text" name="search_ref" placeholder="Enter Ref No." required>
+    <input type="text" name="search_ref" placeholder="Enter Movie No." required>
     <button type="submit" name="search" class="search-btn">Search</button>
  </form>
 </div>
 
 <!-- For Message Output -->
-<div class="messages">
+<div class="messages mt-3">
     <?php if ($search_message): ?><p style="color: lightgreen;"><?= $search_message ?></p><?php endif; ?>
     <?php if ($delete_message): ?><p style="color: red;"><?= $delete_message ?></p><?php endif; ?>
 </div>
 
 <!-- Display Box -->
 <div class="box">
-    <?php if ($search_result): ?>
-        <table>
-            <tr>
-                <th>Ref No.</th>
-                <th>Custom No.</th>
-                <th>Beverages</th>
-                <th>Movie name</th>
-                <th>Seats</th>
-            </tr>
-            <tr>
-                <td><?= $search_result['ref_no'] ?></td>
-                <td><?= $search_result['custom_no'] ?></td>
-                <td><?= $search_result['beverage'] ?></td>
-                <td><?= $search_result['movie'] ?></td>
-                <td><?= $search_result['seats'] ?></td>
-            </tr>
-        </table>
-    <?php else: ?>
-        <i>No record to display.</i>
-    <?php endif; ?>
+    <table class="table table-hover">
+        <tr>
+            <th>Movie No.</th>
+            <th>Movie Name</th>
+            <th>Movie Rating</th>
+            <th>Director</th>
+            <th>Status</th>
+            <th>Year</th>
+            <th>Genre</th>
+            <th>Quality</th>
+        </tr>
+            <?php while ($row = $result3->fetch_assoc()){ ?>
+        <tr>
+            <td>00<?=$row['id'];?></td>
+            <td><?=$row['movie_name'];?></td>
+            <td><?=$row['rating_text'];?></td>
+            <td><?=$row['director'];?></td>
+            <td><?=$row['status'];?></td>
+            <td><?=$row['year'];?></td>
+            <td><?=$row['genres'];?></td>
+            <td><?=$row['qualities'];?></td>
+            
+        </tr>
+        <?php }?>
+    </table>
 </div>
 
 <!-- Delete Form -->
 <form method="post">
-    <input type="text" name="delete_ref" placeholder="Enter Ref No." required>
+    <input type="text" name="delete_ref" placeholder="Enter Movie No." required>
     <button type="submit" name="delete" class="delete-btn">Delete</button>
 </form>
 </div>

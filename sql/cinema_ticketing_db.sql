@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2025 at 11:20 AM
+-- Generation Time: Aug 16, 2025 at 12:23 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -21,6 +21,66 @@ SET time_zone = "+00:00";
 --
 -- Database: `cinema_ticketing_db`
 --
+
+DELIMITER $$
+--
+-- Functions
+--
+CREATE DEFINER=`root`@`localhost` FUNCTION `getCinemaId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `cinemas` WHERE cinema =  texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getDirectorId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `director` WHERE director = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getLocationId` (`texts` VARCHAR(250)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `locations` WHERE location_name = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getMovieId` (`texts` VARCHAR(250)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `movies` WHERE movie_name= texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getQualityId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `availability` WHERE available_quality = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getRatingId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `rating` WHERE rating_text = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getStatusId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `statusmovie` WHERE status = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getTimeId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `availabletime` WHERE time = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getYearId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+	DECLARE find INT;
+    SELECT `id` INTO find FROM `years` WHERE year = texts LIMIT 1;
+  	RETURN find;
+END$$
+
+DELIMITER ;
 
 -- --------------------------------------------------------
 
@@ -88,17 +148,6 @@ INSERT INTO `cinemas` (`id`, `cinema`) VALUES
 (1, 'Cinema 1'),
 (2, 'Cinema 2'),
 (3, 'Cinema 3');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `cinemasched`
---
-
-CREATE TABLE `cinemasched` (
-  `id` int(11) NOT NULL,
-  `cinema_id` int(11) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -675,13 +724,6 @@ ALTER TABLE `cinemas`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexes for table `cinemasched`
---
-ALTER TABLE `cinemasched`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `cinemacons` (`cinema_id`);
-
---
 -- Indexes for table `director`
 --
 ALTER TABLE `director`
@@ -784,12 +826,6 @@ ALTER TABLE `cinemas`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
--- AUTO_INCREMENT for table `cinemasched`
---
-ALTER TABLE `cinemasched`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
-
---
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
@@ -858,12 +894,6 @@ ALTER TABLE `years`
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `cinemasched`
---
-ALTER TABLE `cinemasched`
-  ADD CONSTRAINT `cinemacons` FOREIGN KEY (`cinema_id`) REFERENCES `cinemas` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `moviegenre`

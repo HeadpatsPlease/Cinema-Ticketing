@@ -1,3 +1,11 @@
+<?php 
+  session_start();
+  if(!isset($_SESSION['email']) || !isset($_SESSION['pswd'])){
+    header("Location: ../AccountsPage/login.php");
+  }
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
   <head>

@@ -1,3 +1,9 @@
+<?php 
+  session_start();
+  if(!isset($_SESSION['email']) || !isset($_SESSION['pswd'])){
+    header("Location: ../AccountsPage/login.php");
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -43,7 +49,8 @@
           </button>
         </div>
         <div class="mx-4">
-          <button
+          <a href="inserting_movie.php">
+            <button
             class="walk-in"
             type="submit"
             name="walk-in"
@@ -51,6 +58,7 @@
           >
             Movies
           </button>
+          </a>
         </div>
       </div>
     </div>
