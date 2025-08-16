@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2025 at 12:23 PM
+-- Generation Time: Aug 16, 2025 at 07:06 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -24,6 +24,29 @@ SET time_zone = "+00:00";
 
 DELIMITER $$
 --
+-- Procedures
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMovie` (IN `movie_names` VARCHAR(255), IN `movie_descriptions` TEXT, IN `rating_ids` VARCHAR(255), IN `director_ids` VARCHAR(255), IN `status_ids` VARCHAR(255), IN `year_ids` VARCHAR(255), IN `movie_posters` VARCHAR(100))   BEGIN
+    INSERT INTO `movies`(`movie_name`, `movie_description`, `rating_id`, `director_id`, `status_id`, `year_id`, `movie_poster`) VALUES (movie_names,movie_descriptions,getRatingId(rating_ids),getDirectorId(director_ids),getStatusId(status_ids),getYearId(year_ids),movie_posters);
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMovieGenre` (IN `movie_names` VARCHAR(255), IN `genre_ids` VARCHAR(255))   BEGIN 
+    INSERT INTO `moviegenre`(`movie_id`, `genre_id`) VALUES (getMovieId(movie_names),getGenreId(genre_ids));
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMovieLocation` (IN `movie_ids` VARCHAR(255), IN `location_ids` VARCHAR(255))   BEGIN
+    INSERT INTO `movielocation`(`movie_id`, `location_id`) VALUES (getMovieId(movie_ids),getLocationId(location_ids));
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMovieQuality` (IN `movie_names` VARCHAR(255), IN `availability_ids` VARCHAR(255))   BEGIN 
+    INSERT INTO `quality`(`movie_id`, `availability_id`) VALUES (getMovieId(movie_names),getQualityId(availability_ids));
+    END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `insertMovieTime` (IN `movie_ids` VARCHAR(255), IN `time_ids` VARCHAR(255), IN `availability_ids` VARCHAR(255), IN `cinema_ids` VARCHAR(255))   BEGIN
+    INSERT INTO `movietime`(`movie_id`, `time_id`, `availability_id`, `cinema_id`) VALUES (getMovieId(movie_ids),getTimeId(time_ids),getQualityId(availability_ids),getCinemaId(cinema_ids));
+END$$
+
+--
 -- Functions
 --
 CREATE DEFINER=`root`@`localhost` FUNCTION `getCinemaId` (`texts` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
@@ -36,6 +59,12 @@ CREATE DEFINER=`root`@`localhost` FUNCTION `getDirectorId` (`texts` VARCHAR(50))
 	DECLARE find INT;
     SELECT `id` INTO find FROM `director` WHERE director = texts LIMIT 1;
   	RETURN find;
+END$$
+
+CREATE DEFINER=`root`@`localhost` FUNCTION `getGenreId` (`Genres` VARCHAR(50)) RETURNS INT(11) DETERMINISTIC BEGIN
+  DECLARE finds INT;
+  SELECT `id` INTO finds FROM `genre` WHERE genre_name = Genres LIMIT 1;
+  RETURN finds;
 END$$
 
 CREATE DEFINER=`root`@`localhost` FUNCTION `getLocationId` (`texts` VARCHAR(250)) RETURNS INT(11) DETERMINISTIC BEGIN
@@ -165,7 +194,9 @@ CREATE TABLE `director` (
 --
 
 INSERT INTO `director` (`id`, `director`) VALUES
-(1, 'John Carlo Buscay');
+(1, 'John Carlo Buscay'),
+(3, 'Lorenzo Lacsojn'),
+(4, 'Hakeem Emuy');
 
 -- --------------------------------------------------------
 
@@ -672,7 +703,11 @@ CREATE TABLE `years` (
 
 INSERT INTO `years` (`id`, `year`) VALUES
 (1, '2025'),
-(2, '2024');
+(2, '2024'),
+(3, '1233'),
+(4, '2011'),
+(5, '1234'),
+(6, '2025');
 
 -- --------------------------------------------------------
 
@@ -829,7 +864,7 @@ ALTER TABLE `cinemas`
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `genre`
@@ -847,25 +882,25 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=61;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
 
 --
 -- AUTO_INCREMENT for table `movielocation`
 --
 ALTER TABLE `movielocation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=42;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
 
 --
 -- AUTO_INCREMENT for table `movietime`
 --
 ALTER TABLE `movietime`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=82;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
 
 --
 -- AUTO_INCREMENT for table `quality`
@@ -889,7 +924,7 @@ ALTER TABLE `statusmovie`
 -- AUTO_INCREMENT for table `years`
 --
 ALTER TABLE `years`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Constraints for dumped tables

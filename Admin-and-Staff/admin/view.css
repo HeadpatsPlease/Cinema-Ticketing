@@ -1,0 +1,51 @@
+body {
+            background: url(../../images/bg-view.png);
+            color: #fff;
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        .search-form{
+            margin-right: 647px;
+        }
+        input[type="text"] {
+            padding: 10px;
+            border: none;
+            background-color: #ccc;
+            font-size: 16px;
+        }
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+        .search-btn {
+            background-color: transparent;
+            border: 2px solid #fff;
+            color: #fff;
+        }
+        .delete-btn {
+            background-color: #007BFF;
+            border: none;
+            color: white;
+        }
+        .box {
+            background-color: #fff;
+            color: #000;
+            padding: 30px;
+            margin: 20px auto;
+            border-radius: 10px;
+            height: 50vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+        }
+        table {
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            text-align: center;
+            padding: 10px;
+        }
+        th {
+            font-weight: bold;
+        }

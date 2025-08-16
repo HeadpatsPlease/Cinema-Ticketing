@@ -1,14 +1,35 @@
 <?php
     include '../../../Cinema-Ticketing/php/connection.php';
     @include '../../../Cinema-Ticketing/php/select.php'; 
+    $searched = $conn->query("SELECT * FROM `overview`");
+    $msg = '';
+    session_start();
 
-session_start();
-if (!isset($_SESSION['records'])) {
-    $_SESSION['records'] = []; 
-}
-if (!isset($_SESSION['deleted'])) {
-    $_SESSION['deleted'] = false;
-}
+    if(isset($_POST['search'])){
+        if(isset($_POST['searchInput'])){
+            try{
+                $searchInput = str_replace("00","",$_POST['searchInput']);
+                $searched = $conn->query("SELECT * FROM `overview` WHERE id = $searchInput");
+            }catch(mysqli_sql_exception){
+                $searched = $conn->query("SELECT * FROM `overview`");
+            }
+        }
+    }
+    if(isset($_POST['delete'])){
+        if(isset($_POST['delete_ref'])){
+            try{
+                $searchInput = str_replace("00","",$_POST['delete_ref']);
+                $Deleted = $conn->query("DELETE FROM movies WHERE `movies`.`id` = $searchInput");
+            }catch(mysqli_sql_exception){
+                $searched = $conn->query("SELECT * FROM `overview`");
+            }
+        }
+    }
+
+
+    
+
+
 ?>
 
 <!DOCTYPE html>
@@ -17,125 +38,71 @@ if (!isset($_SESSION['deleted'])) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="../../css/bootstrap.min.css" />
+    <link rel="stylesheet" href="view.css">
     <title>View</title>
-    <style>
-        body {
-            background: url(../../images/bg-view.png);
-            color: #fff;
-            font-family: Arial, sans-serif;
-            text-align: center;
-        }
-        
-        .search-form{
-            margin-right: 647px;
-        }
-
-
-        input[type="text"] {
-            padding: 10px;
-            width: 200px;
-            border: none;
-            background-color: #ccc;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            cursor: pointer;
-        }
-
-        .search-btn {
-            background-color: transparent;
-            border: 2px solid #fff;
-            color: #fff;
-        }
-
-        .delete-btn {
-            background-color: #007BFF;
-            border: none;
-            color: white;
-        }
-
-        .box {
-            background-color: #fff;
-            color: #000;
-            padding: 30px;
-            margin: 20px auto;
-            border-radius: 10px;
-            height: 50vh;
-            overflow-y: auto;
-            overflow-x: hidden;
-        }
-
-
-        table {
-            margin-top: 20px;
-            border-collapse: collapse;
-        }
-
-        th, td {
-            text-align: center;
-            padding: 10px;
-        }
-
-        th {
-            font-weight: bold;
-        }
-    </style>
 </head>
 <body>
 <!-- For Search Form -->
-<div class="container">
-<div class="search-form">
-  <form method="post" >
-    <input type="text" name="search_ref" placeholder="Enter Movie No." required>
-    <button type="submit" name="search" class="search-btn">Search</button>
- </form>
-</div>
+ <div class="d-flex flex-column justify-content-center align-items-center" style="min-height: 100vh;">
+    <div class="container">
+        <div class="search-form">
+        <form method="post" action="view.php">
+            <div class="input-group w-50">
+                <input type="text" name="searchInput" class="form-control" id="search" placeholder="Enter Movie No.">
+                <button type="submit"  name="search" class="search-btn btn">Search</button>
+                <button class="search-btn btn">Refresh</button>
+            </div>
+        </form>
+        </div>
 
-<!-- For Message Output -->
-<div class="messages mt-3">
-    <?php if ($search_message): ?><p style="color: lightgreen;"><?= $search_message ?></p><?php endif; ?>
-    <?php if ($delete_message): ?><p style="color: red;"><?= $delete_message ?></p><?php endif; ?>
-</div>
+        <!-- Display Box -->
+        <div class="box">
+            <table class="table table-hover">
+                <tr>
+                    <th>Movie No.</th>
+                    <th>Movie Name</th>
+                    <th>Movie Rating</th>
+                    <th>Director</th>
+                    <th>Status</th>
+                    <th>Year</th>
+                    <th>Genre</th>
+                    <th>Quality</th>
+                </tr>
+                    <?php while ($row = $searched->fetch_assoc()){ ?>
+                <tr onclick="getNumber('00' + <?=$row['id'];?>)">
+                    <td>00<?=$row['id'];?></td>
+                    <td><?=$row['movie_name'];?></td>
+                    <td><?=$row['rating_text'];?></td>
+                    <td><?=$row['director'];?></td>
+                    <td><?=$row['status'];?></td>
+                    <td><?=$row['year'];?></td>
+                    <td><?=$row['genres'];?></td>
+                    <td><?=$row['qualities'];?></td>
+                    
+                </tr>
+                <?php }?>
+            </table>
+        </div>
 
-<!-- Display Box -->
-<div class="box">
-    <table class="table table-hover">
-        <tr>
-            <th>Movie No.</th>
-            <th>Movie Name</th>
-            <th>Movie Rating</th>
-            <th>Director</th>
-            <th>Status</th>
-            <th>Year</th>
-            <th>Genre</th>
-            <th>Quality</th>
-        </tr>
-            <?php while ($row = $result3->fetch_assoc()){ ?>
-        <tr>
-            <td>00<?=$row['id'];?></td>
-            <td><?=$row['movie_name'];?></td>
-            <td><?=$row['rating_text'];?></td>
-            <td><?=$row['director'];?></td>
-            <td><?=$row['status'];?></td>
-            <td><?=$row['year'];?></td>
-            <td><?=$row['genres'];?></td>
-            <td><?=$row['qualities'];?></td>
-            
-        </tr>
-        <?php }?>
-    </table>
-</div>
+        <!-- Delete Form -->
+        <div class="d-flex justify-content-center">
+            <form method="post" action="view.php" class="me-3">
+                <div class="input-group">
+                    <input type="text" name="delete_ref" id="delete" class="form-control" placeholder="Enter Movie No." required>
+                    <button type="submit"  name="delete" class="delete-btn">Delete</button>
+                </div>
+            </form>
+            <form method="post" action="view.php">
+                <div class="input-group">
+                    <input type="text" name="update" id="update" class="form-control" placeholder="Enter Movie No." required>
+                    <button type="submit"  name="update" class="delete-btn">Update</button>
+                </div>
+            </form>
+        </div>
+    </div>
 
-<!-- Delete Form -->
-<form method="post">
-    <input type="text" name="delete_ref" placeholder="Enter Movie No." required>
-    <button type="submit" name="delete" class="delete-btn">Delete</button>
-</form>
-</div>
+ </div>
 
+<script src="view.js"></script>
 </body>
 </html>

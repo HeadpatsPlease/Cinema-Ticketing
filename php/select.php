@@ -2,7 +2,7 @@
 include '../Cinema-Ticketing/php/connection.php';
 $result = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' ");
 $result2 = $conn->query("SELECT * FROM `overview` WHERE status = 'Coming Soon' ");
-$result3 = $conn->query("SELECT * FROM `overview`");
+
 
 // Cinemas page
 $batangasresult = $conn->query("SELECT * FROM `overview` WHERE status = 'Now Showing' ");

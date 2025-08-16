@@ -34,6 +34,7 @@
                                  $addDirector = $conn->query("INSERT INTO `director`(`director`) VALUES ('$customDir')");
                                  $addYear = $conn->query("INSERT INTO `years`(`year`) VALUES ('$movieYear')");
                                  $start = $conn->query("CALL insertMovie('$movieTitle','$synopsis','$ratings[$i]','$customDir','$stat[$i]','$movieYear', '" . basename($_FILES['imginput']['name'])."')");
+                                 header("Location: Admin.php");
                             }
                         }else{
                             for ($i = 0; $i < count($ratings); $i++){
@@ -42,10 +43,24 @@
                             }
                         }
                     }else{
+                        if($directorCheck['dir'] === null){
+                            for ($i = 0; $i < count($ratings); $i++){
+                                 $addDirector = $conn->query("INSERT INTO `director`(`director`) VALUES ('$customDir')");
+                                 $addYear = $conn->query("INSERT INTO `years`(`year`) VALUES ('$movieYear')");
+                                 $start = $conn->query("CALL insertMovie('$movieTitle','$synopsis','$ratings[$i]','$customDir','$stat[$i]','$movieYear', '" . basename($_FILES['imginput']['name'])."')");
+                            }
+                        }
+                        else{
                         for ($i = 0; $i < count($ratings); $i++){
                             $start = $conn->query("CALL insertMovie('$movieTitle','$synopsis','$ratings[$i]','$direc[$i]','$stat[$i]','$movieYear', '" . basename($_FILES['imginput']['name'])."')");
                         }
                     }
+
+                    }
+                    
+                    
+                    
+                    
                 }
             }else{
                 $msg = 'Missing input';
