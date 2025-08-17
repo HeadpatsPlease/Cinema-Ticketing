@@ -1,6 +1,7 @@
 <?php
     include '../../../Cinema-Ticketing/php/connection.php';
     @include '../../../Cinema-Ticketing/php/select.php'; 
+    session_start();
 
     @$target_dir = "../../images/"; // folder in your server
     @$target_file = $target_dir . basename($_FILES["imginput"]["name"]);
@@ -25,6 +26,11 @@
 
 
     if($_SERVER["REQUEST_METHOD"] === "POST") {
+        if(isset($_POST['back'])){
+            header("Location: view.php");
+        }
+
+
         if(isset($_POST['submit'])){
             if(isset($movieTitle) && isset($movieYear) && isset($synopsis) && isset($_FILES["imginput"]["name"])){
                 if(isset($data)){
@@ -34,7 +40,6 @@
                                  $addDirector = $conn->query("INSERT INTO `director`(`director`) VALUES ('$customDir')");
                                  $addYear = $conn->query("INSERT INTO `years`(`year`) VALUES ('$movieYear')");
                                  $start = $conn->query("CALL insertMovie('$movieTitle','$synopsis','$ratings[$i]','$customDir','$stat[$i]','$movieYear', '" . basename($_FILES['imginput']['name'])."')");
-                                 header("Location: Admin.php");
                             }
                         }else{
                             for ($i = 0; $i < count($ratings); $i++){
@@ -75,6 +80,9 @@
                 }
             }
         }
+        foreach($quali as $qu){
+            $movieTime = $conn->query("CALL insertMovieQuality('$movieTitle','$qu')");
+        }
         foreach($genr as $gen){
             $movieGenre = $conn->query("CALL insertMovieGenre('$movieTitle','$gen')");
         }
@@ -82,9 +90,10 @@
             $movieLocation = $conn->query("CALL insertMovieLocation('$movieTitle','$lo')");
         }
         if (move_uploaded_file($_FILES["imginput"]["tmp_name"], $target_file)) {
-            return;
+            // header("Location: view.php");
+            echo "Movie Inserted";
         } else {
-            return;
+            header("Location: view.php");
         }
 
 
@@ -142,7 +151,9 @@
 <body class="bg-dark">
     <div class="container py-4">
         <div class="d-flex flex-row justify-content-between">
-            <button class="btn btn-success">Back</button>
+            <form method="post">
+                <button class="btn btn-success" name="back">Back</button>
+            </form>
             <button class="btn btn-primary" id="next" form="main" name="submit">Submit</button>
         </div>
         <div class="text-center mb-4">
@@ -152,7 +163,7 @@
 
         <form action="inserting_movie.php" id="main" name="main" method="post" class="mx-auto" enctype="multipart/form-data" style="max-width: 600px;">
             <div class="input-group mb-3">
-                <input type="file" class="form-control" id="imginput" name="imginput" accept="image/*">
+                <input type="file" class="form-control" id="imginput" name="imginput" accept="image/*" required>
                 <label class="input-group-text" for="imginput">Poster</label>
             </div>
 

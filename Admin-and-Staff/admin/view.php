@@ -20,10 +20,24 @@
             try{
                 $searchInput = str_replace("00","",$_POST['delete_ref']);
                 $Deleted = $conn->query("DELETE FROM movies WHERE `movies`.`id` = $searchInput");
+                $searched = $conn->query("SELECT * FROM `overview`");
             }catch(mysqli_sql_exception){
                 $searched = $conn->query("SELECT * FROM `overview`");
             }
         }
+    }
+    if(isset($_POST['update'])){
+        if(isset($_POST['update_ref'])){
+            $searchInput = str_replace("00","",$_POST['update_ref']);
+            $_SESSION['movie_id'] = $searchInput;
+            header("Location: update.php");
+        }
+    }
+    if(isset($_POST['refresh'])){
+        $searched = $conn->query("SELECT * FROM `overview`");
+    }
+    if(isset($_POST['addmovie'])){
+        header("Location: inserting_movie.php");
     }
 
 
@@ -47,10 +61,11 @@
     <div class="container">
         <div class="search-form">
         <form method="post" action="view.php">
-            <div class="input-group w-50">
+            <div class="input-group w-75">
                 <input type="text" name="searchInput" class="form-control" id="search" placeholder="Enter Movie No.">
                 <button type="submit"  name="search" class="search-btn btn">Search</button>
-                <button class="search-btn btn">Refresh</button>
+                <button class="search-btn btn" name="refresh">Refresh</button>
+                <button class="search-btn btn" name="addmovie">Add Movie</button>
             </div>
         </form>
         </div>
@@ -94,7 +109,7 @@
             </form>
             <form method="post" action="view.php">
                 <div class="input-group">
-                    <input type="text" name="update" id="update" class="form-control" placeholder="Enter Movie No." required>
+                    <input type="text" name="update_ref" id="update" class="form-control" placeholder="Enter Movie No." required>
                     <button type="submit"  name="update" class="delete-btn">Update</button>
                 </div>
             </form>

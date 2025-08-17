@@ -1,7 +1,7 @@
 <?php 
   session_start();
   if(!isset($_SESSION['email']) || !isset($_SESSION['pswd'])){
-    header("Location: ../AccountsPage/login.php");
+    header("Location: /Cinema-Ticketing/AccountsPage/login.php");
   }
 ?>
 <!DOCTYPE html>
@@ -49,7 +49,7 @@
           </button>
         </div>
         <div class="mx-4">
-          <a href="inserting_movie.php">
+          <a href="view.php">
             <button
             class="walk-in"
             type="submit"
