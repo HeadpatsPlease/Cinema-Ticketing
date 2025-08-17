@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 16, 2025 at 07:06 PM
+-- Generation Time: Aug 17, 2025 at 06:02 PM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -196,7 +196,8 @@ CREATE TABLE `director` (
 INSERT INTO `director` (`id`, `director`) VALUES
 (1, 'John Carlo Buscay'),
 (3, 'Lorenzo Lacsojn'),
-(4, 'Hakeem Emuy');
+(4, 'Hakeem Emuy'),
+(5, '');
 
 -- --------------------------------------------------------
 
@@ -707,7 +708,8 @@ INSERT INTO `years` (`id`, `year`) VALUES
 (3, '1233'),
 (4, '2011'),
 (5, '1234'),
-(6, '2025');
+(6, '2025'),
+(7, '2025');
 
 -- --------------------------------------------------------
 
@@ -864,7 +866,7 @@ ALTER TABLE `cinemas`
 -- AUTO_INCREMENT for table `director`
 --
 ALTER TABLE `director`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `genre`
@@ -882,31 +884,31 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `moviegenre`
 --
 ALTER TABLE `moviegenre`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=76;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=173;
 
 --
 -- AUTO_INCREMENT for table `movielocation`
 --
 ALTER TABLE `movielocation`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=94;
 
 --
 -- AUTO_INCREMENT for table `movies`
 --
 ALTER TABLE `movies`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=32;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=46;
 
 --
 -- AUTO_INCREMENT for table `movietime`
 --
 ALTER TABLE `movietime`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=122;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=343;
 
 --
 -- AUTO_INCREMENT for table `quality`
 --
 ALTER TABLE `quality`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
 
 --
 -- AUTO_INCREMENT for table `rating`
@@ -924,7 +926,7 @@ ALTER TABLE `statusmovie`
 -- AUTO_INCREMENT for table `years`
 --
 ALTER TABLE `years`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints for dumped tables

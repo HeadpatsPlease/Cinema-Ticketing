@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 15, 2025 at 11:21 AM
+-- Generation Time: Aug 17, 2025 at 06:03 PM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.0.30
+-- PHP Version: 8.2.12
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -104,22 +104,23 @@ INSERT INTO `accounts` (`id`, `username`, `password`, `position`) VALUES
 
 CREATE TABLE `beverages` (
   `id` int(11) NOT NULL,
-  `beverage_name` varchar(100) NOT NULL
+  `beverage_name` varchar(100) NOT NULL,
+  `price` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- Dumping data for table `beverages`
 --
 
-INSERT INTO `beverages` (`id`, `beverage_name`) VALUES
-(1, 'popcorn-regular'),
-(2, 'popcorn-large'),
-(3, 'popcorn-bucket'),
-(4, 'soda-regular'),
-(5, 'soda-large'),
-(6, 'hotdog-regular'),
-(7, 'Combo1'),
-(8, 'Combo2');
+INSERT INTO `beverages` (`id`, `beverage_name`, `price`) VALUES
+(1, 'popcorn-regular', 100),
+(2, 'popcorn-large', 150),
+(3, 'popcorn-bucket', 200),
+(4, 'soda-regular', 75),
+(5, 'soda-large', 100),
+(6, 'hotdog-regular', 100),
+(7, 'Combo1', 250),
+(8, 'Combo2', 300);
 
 -- --------------------------------------------------------
 
@@ -234,7 +235,8 @@ CREATE TABLE `tickets` (
 
 INSERT INTO `tickets` (`id`, `movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`, `status`) VALUES
 (16, 1, 3, 2, '658-599-761', 450, '2025-08-17 15:00:00', 1),
-(17, 2, 2, 3, '822-787-272', 350, '2025-08-16 15:00:00', 1);
+(17, 2, 2, 3, '822-787-272', 350, '2025-08-16 15:00:00', 1),
+(18, 1, 2, 2, '378-47-240', 350, '2025-08-17 15:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -254,7 +256,8 @@ CREATE TABLE `ticketseats` (
 
 INSERT INTO `ticketseats` (`id`, `ticket_id`, `seat_id`) VALUES
 (15, 16, 3),
-(16, 17, 39);
+(16, 17, 39),
+(17, 18, 12);
 
 -- --------------------------------------------------------
 
@@ -278,11 +281,37 @@ INSERT INTO `ticketstatus` (`id`, `status`) VALUES
 -- --------------------------------------------------------
 
 --
+-- Stand-in structure for view `ticketview`
+-- (See below for the actual view)
+--
+CREATE TABLE `ticketview` (
+`id` int(11)
+,`movie_name` varchar(225)
+,`available_quality` varchar(20)
+,`cinema` varchar(100)
+,`reference_number` varchar(100)
+,`totalCost` int(11)
+,`schedule` datetime
+,`status` varchar(50)
+);
+
+-- --------------------------------------------------------
+
+--
 -- Structure for view `reservedseats`
 --
 DROP TABLE IF EXISTS `reservedseats`;
 
 CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`reference_number` AS `reference_number`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num`, `cinema_ticketing_db`.`cinemas`.`cinema` AS `cinema` FROM (((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `ticketseats` on(`ticketseats`.`ticket_id` = `tickets`.`id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) join `cinema_ticketing_db`.`cinemas` on(`cinema_ticketing_db`.`cinemas`.`id` = `tickets`.`cinema_id`)) ;
+
+-- --------------------------------------------------------
+
+--
+-- Structure for view `ticketview`
+--
+DROP TABLE IF EXISTS `ticketview`;
+
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `ticketview`  AS SELECT `tickets`.`id` AS `id`, `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `cinema_ticketing_db`.`cinemas`.`cinema` AS `cinema`, `tickets`.`reference_number` AS `reference_number`, `tickets`.`totalCost` AS `totalCost`, `tickets`.`schedule` AS `schedule`, `ticketstatus`.`status` AS `status` FROM ((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `cinema_ticketing_db`.`cinemas` on(`cinema_ticketing_db`.`cinemas`.`id` = `tickets`.`cinema_id`)) join `ticketstatus` on(`ticketstatus`.`id` = `tickets`.`status`)) ;
 
 --
 -- Indexes for dumped tables
@@ -371,13 +400,13 @@ ALTER TABLE `ticketbeverage`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `ticketseats`
 --
 ALTER TABLE `ticketseats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT for table `ticketstatus`
