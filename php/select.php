@@ -18,6 +18,7 @@ $quality = $conn->query("SELECT * FROM `availability`");
 $cinema = $conn->query("SELECT * FROM `cinemas`");
 $director = $conn->query("SELECT * FROM `director`");
 $location = $conn->query("SELECT * FROM `locations`");
+$beverage = $admin->query("SELECT * FROM `beverages`");
 
 
 // Converting Dictionary Cookie to associative arrays

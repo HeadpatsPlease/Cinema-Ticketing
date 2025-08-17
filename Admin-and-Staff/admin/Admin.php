@@ -3,6 +3,10 @@
   if(!isset($_SESSION['email']) || !isset($_SESSION['pswd'])){
     header("Location: /Cinema-Ticketing/AccountsPage/login.php");
   }
+  if(isset($_POST['logout'])){
+    session_destroy();
+    header("Location: /Cinema-Ticketing/AccountsPage/login.php");
+  }
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -31,22 +35,30 @@
     </style>
   </head>
   <body class="bg-dark">
+
     <div
       class="container d-flex flex-column justify-content-center text-light"
-      style="height: 100vh"
+      style="height: 100vh;"
     >
+      <div class="w-25 mb-5" >
+        <form method="post">
+          <button class="btn btn-danger w-25"name=logout>Logout</button>
+        </form>
+      </div>
       <h1 class="mb-4 roboto-bold text-center">Welcome to POP CINEMA Admin</h1>
 
       <div class="d-flex gap-3 justify-content-center">
         <div class="mx-4">
-          <button
+          <a href="viewtickets.php">
+            <button
             class="qr-scan"
             type="submit"
-            name="qr-scan"
+            name="tickets"
             class="btn btn-lg roboto-bold text-light"
           >
             Tickets
           </button>
+          </a>
         </div>
         <div class="mx-4">
           <a href="view.php">

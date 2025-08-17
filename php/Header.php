@@ -35,7 +35,7 @@
           </li>
           <li class="nav-item">
             <a class="nav-link text-light" href="#footer"
-              ><h1 class="display-6 roboto-slab-regular">Cinemas</h1></a
+              ><h1 class="display-6 roboto-slab-regular">About Us</h1></a
             >
           </li>
         </ul>

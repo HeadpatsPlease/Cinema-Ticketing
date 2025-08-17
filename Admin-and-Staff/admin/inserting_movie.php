@@ -91,7 +91,7 @@
         }
         if (move_uploaded_file($_FILES["imginput"]["tmp_name"], $target_file)) {
             // header("Location: view.php");
-            echo "Movie Inserted";
+            header("Location: view.php");
         } else {
             header("Location: view.php");
         }
