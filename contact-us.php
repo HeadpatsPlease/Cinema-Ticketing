@@ -86,7 +86,7 @@ include "php/Header.php";
           <img src="../Cinema-Ticketing/images/soy-img.jpg" class="card-img-top" alt="Placeholder">
           <div class="card-body">
             <h4 class="card-title">Lorenzo B. Lacson</h4>
-            <p class="card-text" style="font-size: 0.9rem;">Lightning Director</p>
+            <p class="card-text" style="font-size: 0.9rem;">Assistant Director</p>
             <p style="font-size: 1.2rem; font-family: system-ui, -apple-system, BlinkMacSystemFont; font-style: italic;">Front-end Developer</p>
           </div>
         </div>

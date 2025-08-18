@@ -271,11 +271,15 @@
               </p>
             </div>
           </div>
-          <?php  
-          } ?>
-          
+          <?php
+          }
+          ?>
+
         </div>
     </div>
+    <footer id="footer">
+      <?php include "../php/footer.php"; ?>
+    </footer>
 
     <script src="../js/bootstrap.bundle.min.js"></script>
     <script src="js/cinemas.js"></script>

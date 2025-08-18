@@ -126,9 +126,8 @@
 
     <!-- Footer -->
     <footer id="footer">
-    <?= include '../Cinema-Ticketing/php/footer.php'?>
+    <?= include '../Cinema-Ticketing/php/footer.php'; ?>
     </footer>
-  
     <script src="../Cinema-Ticketing/index.js"></script>
   </body>
 </html>
