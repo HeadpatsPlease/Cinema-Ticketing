@@ -2,6 +2,22 @@
     include '../../Cinema-Ticketing/php/connection.php';
     @include '../../Cinema-Ticketing/php/select.php'; 
 
+    $data = convertCookie(cookieName: "selectedInfo");
+    @$movieQu = $data['quality'];
+    @$movieNa = $data['movies'];
+    @$movieRef = $data['reference'];
+    @$cinem = $data['cine'];
+    @$moviePri = $data['price'];
+
+    
+
+    if (isset($_POST['submit'])) {
+        for ($i=0; $i < count($movieNa) ; $i++) { 
+            $submit = $admin->query("INSERT INTO `tickets`(`movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`, `status`) VALUES (getMovie('$movieNa[$i]'),getQuality('$movieQu[$i]'),getCinema('$cinem[$i]'),'$movieRef','$moviePri',NOW(),1)");
+        }
+    }
+
+
     
 ?>
 
@@ -54,6 +70,8 @@
             <button class="btn btn-primary" id="next" form="main" name="submit">Submit</button>
         </div>
 
+        <h1 id="ref" class="text-light"></h1>
+
         <form action="walk-in.php" id="main" name="main" method="post" class="mx-auto" enctype="multipart/form-data">
             <div class="mb-3">
                 <label class="form-label">Now Showing Movies:</label>
@@ -65,14 +83,6 @@
                     <?php }?>
                 </div>
             </div>
-            <div class="mb-3" id="time">
-                <label class="form-label">Ticket Quantity:</label>
-                <div class="w-25 d-flex align-items-center ">
-                    <button class="btn-b">-</button>
-                    <p class="m-0 text-light p-4" id="qty">1</p>
-                    <button class="btn-b">+</button>
-                </div>
-            </div>
             <div class="mb-3" id="quality">
                 <label class="form-label">Quality:</label>
                 <div class="d-flex flex-wrap gap-2">
@@ -81,23 +91,22 @@
                     <?php }?>
                 </div>
             </div>
+            <div class="mb-3" id="time">
+                <label class="form-label">Ticket Quantity:</label>
+                <div class="w-25 d-flex align-items-center ">
+                    <button type="button" id="minus" class="btn-b">-</button>
+                    <p class="m-0 text-light p-4" id="qty">1</p>
+                    <button type="button" id="add" class="btn-b">+</button>
+                </div>
+            </div>
             <div class="mb-3" id="quality">
                 <label class="form-label">Cinema Room:</label>
                 <div class="d-flex flex-wrap gap-2">
                     <?php while ($row = $cinema->fetch_assoc()) { ?>
-                    <button type="button" class="quality-btn"><?= $row['cinema']?></button>
+                    <button type="button" class="cinema-btn"><?= $row['cinema']?></button>
                     <?php }?>
                 </div>
             </div>
-            <div class="mb-3" id="cinema">
-                <label class="form-label">Beverage:</label>
-                <div class="d-flex flex-wrap gap-2">
-                    <?php while ($row = $beverage->fetch_assoc()) { ?>
-                    <button type="button" class="beverage-btn"><?= $row['beverage_name']?></button>
-                    <?php }?>
-                </div>
-            </div>
-            
         </form>
     </div>
 

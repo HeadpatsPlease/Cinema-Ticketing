@@ -5,6 +5,9 @@ $header = include '../../Cinema-Ticketing/php/Header.php';
   $data = convertCookie("movieDetails");
   @$beverages = $data['beverages'];
   $seatTaken = $data['seatsTaken'];
+  $qualitySelected = $data["selectedQuality"];
+  $cinemaPrice = $conn->query("SELECT * FROM `availability` WHERE available_quality = '$qualitySelected' ");
+  $Cprice= $cinemaPrice->fetch_assoc();
 ?>
 
 <!DOCTYPE html>
@@ -21,15 +24,21 @@ $header = include '../../Cinema-Ticketing/php/Header.php';
 <body>
       <section class="d-flex justify-content-center mt-3">
       <ul class="list-group list-group-horizontal-sm">
-        <li class="list-group-item ">
-          <h1 class="display-6 archerpro">1. Select Tickets</h1>
-        </li>
-        <li class="list-group-item">
-          <h1 class="display-6 archerpro">2. Select Seats</h1>
-        </li>
-        <li class="list-group-item ">
-          <h1 class="display-6 archerpro">3. Beverages</h1>
-        </li>
+        <a href="tickets.php" class="text-decoration-none">
+          <li class="list-group-item">
+            <h1 class="display-6 archerpro">1. Select Tickets</h1>
+          </li>
+        </a>
+        <a href="seating.php" class="text-decoration-none">
+          <li class="list-group-item">
+            <h1 class="display-6 archerpro">2. Select Seats</h1>
+          </li>
+        </a>
+        <a href="beverage.php" class="text-decoration-none">
+          <li class="list-group-item ">
+            <h1 class="display-6 archerpro">3. Beverages</h1>
+          </li>
+        </a>
         <li class="list-group-item active-item">
           <h1 class="display-6 archerpro">4. Payment</h1>
         </li>
@@ -111,7 +120,7 @@ $header = include '../../Cinema-Ticketing/php/Header.php';
      <div class="container-sm h-100 basket-color g-flex flex-wrap px-0">
       <div class=" text-center roboto-bold"><h1>Your Basket</h1></div>
       <div class="seat-section seat-color m-0 p-0 ">
-        <h5 class="p-4 text-break roboto-bold" id="movieTicketInfo"><?php echo $data["movieTitle"] . " - ". $data["selectedQuality"]; ?>  *<span id="qty"><?php echo intval($data["ticketQuantity"]) ?>  </span> - <span> <?php echo intval($data["ticketTotal"])  ?></span></h5>
+        <h5 class="p-4 text-break roboto-bold" id="movieTicketInfo"><?php echo $data["movieTitle"] . " - ". $data["selectedQuality"]; ?>  *<span id="qty"><?php echo intval($data["ticketQuantity"]) ?>  </span> - <span> <?php echo intval($Cprice['price'])  ?></span></h5>
          <h5 id="selectedSeats" class="p-4 m-0 text-break roboto-bold">Seats: <?php foreach($seatTaken as $seats){ echo $seats . " ";} ?> </h5>
         </div>
         <div class="beverage-section beverage-color roboto-bold">

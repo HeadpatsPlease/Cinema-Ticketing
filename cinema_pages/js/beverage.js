@@ -15,7 +15,7 @@ if(movieCookie) {
 }
 
 let basket = {};
-let baseCost = movieDetail['ticketTotal'];
+let baseCost = parseInt(movieDetail['ticketTotal']);
 let chosenBeverage = [];
 
 

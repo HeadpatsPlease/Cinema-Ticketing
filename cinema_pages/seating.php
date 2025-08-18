@@ -29,14 +29,18 @@
     </div>
     <div class=" d-flex justify-content-center mt-3">
       <ul class="list-group list-group-horizontal-sm">
-        <li class="list-group-item">
-          <h1 class="display-6 archerpro">1. Select Tickets</h1>
-        </li>
+        <a href="tickets.php" class="text-decoration-none">
+          <li class="list-group-item">
+            <h1 class="display-6 archerpro">1. Select Tickets</h1>
+          </li>
+        </a>
         <li class="list-group-item active-item">
           <h1 class="display-6 archerpro">2 Select Seats</h1>
         </li>
-        <li class="list-group-item"><h1 class="display-6 archerpro">3. Beverages</h1></li>
-        <li class="list-group-item"><h1 class="display-6 archerpro">4. Payment</h1></li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">3. Beverages</h1></li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">4. Payment</h1></li>
         <li class="list-group-item">
           <h1 class="display-6 archerpro">5. Successful</h1>
         </li>

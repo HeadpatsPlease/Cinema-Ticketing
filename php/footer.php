@@ -2,14 +2,35 @@
   $image_filename = rawurlencode('footericon.png');
 
 ?>
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+      footer {
+        background: linear-gradient(
+          359deg,
+          rgba(255, 154, 0, 1) 0%,
+          rgba(255, 115, 0, 1) 50%,
+          rgba(255, 77, 0, 1) 100%
+        );
+        padding: 30px 20px 10px;
+        color: white;
+      }
+      .footer-links a {
+        color: white;
+        margin: 0 15px;
+        text-decoration: none;
+        font-weight: 500;
+      }
+      .footer-bottom {
+        margin-top: 10px;
+        font-size: 14px;
+        color: black;
+      }
+    </style>
 </head>
 <body>
     <div class="footer-links mb-3 d-flex justify-content-around roboto-slab-regular">

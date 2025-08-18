@@ -1,7 +1,6 @@
 <?php 
   include '../../Cinema-Ticketing/php/connection.php';
   @include '../../Cinema-Ticketing/php/select.php';
-  $header = include '../../Cinema-Ticketing/php/Header.php';
   $movieTitle = $_COOKIE['movietitle'];
   $selectedTime = $_COOKIE['selectedtime'];
   $selectedDate = $_COOKIE['selecteddate'];
@@ -34,7 +33,7 @@
   </head>
   <body>
     <header class="nav-color">
-      <?php $header ?>
+      <?php if(!@$_SESSION['pos']){ include '../../Cinema-Ticketing/php/Header.php';} ?>
     </header>
 
     <section class="d-flex justify-content-center mt-3">

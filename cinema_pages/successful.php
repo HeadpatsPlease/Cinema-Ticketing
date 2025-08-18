@@ -13,6 +13,9 @@ $date = $data['selectedDate'] . " " . $data['selectedTime'];
 $dateTime = dateTime($date);
 $quality = str_replace("'", "", $data['selectedQuality']);
 $total = $data['ticketTotal'];
+  $qualitySelected = $data["selectedQuality"];
+  $cinemaPrice = $conn->query("SELECT * FROM `availability` WHERE available_quality = '$qualitySelected' ");
+$Cprice= $cinemaPrice->fetch_assoc();
 
 
 
@@ -83,6 +86,9 @@ if (isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])) {
 </head>
 
 <body class="bg-dark">
+    <header>
+        <?php include '../../Cinema-Ticketing/php/Header.php'; ?>
+    </header>
      <section class="d-flex justify-content-center mt-3">
       <ul class="list-group list-group-horizontal-sm">
         <li class="list-group-item">
@@ -103,10 +109,8 @@ if (isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])) {
       </ul>
     </section>
 
-    <header>
-        <?php include '../../Cinema-Ticketing/php/Header.php'; ?>
-    </header>
-    <div class="container-fluid row">
+
+    <div class="container-fluid row mt-5">
         <div class="left col-md-4 col-12 text-warning bg-dark p-2 ">
             <h2 style="font-size: 80px;">BOOKING </h2>
             <h2 style="font-size: 80px;">SUCCESSFUL</h2>
@@ -128,7 +132,7 @@ if (isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])) {
                     <h5><strong>-</strong></h5>
                     <h5><strong><?= $data["selectedQuality"] . " *" . intval($data["ticketQuantity"]); ?></strong></h5>
                     <h5><strong>-</strong></h5>
-                    <h5><strong> <?php echo intval($data["ticketTotal"]) ?></strong></h5>
+                    <h5><strong> <?php echo intval($Cprice['price']) ?></strong></h5>
                 </div>
                 <div class=" seats d-flex justify-content-between">
                     <h5><strong>Seats: <?php foreach ($seatTaken as $seats) {
@@ -147,11 +151,17 @@ if (isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])) {
                                         $price = $parts[2];
 
                                         echo
-                                            "<div class='d-flex justify-content-between'>
-                                    <h4>$productName</h4>
-                                    <span> $quantity </span>
-                                    <h4>$price</h4>
-                                </div>";
+                                        "<div class='d-flex justify-content-between align-items-center '>
+                                            <div>
+                                                <h4>$productName</h4>
+                                            </div>
+                                            <div>
+                                                <span> $quantity </span>
+                                            </div>
+                                            <div>
+                                                <h4>$price</h4>
+                                            </div>
+                                        </div>";
                                     }
                                 }
                             } ?>

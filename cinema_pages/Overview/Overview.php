@@ -3,11 +3,24 @@
   $value = $_COOKIE['movietitle'];
   $header = include '../../php/Header.php';
   $overview = $conn->query("SELECT * FROM `overview` WHERE movie_name = '$value' ");
+  
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+      html, body {
+      height: 100%;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .container {
+      flex: 1; /* pushes footer down */
+    }
+
+    </style>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../../css/bootstrap.min.css">
@@ -78,6 +91,10 @@
 
     </div>
   </div>
+
+    <footer id="footer">
+    <?php include '../../php/footer.php';?>
+    </footer>
 
 
   <script>
