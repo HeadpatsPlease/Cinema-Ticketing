@@ -1,3 +1,6 @@
+<?php
+include "php/Header.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,16 +54,6 @@
 </head>
 <body>
   <!-- Navbar -->
-  <div class="container-fluid nav-color">
-    <ul class="nav d-flex align-items-center">
-      <div class="flex-grow-1">
-        <img src="../Cinema-Ticketing/images/New Project 11 [9018C77].png"
-             class="img-fluid"
-             style="width: 130px"
-             alt="Logo" />
-      </div>
-    </ul>
-  </div>
 
   <!-- Cards Section -->
   <div class="container cards-wrapper text-center mt-4 mb-5">
@@ -117,7 +110,7 @@
           <div class="card-body">
             <h4 class="card-title">John Kerry R. Asturias</h4>
             <p class="card-text" style="font-size: 0.9rem;">Line Producer</p>
-            <p style="font-size: 1.2rem; font-family: system-ui, -apple-system, BlinkMacSystemFont; font-style: italic;">Back-end Developer</p>
+            <p style="font-size: 1.2rem; font-family: system-ui, -apple-system, BlinkMacSystemFont; font-style: italic;">Front-end Developer</p>
           </div>
         </div>
       </div>
