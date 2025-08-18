@@ -75,9 +75,9 @@ function renderItems() {
           <h2 class="price roboto-bold">₱${item.price}</h2>
         </div>
         <div class="qty-buttons">
-          <button class="qty-btn" style="color: #ff4d00; background-color: white;" onclick="changeQty(${item.id}, -1)">–</button>
-          <span id="qty-${item.id}" style="background-color: #ff4d00;">0</span>
-          <button class="qty-btn" style="color: #ff4d00; background-color: white;" onclick="changeQty(${item.id}, 1)">+</button>
+          <button class="qty-btn" style="color: #ff7400; background-color: white;" onclick="changeQty(${item.id}, -1)">–</button>
+          <span id="qty-${item.id}" style="background-color: #ff7400; margin: 0 0; padding: 0 0;">0</span>
+          <button class="qty-btn" style="color: #ff7400; background-color: white;" onclick="changeQty(${item.id}, 1)">+</button>
         </div>
       </div>
     `;

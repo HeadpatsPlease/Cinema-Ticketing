@@ -16,3 +16,13 @@ body {
   border: 2px solid #ffc100;
   border-radius: 5px;
 }
+  .active-item {
+        background: #ff9a00;
+        background: linear-gradient(
+          359deg,
+          rgba(255, 154, 0, 1) 0%,
+          rgba(255, 115, 0, 1) 50%,
+          rgba(255, 77, 0, 1) 100%
+        );
+        border: none;
+      }

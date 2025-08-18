@@ -20,6 +20,25 @@
   <script src="js/cookieReader.js"></script>
 </head>
 <body>
+    <section class="d-flex justify-content-center mt-3">
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">1. Select Tickets</h1>
+        </li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">2. Select Seats</h1>
+        </li>
+        <li class="list-group-item active-item">
+          <h1 class="display-6 archerpro">3. Beverages</h1>
+        </li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">4. Payment</h1>
+        </li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">5. Successful</h1>
+        </li>
+      </ul>
+    </section>
 <div class="container-fluid">
   <div class="row">
     <div class="col-lg-8 mt-5">
@@ -41,7 +60,7 @@
         <p class=" text-break roboto-bold" id="movieTicketInfo"><?php echo $data["movieTitle"] . " - ". $data["selectedQuality"]; ?>  *<span id="qty"><?php echo intval($data["ticketQuantity"]) ?>  </span> - <span> <?php echo intval($data["ticketTotal"])  ?></span></p>
         <p class="roboto-bold" >Seats: <?php foreach($seatTaken as $seats){ echo $seats . " ";} ?></p>
         <hr>
-        <ul id="basket-items" class="text-white roboto-bold"></ul>  
+        <ul id="basket-items" class="text-white roboto-bold" style="background-color: #ff7400;"></ul>  
         <hr>
         <div class="total roboto-bold" style="background-color: #ffc100" >TOTAL COST: <span id="total-cost"><?php $data["ticketTotal"] ?></span></div>
       </div>

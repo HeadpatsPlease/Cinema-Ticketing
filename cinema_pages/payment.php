@@ -80,9 +80,42 @@
        .left{
         margin-top: 20px;
        }
+       .list-group-item {
+        background-color: #bebebe;
+        border: none;
+      }
+      .active-item {
+        background: #ff9a00;
+        background: linear-gradient(
+          359deg,
+          rgba(255, 154, 0, 1) 0%,
+          rgba(255, 115, 0, 1) 50%,
+          rgba(255, 77, 0, 1) 100%
+        );
+        border: none;
+      }
     </style>
   </head>
   <body class="bg-dark">
+     <section class="d-flex justify-content-center mt-3">
+      <ul class="list-group list-group-horizontal-sm">
+        <li class="list-group-item ">
+          <h1 class="display-6 archerpro">1. Select Tickets</h1>
+        </li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">2. Select Seats</h1>
+        </li>
+        <li class="list-group-item ">
+          <h1 class="display-6 archerpro">3. Beverages</h1>
+        </li>
+        <li class="list-group-item active-item ">
+          <h1 class="display-6 archerpro ">4. Payment</h1>
+        </li>
+        <li class="list-group-item">
+          <h1 class="display-6 archerpro">5. Successful</h1>
+        </li>
+      </ul>
+    </section>
   <div class="container-fluid row">
   <div class="left col-md-8 col-12 ">
      <div>
@@ -150,7 +183,7 @@
           </p>
 
           
-        </form>;
+        </form>
         <?php
         }else{
           ?>
@@ -181,7 +214,7 @@
           </p>
 
           
-        </form>`;
+        </form>
       <?php  
       }
         ?>

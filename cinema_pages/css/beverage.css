@@ -60,7 +60,7 @@ body {
 }
 
 .basket {
-  background-color: #f1592a;
+  background-color: #ff4d00;
   padding: 0px;
   border-radius: 8px;
   margin-top: 140px;
@@ -87,9 +87,29 @@ body {
   justify-content: space-between;
 }
 
+.basket-items{
+    background-color: #ff7400;
+    margin: 0 0px;
+    padding: 0 0px;
+}
+
 .text-center {
   text-align: center;
   display: flex;
   background-color: #f1592a;
   justify-content: space-between;
+}
+
+.active-item {
+  background: #ff9a00;
+  background: linear-gradient(359deg,
+      rgba(255, 154, 0, 1) 0%,
+      rgba(255, 115, 0, 1) 50%,
+      rgba(255, 77, 0, 1) 100%);
+  border: none;
+}
+
+.list-group-item {
+  background-color: #bebebe;
+  border: none;
 }

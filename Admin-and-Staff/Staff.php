@@ -1,75 +1,76 @@
-<?php 
-  session_start();
-  if(!isset($_SESSION['email']) || !isset($_SESSION['pswd'])){
-    header("Location: ../AccountsPage/login.php");
-  }
+<?php
+session_start();
+if (!isset($_SESSION['email']) || !isset($_SESSION['pswd'])) {
+  header("Location: ../AccountsPage/login.php");
+}
+if (isset($_POST['logout'])) {
+  session_destroy();
+  header("Location: /Cinema-Ticketing/AccountsPage/login.php");
+}
 ?>
 
 
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="../css/bootstrap.min.css" />
-    <title>Staff</title>
-    <style>
-      h1 {
-        font-size: 4rem;
-        font-weight: bold;
-      }
 
-      .btn {
-        background-color: #ff4d00;
-        border: 10px solid #ffc100;
-        color: white;
-        padding: 20px 60px;
-        font-size: 3rem;
-        border-radius: 5px;
-        transition: transform 0.2s ease-in-out;
-        display: inline-block;
-      }
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="../css/bootstrap.min.css" />
+  <title>Staff</title>
+  <style>
+      .qr-scan {
+      background-color: orange;
+      border: 10px solid yellow;
+      color: white;
+      padding: 15px 40px;
+      font-size: 2.5rem;
+      border-radius: 5px;
+    }
 
-      .btn:hover {
-        background-color: #ff4d00;
-        border: 10px solid #ffc100;
-        transform: scale(1.1);
-        filter: brightness(1.05);
-      }
-    </style>
-  </head>
+    .walk-in {
+      background-color: orange;
+      border: 10px solid yellow;
+      color: white;
+      padding: 15px 40px;
+      font-size: 2.5rem;
+      border-radius: 5px;
+    }
+  </style>
+</head>
 
-  <body class="bg-dark">
-    <div
-      class="container d-flex flex-column justify-content-center align-items-center text-light"
-      style="height: 100vh"
-    >
-      <h1 class="roboto-bold mb-5">Welcome to POP CINNEMA</h1>
+<body class="bg-dark">
+  <div class="container d-flex flex-column justify-content-center  text-light" style="height: 100vh">
+    <div class="w-25 mb-5">
+      <form method="post">
+        <button class="btn btn-danger w-25" name=logout>Logout</button>
+      </form>
+    </div>
+    <h1 class="roboto-bold mb-4 text-center">Welcome to POP CINEMA</h1>
 
-      <div
-        class="d-flex gap-5 justify-content-between d-flex flex-column flex-md-row"
-      >
-        <div class="qr-scan">
+    <div class="d-flex justify-content-center ">
+      <div class="d-flex gap-3 justify-content-center">
+        <div class="mx-4">
+
           <a href="ticket-scan.php">
-            <button
-              type="submit"
-              name="qr-scan"
-              class="btn btn-lg roboto-bold text-light"
-            >
+            <button class="qr-scan" type="submit" name="qr-scan" class="btn btn-lg roboto-bold text-light">
               QR SCAN
             </button>
           </a>
         </div>
-        <div class="walk-in">
-          <button
-            type="submit"
-            name="walk-in"
-            class="btn btn-lg roboto-bold text-light"
-          >
-            WALK-IN
-          </button>
-        </div>
+      </div>
+
+      <div class="mx-4">
+
+        <a href="walk-in.php">
+          <button class="walk-in" type="submit" name="walk-in" class="btn  btn-lg roboto-bold text-light">
+          WALK-IN
+        </button>
+        </a>
+
       </div>
     </div>
-  </body>
+  </div>
+</body>
+
 </html>
