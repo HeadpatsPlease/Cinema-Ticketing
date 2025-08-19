@@ -67,7 +67,11 @@
                 <!-- Scan result display -->
                 <h3 class="text-light mt-3">'. $msg.'<span id="result"></span></h3>
                 <input type="hidden" id="refno" name="confirm">
-                <button class="btn btn-success" type="submit" name="return">Go return</button>';
+                
+                <form action="ticket-scan.php" method="post">
+                <button class="btn btn-success" type="submit" name="return">Go return</button>
+              </form>';
+                
         }
       ?>
     </div>
