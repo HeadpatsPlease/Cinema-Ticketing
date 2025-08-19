@@ -18,6 +18,9 @@
     $status = false;
     header("Location: " .strtok($_SERVER['REQUEST_URI'], '?'));
   }
+  if(isset($_POST['return'])){
+    header("Location: Staff.php");
+  }
 ?>
 
 <!DOCTYPE html>
@@ -63,7 +66,8 @@
                 <div id="reader" style="width: 600px; border-radius: 10px"></div>
                 <!-- Scan result display -->
                 <h3 class="text-light mt-3">'. $msg.'<span id="result"></span></h3>
-                <input type="hidden" id="refno" name="confirm">';
+                <input type="hidden" id="refno" name="confirm">
+                <button class="btn btn-success" type="submit" name="return">Go return</button>';
         }
       ?>
     </div>

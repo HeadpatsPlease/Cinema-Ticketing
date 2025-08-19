@@ -2,7 +2,7 @@
     include '../../Cinema-Ticketing/php/connection.php';
     @include '../../Cinema-Ticketing/php/select.php'; 
 
-    $data = convertCookie(cookieName: "selectedInfo");
+    @$data = convertCookie(cookieName: "selectedInfo");
     @$movieQu = $data['quality'];
     @$movieNa = $data['movies'];
     @$movieRef = $data['reference'];
@@ -16,11 +16,13 @@
             $submit = $admin->query("INSERT INTO `tickets`(`movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`, `status`) VALUES (getMovie('$movieNa[$i]'),getQuality('$movieQu[$i]'),getCinema('$cinem[$i]'),'$movieRef','$moviePri',NOW(),1)");
         }
     }
+    if (isset($_POST['back'])) {
+        header("Location: Staff.php");
+    }
 
 
     
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 
