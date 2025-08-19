@@ -16,6 +16,7 @@ $total = $data['ticketTotal'];
   $qualitySelected = $data["selectedQuality"];
   $cinemaPrice = $conn->query("SELECT * FROM `availability` WHERE available_quality = '$qualitySelected' ");
 $Cprice= $cinemaPrice->fetch_assoc();
+$t = $data['selectedTime'];
 
 
 
@@ -24,8 +25,7 @@ $Cprice= $cinemaPrice->fetch_assoc();
 if (isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])) {
     $cardName = $_SESSION['paymentUser'];
     $cardNum = $_SESSION['paymentNumber'];
-    $query1 = $admin->query("INSERT INTO `tickets`(`movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`,`status`) 
-        VALUES (getMovie('$movieName'),getQuality('$quality'),getCinema('$cinema'),'$refNo',$total,'$dateTime',1)");
+    $query1 = $admin->query("INSERT INTO `tickets`(`movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `time`, `schedule`, `status`) VALUES (getMovie('$movieName'),getQuality('$quality'),getCinema('$cinema'),'$refNo',$total,'$t','$dateTime',1)");
 
     if ($query1) {
         if (!empty($beverageID) && is_array($beverageID)) {
@@ -124,7 +124,7 @@ if (isset($_SESSION['paymentUser']) && isset($_SESSION['paymentNumber'])) {
                 <p style="margin-bottom: 1px ">Schedule:
                     <?php echo $data['selectedDate'] . " - " . $data['selectedTime'] ?></p>
                 <p style="margin-bottom: 1px"><?php echo $data['location'] ?> -
-                    <?php echo $data['selectedQuality'] . " - " . $data['cinema'] ?></p>
+                    <?php echo $data['selectedQuality'] . " - " . $data['cinema']?></p>
             </div>
             <div class="text-dark">
                 <div class="seats d-flex justify-content-between align-items-center">

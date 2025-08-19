@@ -184,14 +184,12 @@
         $deleteLocation = $conn->query("DELETE FROM `movielocation` WHERE movie_id = getMovieId('$movieTitle') ");
 
 
-
-        foreach($tim as $ti){
-            foreach($quali as $qu){
-                foreach($cin as $ci){
-                    $movieTime = $conn->query("CALL insertMovieTime('$movieTitle','$ti','$qu','$ci')");             
-                }
+        for ($i=0; $i < count($tim) ; $i++) { 
+            for ($h=0; $h <count($quali) ; $h++) { 
+            $movieTime = $conn->query("CALL insertMovieTime('$movieTitle','$tim[$i]','$quali[$h]','$cin[$i]')");
             }
         }
+
         foreach($quali as $qu){
             $movieQuality = $conn->query("CALL insertMovieQuality('$movieTitle','$qu')");
         }

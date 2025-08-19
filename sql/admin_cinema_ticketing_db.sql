@@ -3,9 +3,9 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 17, 2025 at 06:03 PM
+-- Generation Time: Aug 19, 2025 at 06:44 AM
 -- Server version: 10.4.32-MariaDB
--- PHP Version: 8.2.12
+-- PHP Version: 8.0.30
 
 SET FOREIGN_KEY_CHECKS=0;
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -131,6 +131,7 @@ INSERT INTO `beverages` (`id`, `beverage_name`, `price`) VALUES
 CREATE TABLE `reservedseats` (
 `movie_name` varchar(225)
 ,`reference_number` varchar(100)
+,`time` varchar(100)
 ,`available_quality` varchar(20)
 ,`schedule` datetime
 ,`seat_num` varchar(10)
@@ -225,6 +226,7 @@ CREATE TABLE `tickets` (
   `cinema_id` int(11) NOT NULL,
   `reference_number` varchar(100) NOT NULL,
   `totalCost` int(11) NOT NULL,
+  `time` varchar(100) NOT NULL,
   `schedule` datetime NOT NULL,
   `status` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -233,10 +235,8 @@ CREATE TABLE `tickets` (
 -- Dumping data for table `tickets`
 --
 
-INSERT INTO `tickets` (`id`, `movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `schedule`, `status`) VALUES
-(16, 1, 3, 2, '658-599-761', 450, '2025-08-17 15:00:00', 1),
-(17, 2, 2, 3, '822-787-272', 350, '2025-08-16 15:00:00', 1),
-(18, 1, 2, 2, '378-47-240', 350, '2025-08-17 15:00:00', 1);
+INSERT INTO `tickets` (`id`, `movie_id`, `quality_id`, `cinema_id`, `reference_number`, `totalCost`, `time`, `schedule`, `status`) VALUES
+(20, 1, 1, 1, '666-804-824', 250, '12:00 PM', '2025-08-19 12:00:00', 1);
 
 -- --------------------------------------------------------
 
@@ -255,9 +255,7 @@ CREATE TABLE `ticketseats` (
 --
 
 INSERT INTO `ticketseats` (`id`, `ticket_id`, `seat_id`) VALUES
-(15, 16, 3),
-(16, 17, 39),
-(17, 18, 12);
+(19, 20, 37);
 
 -- --------------------------------------------------------
 
@@ -302,7 +300,7 @@ CREATE TABLE `ticketview` (
 --
 DROP TABLE IF EXISTS `reservedseats`;
 
-CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`reference_number` AS `reference_number`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num`, `cinema_ticketing_db`.`cinemas`.`cinema` AS `cinema` FROM (((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `ticketseats` on(`ticketseats`.`ticket_id` = `tickets`.`id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) join `cinema_ticketing_db`.`cinemas` on(`cinema_ticketing_db`.`cinemas`.`id` = `tickets`.`cinema_id`)) ;
+CREATE ALGORITHM=UNDEFINED DEFINER=`root`@`localhost` SQL SECURITY DEFINER VIEW `reservedseats`  AS SELECT `cinema_ticketing_db`.`movies`.`movie_name` AS `movie_name`, `tickets`.`reference_number` AS `reference_number`, `tickets`.`time` AS `time`, `cinema_ticketing_db`.`availability`.`available_quality` AS `available_quality`, `tickets`.`schedule` AS `schedule`, `seats`.`seat_num` AS `seat_num`, `cinema_ticketing_db`.`cinemas`.`cinema` AS `cinema` FROM (((((`tickets` join `cinema_ticketing_db`.`movies` on(`cinema_ticketing_db`.`movies`.`id` = `tickets`.`movie_id`)) join `cinema_ticketing_db`.`availability` on(`cinema_ticketing_db`.`availability`.`id` = `tickets`.`quality_id`)) join `ticketseats` on(`ticketseats`.`ticket_id` = `tickets`.`id`)) join `seats` on(`ticketseats`.`seat_id` = `seats`.`id`)) join `cinema_ticketing_db`.`cinemas` on(`cinema_ticketing_db`.`cinemas`.`id` = `tickets`.`cinema_id`)) ;
 
 -- --------------------------------------------------------
 
@@ -400,13 +398,13 @@ ALTER TABLE `ticketbeverage`
 -- AUTO_INCREMENT for table `tickets`
 --
 ALTER TABLE `tickets`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
 
 --
 -- AUTO_INCREMENT for table `ticketseats`
 --
 ALTER TABLE `ticketseats`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `ticketstatus`

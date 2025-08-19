@@ -23,7 +23,6 @@ function downloadPDF() {
 }
 const refNo = document.getElementById("refNo").textContent;
 document.addEventListener("DOMContentLoaded", () => {
-  clearAllCookies();
   new QRCode(document.getElementById("qrCode"), {
     text: refNo,
     width: 150,

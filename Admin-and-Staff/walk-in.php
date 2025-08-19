@@ -19,6 +19,10 @@
     if (isset($_POST['back'])) {
         header("Location: Staff.php");
     }
+    if (isset($_POST['checkseats'])) {
+    header("Location: checkseats.php");
+    # code...
+    }
 
 
     
@@ -66,6 +70,7 @@
 </head>
 
 <body class="bg-dark">
+    
     <div class="container py-4">
         <div class="d-flex flex-row justify-content-between">
             <button class="btn btn-success" form="main" name="back">Back</button>
@@ -110,6 +115,11 @@
                 </div>
             </div>
         </form>
+        <form  method="post">
+     <button name="checkseats" class="btn btn-success">
+        Check Available Seats
+    </button>
+   </form>
     </div>
 
     <script src="walkin.js">   
